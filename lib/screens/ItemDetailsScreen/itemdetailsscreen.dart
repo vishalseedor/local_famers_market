@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:local_farmers_project/screens/CartScreen/cartscreen.dart';
 import 'package:local_farmers_project/screens/ViewProducts%20Provider/productprovider.dart';
+import 'package:local_farmers_project/screens/Widgets/Itemwidget.dart';
 import 'package:local_farmers_project/screens/Widgets/demowidget.dart';
 import 'package:provider/provider.dart';
 
@@ -49,14 +50,15 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
               alignment: Alignment.center,
               children: [
                 Icon(
-                  Icons.favorite_outline,
+                  Icons.shopping_bag_outlined,
                   color: Colors.black,
                   size: 28,
                 ),
                 Positioned(
+                  top: 7,
                   bottom: 1,
                   child: Text(
-                    '',
+                    '1',
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 12,
@@ -121,109 +123,109 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
               SizedBox(
                 height: size.height * 0.02,
               ),
-              // Card(
-              //   color: Colors.grey[200],
-              //   shape: RoundedRectangleBorder(
-              //       borderRadius: BorderRadius.only(
-              //           topLeft: Radius.circular(15),
-              //           topRight: Radius.circular(15))),
-              //   // height: size.height * 0.27,
-              //   // width: size.width,
-              //   // decoration: BoxDecoration(
-              //   //   color: Colors.grey[100],
-              //   //   borderRadius: BorderRadius.only(
-              //   //     topLeft: Radius.circular(15),
-              //   //     topRight: Radius.circular(15),
-              //   //   ),
-              //   // ),
-              //   child: Padding(
-              //     padding: const EdgeInsets.all(12),
-              //     child: Column(
-              //       crossAxisAlignment: CrossAxisAlignment.start,
-              //       children: [
-              //         Text(
-              //           'Similar Products',
-              //           style: TextStyle(
-              //             fontSize: 16,
-              //             fontWeight: FontWeight.w600,
-              //           ),
-              //         ),
-              //         SizedBox(height: size.height * 0.01),
-              //         // SingleChildScrollView(
-              //         //   scrollDirection: Axis.horizontal,
-              //         //   child: Row(
-              //         //     children: [
-              //         //       ItemWidget(
-              //         //         productName: 'Watermelon',
-              //         //         image: 'assets/items8.png',
-              //         //         itemcount: '1pc',
-              //         //         price: '5.00',
-              //         //         onTap: () {},
-              //         //       ),
-              //         //       SizedBox(width: size.width * 0.03),
-              //         //       ItemWidget(
-              //         //         productName: 'Mango',
-              //         //         image: 'assets/items5.png',
-              //         //         itemcount: '1pc',
-              //         //         price: '5.00',
-              //         //         onTap: () {},
-              //         //       ),
-              //         //       SizedBox(width: size.width * 0.03),
-              //         //       ItemWidget(
-              //         //         productName: 'Tender Coconut',
-              //         //         image: 'assets/items7.png',
-              //         //         itemcount: '1pc',
-              //         //         price: '5.00',
-              //         //         onTap: () {},
-              //         //       ),
-              //         //       SizedBox(width: size.width * 0.03),
-              //         //       ItemWidget(
-              //         //         productName: 'Muskmelon',
-              //         //         image: 'assets/items6.png',
-              //         //         itemcount: '1pc',
-              //         //         price: '5.00',
-              //         //         onTap: () {},
-              //         //       ),
-              //         //       SizedBox(width: size.width * 0.03),
-              //         //       ItemWidget(
-              //         //         productName: 'Fresh Kiwi',
-              //         //         image: 'assets/items3.png',
-              //         //         itemcount: '1pc',
-              //         //         price: '5.00',
-              //         //         onTap: () {},
-              //         //       ),
-              //         //       SizedBox(width: size.width * 0.03),
-              //         //       ItemWidget(
-              //         //         productName: 'Jackfruit',
-              //         //         image: 'assets/items2.png',
-              //         //         itemcount: '1pc',
-              //         //         price: '5.00',
-              //         //         onTap: () {},
-              //         //       ),
-              //         //       SizedBox(width: size.width * 0.03),
-              //         //       ItemWidget(
-              //         //         productName: 'Green Mango',
-              //         //         image: 'assets/items4.png',
-              //         //         itemcount: '1pc',
-              //         //         price: '5.00',
-              //         //         onTap: () {},
-              //         //       ),
-              //         //       SizedBox(width: size.width * 0.03),
-              //         //       ItemWidget(
-              //         //         productName: 'Coconut',
-              //         //         image: 'assets/items1.png',
-              //         //         itemcount: '1pc',
-              //         //         price: '5.00',
-              //         //         onTap: () {},
-              //         //       ),
-              //         //       SizedBox(width: size.width * 0.03),
-              //         //     ],
-              //         //   ),
-              //         // ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
+              Card(
+                color: Colors.grey[200],
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(15),
+                        topRight: Radius.circular(15))),
+                // height: size.height * 0.27,
+                // width: size.width,
+                // decoration: BoxDecoration(
+                //   color: Colors.grey[100],
+                //   borderRadius: BorderRadius.only(
+                //     topLeft: Radius.circular(15),
+                //     topRight: Radius.circular(15),
+                //   ),
+                // ),
+                child: Padding(
+                  padding: const EdgeInsets.all(12),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Similar Products',
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      SizedBox(height: size.height * 0.01),
+                      SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Row(
+                          children: [
+                            ItemWidget(
+                              productName: 'Watermelon',
+                              image: 'assets/items8.png',
+                              itemcount: '1pc',
+                              price: '5.00',
+                              onTap: () {},
+                            ),
+                            SizedBox(width: size.width * 0.03),
+                            ItemWidget(
+                              productName: 'Mango',
+                              image: 'assets/items5.png',
+                              itemcount: '1pc',
+                              price: '5.00',
+                              onTap: () {},
+                            ),
+                            SizedBox(width: size.width * 0.03),
+                            ItemWidget(
+                              productName: 'Tender Coconut',
+                              image: 'assets/items7.png',
+                              itemcount: '1pc',
+                              price: '5.00',
+                              onTap: () {},
+                            ),
+                            SizedBox(width: size.width * 0.03),
+                            ItemWidget(
+                              productName: 'Muskmelon',
+                              image: 'assets/items6.png',
+                              itemcount: '1pc',
+                              price: '5.00',
+                              onTap: () {},
+                            ),
+                            SizedBox(width: size.width * 0.03),
+                            ItemWidget(
+                              productName: 'Fresh Kiwi',
+                              image: 'assets/items3.png',
+                              itemcount: '1pc',
+                              price: '5.00',
+                              onTap: () {},
+                            ),
+                            SizedBox(width: size.width * 0.03),
+                            ItemWidget(
+                              productName: 'Jackfruit',
+                              image: 'assets/items2.png',
+                              itemcount: '1pc',
+                              price: '5.00',
+                              onTap: () {},
+                            ),
+                            SizedBox(width: size.width * 0.03),
+                            ItemWidget(
+                              productName: 'Green Mango',
+                              image: 'assets/items4.png',
+                              itemcount: '1pc',
+                              price: '5.00',
+                              onTap: () {},
+                            ),
+                            SizedBox(width: size.width * 0.03),
+                            ItemWidget(
+                              productName: 'Coconut',
+                              image: 'assets/items1.png',
+                              itemcount: '1pc',
+                              price: '5.00',
+                              onTap: () {},
+                            ),
+                            SizedBox(width: size.width * 0.03),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
             ],
           ),
         ),

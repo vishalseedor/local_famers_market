@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:local_farmers_project/screens/CartScreen/cartscreen.dart';
+import 'package:local_farmers_project/screens/FarmerProvider/farmdetailsscreen.dart';
 import 'package:local_farmers_project/screens/ItemDetailsScreen/itemdetailsscreen.dart';
 import 'package:local_farmers_project/screens/Widgets/demowidget.dart';
 
@@ -33,14 +34,31 @@ class _AllPetWidgetState extends State<AllFarmersWidget > {
     final size = MediaQuery.of(context).size;
     //  final pet = Provider.of<PetModel>(context);
 
-     return ListTile(
-      leading:CircleAvatar(
-        radius: 60,
-        backgroundImage: NetworkImage(widget.image),
-        
-      ),
-      title: Text(widget.name),
-      subtitle: Text(widget.farmname),
-     );
+     return       Padding(
+                            padding: EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0),
+                            child: InkWell(
+                              onTap: (){
+                                 Navigator.of(context).pushNamed(FarmerDetailsScreen.routeName,arguments:widget.id);
+                              },
+                              child: Card(
+                                color: Colors.green[100],
+                                child: ListTile(
+                                  leading: Container(
+                                    child: Image.network(widget.image, fit: BoxFit.cover),
+                                         ),
+                                           title: Text(widget.farmname),
+                                             subtitle: Text(widget.address),
+                                                trailing: Icon(
+                                    Icons.arrow_forward_ios,
+                                    color: Colors.lightBlueAccent,
+                                ),
+                                       ),
+                                
+                                
+                               
+                                ),
+                            ),
+                            );
+                        
   }
 }

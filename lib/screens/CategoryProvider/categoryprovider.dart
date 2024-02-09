@@ -57,7 +57,9 @@ class CategoryProvider with ChangeNotifier {
            id: extractedData[i]['id'].toString(),
            name: extractedData[i]['name'].toString(),
           quantity:extractedData[i]['quantity'].toString(),
-          farmerid:extractedData[i]['farmer_id'].toString())
+          farmerid:extractedData[i]['farmer_id'].toString(),
+          image: extractedData[i]['image'].toString()
+          )
           );
         }
         

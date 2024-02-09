@@ -6,7 +6,7 @@ import 'package:local_farmers_project/screens/Widgets/demowidget.dart';
 import '../../Colors/colors.dart';
 
 
-class AllProductWidget extends StatefulWidget {
+class AllEachCategoryWidget extends StatefulWidget {
   final String productid;
   final String productname;
   final String productprice;
@@ -14,7 +14,7 @@ class AllProductWidget extends StatefulWidget {
   final String image;
   
 
-  const AllProductWidget(
+  const AllEachCategoryWidget(
       {super.key,
      required this.productid,
      required this.productname,
@@ -24,10 +24,10 @@ class AllProductWidget extends StatefulWidget {
       });
 
   @override
-  State<AllProductWidget > createState() => _AllProductWidgetState();
+  State<AllEachCategoryWidget > createState() => _AllEachCategoryWidgetState();
 }
 
-class _AllProductWidgetState extends State<AllProductWidget > {
+class _AllEachCategoryWidgetState extends State<AllEachCategoryWidget > {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;

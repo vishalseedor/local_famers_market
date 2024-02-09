@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/ExtraScreens/loadingscreen.dart';
+import 'package:local_farmers_project/screens/LoginScreen/loginscreen.dart';
 import 'package:local_farmers_project/screens/ViewProducts%20Provider/allproductwidgetscreen.dart';
 import 'package:local_farmers_project/screens/ViewProducts%20Provider/productprovider.dart';
 import 'package:local_farmers_project/screens/Widgets/categorywidget.dart';
-import 'package:local_farmers_project/screens/Widgets/itemwidget.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -84,9 +84,60 @@ class _HomeScreenState extends State<HomeScreen> {
               //     MaterialPageRoute(
               //         builder: (context) => const WalletHomeScreen()));
             },
-            child: Image.asset(
-              'assets/ic_wallet.png',
-              scale: 3,
+            child: GestureDetector(
+              onTap: () {
+                  showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text(
+                        'Logout',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                      content:
+                          const Text('Are you sure want to exit this app?'),
+                      actions: <Widget>[
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(backgroundColor: greencolor),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const LoginScreen()));
+                          },
+                          child: Text(
+                            'OK',
+                            style: TextStyle(
+                              fontSize: 14,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                        ElevatedButton(
+                                style: ElevatedButton.styleFrom(backgroundColor: greencolor),
+                          onPressed: () {
+                            // Close the dialog
+                            Navigator.of(context).pop();
+                          },
+                          child: Text(
+                            'CANCEL',
+                            style: TextStyle(
+                               fontSize: 14,
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      ],
+                    );
+                  },
+                );
+              },
+              child: Image.asset(
+                'assets/logout.png',
+                height: 30,
+                width: 30,
+                color: Colors.green,
+              ),
             ),
           )
         ]),
@@ -112,6 +163,16 @@ class _HomeScreenState extends State<HomeScreen> {
                   indicatorColor: Colors.blue,
                   indicatorBackgroundColor: Colors.grey,
                   children: [
+                     Container(
+                     // width: 300,
+                      // margin: EdgeInsets.all(10),
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Image(
+                          image: AssetImage('assets/banner1.png'),
+                        ),
+                      ),
+                    ),
                     Container(
                     //  width: 500,
                       // margin: EdgeInsets.all(10),
@@ -132,16 +193,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    Container(
-                     // width: 300,
-                      // margin: EdgeInsets.all(10),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(16),
-                        child: Image(
-                          image: AssetImage('assets/banner1.png'),
-                        ),
-                      ),
-                    ),
+                   
                     // Image.asset(
 
                     //   'assets/banner2.png',
@@ -165,34 +217,25 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 1),
-                  child: Container(
-                    // elevation: 0,
-                    // shape: RoundedRectangleBorder(
-                    //     borderRadius: BorderRadius.circular(5)),
-                    height: size.height * 0.06,
-                    width: size.width * 0.90,
-                    decoration: BoxDecoration(
-                        color: Colors.white,
-                        // color: affnityBottomAppBarBackgroundColor,
-                        borderRadius: BorderRadius.circular(5)),
-                    child: const Center(
-                      child: TextField(
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          prefixIcon: Icon(
-                            Icons.search,
-                            size: 17,
-                          ),
-                          hintText: "Search a Grocery",
-                          hintStyle: TextStyle(
-                              color: Colors.grey,
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600),
-                          border: InputBorder.none,
-                          focusedBorder: InputBorder.none,
+                  child: const Center(
+                    child: TextField(
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        fillColor: Colors.white,
+                        filled: true,
+                        prefixIcon: Icon(
+                          Icons.search,
+                          size: 17,
                         ),
-                        style: TextStyle(color: Colors.black),
+                        hintText: "Search a Products",
+                        hintStyle: TextStyle(
+                            color: Colors.grey,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600),
+                        border: InputBorder.none,
+                        focusedBorder: InputBorder.none,
                       ),
+                      style: TextStyle(color: Colors.black),
                     ),
                   ),
                 ),

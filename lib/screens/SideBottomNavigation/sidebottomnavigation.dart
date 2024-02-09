@@ -57,7 +57,7 @@ class _LeftWidgetState extends State<LeftWidget> with TickerProviderStateMixin {
   final List<String> _list = [
     "Home",
     "Category",
-    "My Orders",
+    "Farmers",
     "Support",
     "Cart",
     "Profile"
@@ -100,7 +100,7 @@ class _LeftWidgetState extends State<LeftWidget> with TickerProviderStateMixin {
             Container(
               width: 65,
               height: size.height,
-              decoration:  BoxDecoration(color: Colors.white),
+              decoration:  const BoxDecoration(color: Colors.white),
               child: Column(
                 children: _buildList(),
               ),

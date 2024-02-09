@@ -78,27 +78,26 @@ class _CategoryScreenState extends State<CategoryScreen> {
                       ? Text('No Categories...')
                       : SizedBox(
                           height: size.height * 0.6,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 20),
-                            child: ListView.builder(
-                            
-                              scrollDirection: Axis.vertical,
-                              itemCount: category.categories.length,
-                              itemBuilder: (context, intex) {
-                                return AllCategoryWidget(
-                                  id:category.categories[intex].id,
-                                  name: category.categories[intex].name,
-                                  quantity: category.categories[intex].quantity,
-                                  farmerid: category.categories[intex].farmerid,
+                          child: ListView.builder(
+                          
+                            scrollDirection: Axis.vertical,
+                            itemCount: category.categories.length,
+                            itemBuilder: (context, intex) {
+                              return AllCategoryWidget(
+                                id:category.categories[intex].id,
+                                name: category.categories[intex].name,
+                                quantity: category.categories[intex].quantity,
+                                farmerid: category.categories[intex].farmerid,
+                                image: category.categories[intex].image,
                                 
-                             
-                             
-                                 
-                                
-                                );
-                                
-                              },
-                            ),
+                              
+                           
+                           
+                               
+                              
+                              );
+                              
+                            },
                           ),
                         ),       
                

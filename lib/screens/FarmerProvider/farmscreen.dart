@@ -28,7 +28,7 @@ class _FamersScreenState extends State<FamersScreen> {
       backgroundColor: backgroundcolor,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: Text('Famers'),
+        title: Text('Famers',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16),),
       ),
       body:farmer.loadingSpinner
                   ? Column(

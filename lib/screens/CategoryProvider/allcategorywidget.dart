@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:local_farmers_project/screens/CategoryEachproductScreen/allcategoryeachscreen.dart';
 
 
 
@@ -7,6 +8,7 @@ class AllCategoryWidget extends StatefulWidget {
   final String name;
   final String quantity;
   final String farmerid;
+  final String image;
  
   
 
@@ -16,6 +18,7 @@ class AllCategoryWidget extends StatefulWidget {
      required this.name,
      required this.quantity,
      required this.farmerid,
+     required this.image
     
       });
 
@@ -31,12 +34,14 @@ class _AllCategoryWidgetState extends State<AllCategoryWidget > {
 
      return   GestureDetector(
                   onTap: () {
+                     Navigator.of(context)
+                .pushNamed(AllCategoryEachScreen.routeName ,arguments:widget.id);
                    
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical:5),
                     child: Container(
-                      height: size.height * 0.06,
+                      height: size.height * 0.08,
                       width: size.width * 0.9,
                       decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(7),
@@ -46,17 +51,21 @@ class _AllCategoryWidgetState extends State<AllCategoryWidget > {
                           SizedBox(
                             width: size.width * 0.03,
                           ),
-                          Image.asset(
-                            'assets/cate.png',
-                            scale: 4,
+                          CircleAvatar(
+                            radius: 55,
+                            backgroundImage: NetworkImage(widget.image),
                           ),
+                          // Image.network(
+                          //   widget.image,
+                          //   scale: 4,
+                          // ),
                           SizedBox(
                             width: size.width * 0.04,
                           ),
                            Text(
                             widget.name,
                             style: const TextStyle(
-                                fontWeight: FontWeight.w600, fontSize: 12),
+                                fontWeight: FontWeight.w600, fontSize: 13),
                           )
                         ],
                       ),
