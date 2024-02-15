@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/LoginScreen/loginscreen.dart';
 import 'package:local_farmers_project/screens/LoginScreen/roundbutton.dart';
 import 'package:http/http.dart' as http;

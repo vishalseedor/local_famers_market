@@ -76,10 +76,13 @@ class _FarmerDetailsScreenState extends State<FarmerDetailsScreen> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Center(
-                child: Image.network(
-                  farmerData.file,
-                  height: size.height * 0.3, // Responsive image height
-                  width: size.width * 0.8, // Responsive image width
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(20),
+                  child: Image.network(
+                    farmerData.file,
+                    // height: size.height * 0.3, // Responsive image height
+                    // width: size.width * 0.8, // Responsive image width
+                  ),
                 ),
               ),
               SizedBox(height: size.height * 0.02),
@@ -93,15 +96,15 @@ class _FarmerDetailsScreenState extends State<FarmerDetailsScreen> {
                 style: TextStyle(color: Colors.grey, fontSize: 16),
               ),
                 SizedBox(height: size.height * 0.02),
-              Text('Phone :${farmerData.phone}',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.brown),),
+              Text('Phone : ${farmerData.phone}',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.brown),),
               SizedBox(height: size.height * 0.02),
-              Text('Farm Name: ${farmerData.farmName}',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+              Text('Farm Name : ${farmerData.farmName}',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
                  SizedBox(height: size.height * 0.02),
                Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Address :  ${farmerData.address}',
+                    'Address  :  ${farmerData.address}',
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                   ),
               //   DemoScreensss()

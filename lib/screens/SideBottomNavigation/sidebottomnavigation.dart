@@ -1,10 +1,11 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/CartScreen/mycartscreen.dart';
 import 'package:local_farmers_project/screens/FarmerProvider/farmscreen.dart';
 import 'package:local_farmers_project/screens/HomeScreen/homescreen.dart';
-import 'package:local_farmers_project/screens/MyOrderScreen/myorderscreen.dart';
+import 'package:local_farmers_project/screens/ProfileScreen/newprofilescreen.dart';
 import 'package:local_farmers_project/screens/ProfileScreen/profilescreen.dart';
 import 'package:local_farmers_project/screens/ShopCategoryScreen/shopcategoryscreen.dart';
 import 'package:local_farmers_project/screens/SupportScreen/supportscreen.dart';
@@ -218,7 +219,7 @@ class CheckPointPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint()..style = PaintingStyle.fill;
 
-    paint.color = Colors.grey[100]!;
+    paint.color = backgroundcolor!;
 
     // Calculate the vertices of the chevron shape
 
@@ -312,7 +313,8 @@ class RightWidget extends StatelessWidget {
          // MyOrderScreen(),
           SupportScreen(),
           MyCartScreen(),
-          ProfileScreen(),
+         ProfileScreen(),
+       
 
          
         ],

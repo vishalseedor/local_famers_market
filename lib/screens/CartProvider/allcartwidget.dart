@@ -52,9 +52,10 @@ class _AllCartWidgetState extends State<AllCartWidget > {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Image.asset(
-                              'assets/items8.png',
-                              scale: 4,
+                            Image.network(
+                              widget.image,
+                              height: 70,
+                              width: 70,
                             ),
                             Padding(
                               padding: const EdgeInsets.all(12),

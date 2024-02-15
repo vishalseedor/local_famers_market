@@ -62,12 +62,50 @@ class ProductProvider with ChangeNotifier {
               additionalInformation:productDetails[i]['additional_information'].toString(),
               price:productDetails[i]['price'].toString(),
               category: productDetails[i]['category'].toString(),
-              categoryId: productDetails[i]['farmer'].toString(),
-              farmer: productDetails[i]['category_id'].toString(),
+              categoryId: productDetails[i]['category_id'].toString(),
+              farmer: productDetails[i]['farmer'].toString(),
               image: productDetails[i]['image'.toString()]  
 
               
             ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            
           );
         }
         ;

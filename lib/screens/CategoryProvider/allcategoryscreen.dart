@@ -37,7 +37,7 @@ class _AllCategoryScreenState extends State<AllCategoryScreen> {
           toolbarHeight: 80,
           elevation: 0,
           backgroundColor: Colors.grey[200],
-          title: Row(
+          title: const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(

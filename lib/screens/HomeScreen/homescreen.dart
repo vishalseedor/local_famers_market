@@ -50,7 +50,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   const Text(
                     'Local Farmers Market',
-                    style: TextStyle(fontSize: 14),
+                    style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     width: 5,
@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 style: TextStyle(
                     color: Colors.grey,
                     fontSize: 10,
-                    fontWeight: FontWeight.w400),
+                    fontWeight: FontWeight.w900),
               ),
             ],
           ),
@@ -670,7 +670,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       : SizedBox(
                           height: size.height * 0.6,
                           child: GridView.builder(
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,crossAxisSpacing: 10,mainAxisSpacing: 10,childAspectRatio: 0.9),
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,crossAxisSpacing: 10,mainAxisSpacing: 10,childAspectRatio: 0.9),
                             scrollDirection: Axis.vertical,
                             itemCount: product.products.length,
                             itemBuilder: (context, intex) {

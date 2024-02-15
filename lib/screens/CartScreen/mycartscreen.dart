@@ -7,7 +7,8 @@ import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 class MyCartScreen extends StatefulWidget {
-  const MyCartScreen({Key? key}) : super(key: key);
+
+  const MyCartScreen({Key? key,}) : super(key: key);
 
   @override
   State<MyCartScreen> createState() => _MyCartScreenState();
@@ -267,7 +268,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                     // height: size.height * 0.13,
                     // width: size.width,
                     // color: Colors.white,
-                    child: const Padding(
+                    child:  Padding(
                       padding: EdgeInsets.all(15),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -275,23 +276,23 @@ class _MyCartScreenState extends State<MyCartScreen> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
+                              const Text(
                                 'Item Total',
-                                style: TextStyle(
+                                style: TextStyle( 
                                   fontSize: 14,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
                               Text(
-                                '₹ 19.50',
-                                style: TextStyle(
+                                '100.00',
+                                style: const TextStyle(
                                   fontSize: 14,
                                   fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ],
                           ),
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
@@ -310,7 +311,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                               ),
                             ],
                           ),
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
@@ -406,7 +407,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
             height: 65,
             width: double.infinity,
             color: greencolor,
-            child: Center(
+            child: const Center(
               child: 
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -455,10 +456,6 @@ class _MyCartScreenState extends State<MyCartScreen> {
 
   void showAlertDialog(BuildContext context, String title, String message) {
     // set up the buttons
-    Widget continueButton = ElevatedButton(
-      child: const Text("Continue"),
-      onPressed: () {},
-    );
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text(title),

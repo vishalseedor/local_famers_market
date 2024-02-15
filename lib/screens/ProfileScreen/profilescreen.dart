@@ -101,36 +101,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   borderRadius: BorderRadius.circular(30), color: Colors.white),
               child: Column(
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.all(30),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.language_sharp,
-                              size: 25,
-                              color: greencolor,
-                            ),
-                            SizedBox(
-                              width: size.width * 0.02,
-                            ),
-                            const Text('Change Language',
-                                style: TextStyle(
-                                    fontSize: 15, fontWeight: FontWeight.w600)),
-                          ],
-                        ),
-                        const Padding(
-                          padding: EdgeInsets.only(left: 31),
-                          child: Text(
-                            'English',
-                            style: TextStyle(color: Colors.grey, fontSize: 13),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
+                 
                   Padding(
                     padding: const EdgeInsets.all(30),
                     child: Column(

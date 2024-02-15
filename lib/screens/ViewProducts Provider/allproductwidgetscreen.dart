@@ -3,7 +3,6 @@ import 'package:local_farmers_project/screens/CartScreen/cartscreen.dart';
 import 'package:local_farmers_project/screens/ItemDetailsScreen/itemdetailsscreen.dart';
 import 'package:local_farmers_project/screens/Widgets/demowidget.dart';
 
-import '../../Colors/colors.dart';
 
 
 class AllProductWidget extends StatefulWidget {

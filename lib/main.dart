@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/CartProvider/allcartscreen.dart';
+import 'package:local_farmers_project/screens/CartProvider/cartaddprovider.dart';
 import 'package:local_farmers_project/screens/CartProvider/cartprovider.dart';
 import 'package:local_farmers_project/screens/CategoryEachproductScreen/allcategoryeachscreen.dart';
 import 'package:local_farmers_project/screens/CategoryEachproductScreen/caregoryeachprovider.dart';
@@ -30,13 +33,15 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (context) => FarmProvider()),
           ChangeNotifierProvider(create: (context)=>CategoryProvider()),
           ChangeNotifierProvider(create: (context)=>CartProvider()),
-          ChangeNotifierProvider(create: (context)=>CategoryEachProvider())
+          ChangeNotifierProvider(create: (context)=>CategoryEachProvider()),
+          ChangeNotifierProvider(create: (context)=>AddtoCartProvider())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+       theme: ThemeData(
+          textTheme: GoogleFonts.montserratTextTheme(),
+          colorScheme: ColorScheme.fromSeed(seedColor:Colors.purple),
           useMaterial3: true,
         ),
         home: const SplashScreen(),
@@ -65,7 +70,7 @@ class MyApp extends StatelessWidget {
     return AllCategoryEachScreen(cateproduct: data['category_id']);
   } else {
     print('Unexpected argument type: ${data.runtimeType}');
-    return Scaffold(
+    return Scaffold( 
       body: Center(
         child: Text(''),
       ),

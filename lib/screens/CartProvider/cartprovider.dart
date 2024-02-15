@@ -89,5 +89,58 @@ class CartProvider with ChangeNotifier {
       notifyListeners();
     }
   }
+
+  //  Future cartProductPost({
+  //   required BuildContext context,
+  //   required String productId,
+  //   required int quantity,
+  // }) async {
+   
+  //   try {
+  //     // final data = Provider.of<UserDetails>(context, listen: false);
+  //     //data.getAllDetails();
+  //     // var headers = {
+  //     //   'Content-Type': 'application/json',
+  //     // };
+  //     print('');
+  //     print(productId);
+  //     var body = json.encode({
+  //       "userid": data.id,
+  //       "clientid": client_id,
+  //       "productid": productId,
+  //       "status": cartStatus,
+  //       "created_date": dateTimeNow,
+  //       "quantity": quantity
+  //     });
+  //     print("qqqq--->$quantity");
+  //     print(body);
+  //     var response = await http.post(
+  //         Uri.parse('http://eiuat.seedors.com:8290/customer-app/addtocart'),
+  //         headers: headers,
+  //         body: body);
+  //     print('http://eiuat.seedors.com:8290/customer-app/addtocart' +
+  //         'cartproductpost');
+
+  //     statesCodec = response.statusCode.toString();
+  //     var jsonData = json.decode(response.body);
+
+  //     print("newjason -->$jsonData");
+  //     statesCodec = jsonData['code'];
+  //     print(response.statusCode);
+  //     // print(response.body);
+  //     if (response.statusCode == 202) {
+  //       print(response.body);
+  //       print('successfully post');
+  //     } else {
+  //       print(response.reasonPhrase);
+  //     }
+  //     print(statesCodec.toString() + 'Status code 2');
+  //     print(response.statusCode.toString() + 'Status code 2');
+  //     return response.statusCode.toString();
+  //   } catch (e) {
+  //     print(e.toString());
+  //   }
+  // }
+
  
 }

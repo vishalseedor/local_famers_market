@@ -55,7 +55,7 @@ class _CategoryProductScreenState extends State<CategoryProductScreen> {
                       : SizedBox(
                           height: size.height * 0.6,
                           child: GridView.builder(
-                            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,crossAxisSpacing: 10,mainAxisSpacing: 10),
+                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,crossAxisSpacing: 10,mainAxisSpacing: 10),
                             scrollDirection: Axis.vertical,
                             itemCount: cateproduct.category.length,
                             itemBuilder: (context, intex) {

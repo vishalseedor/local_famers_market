@@ -47,7 +47,7 @@ class _FamersScreenState extends State<FamersScreen> {
                   : farmer.farmers.isEmpty
                       ? Text('No Famers...')
                       : SizedBox(
-                          height: size.height * 0.6,
+                        height: size.height * 0.6,
                           child: ListView.builder(
                             scrollDirection: Axis.vertical,
                             itemCount: farmer.farmers.length,
@@ -58,6 +58,9 @@ class _FamersScreenState extends State<FamersScreen> {
                                 farmname: farmer.farmers[intex].farmName,
                                 address: farmer.farmers[intex].address,
                                 image: farmer.farmers[intex].file,
+                                email: farmer.farmers[intex].email,
+                                farmstatus: farmer.farmers[intex].farmerStatus,
+
                            
                            
                                

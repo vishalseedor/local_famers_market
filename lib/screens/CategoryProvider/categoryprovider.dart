@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as https;
 import 'package:local_farmers_project/screens/CategoryProvider/categorymodel.dart';
+import 'package:local_farmers_project/screens/ViewProducts%20Provider/productmodel.dart';
+
 class CategoryProvider with ChangeNotifier {
   bool _isLoading = false;
   bool get islOading {
@@ -50,23 +52,25 @@ class CategoryProvider with ChangeNotifier {
         _categories = [];
         var extractedData = json.decode(response.body);
         //  print(json.decode(response.body) + 'printed extrated data');
-      //  final List<dynamic> categoryDetails = extractedData[0];
-        for (var i = 0; i < extractedData.length; i++) {
+        final List<dynamic> categoryDetails = extractedData['categoryDetails'];
+        for (var i = 0; i < categoryDetails.length; i++) {
           _categories.add(
             CategoryModel(
-           id: extractedData[i]['id'].toString(),
-           name: extractedData[i]['name'].toString(),
-          quantity:extractedData[i]['quantity'].toString(),
-          farmerid:extractedData[i]['farmer_id'].toString(),
-          image: extractedData[i]['image'].toString()
-          )
+              id: categoryDetails[i]['id'].toString(),
+              name: categoryDetails[i]['name'].toString(),
+              quantity: categoryDetails[i]['quantity'].toString(),
+              farmerid: categoryDetails[i]['farmer_id'].toString(),
+              image: categoryDetails[i]['image'].toString()
+    
+            ),
+
           );
         }
-        
+        ;
 
-        print('category product details' + _categories.toString());
+        print('product details' + _categories.toString());
         _isLoading = false;
-        print('category products loading completed --->' + 'loading data');
+        print('products loading completed --->' + 'loading data');
         notifyListeners();
       } else {
         _isLoading = true;
@@ -75,7 +79,7 @@ class CategoryProvider with ChangeNotifier {
     } on HttpException catch (e) {
       // ignore: prefer_interpolation_to_compose_strings
       print('error in product prod -->>' + e.toString());
-      print('category Product Data is one by one loaded the product' + e.toString());
+      print('Product Data is one by one loaded the product' + e.toString());
       _isLoading = false;
 
       _isSelect = false;

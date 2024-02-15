@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:local_farmers_project/screens/CartProvider/addtocartmodel.dart';
+import 'package:local_farmers_project/screens/CartProvider/cartaddprovider.dart';
+import 'package:local_farmers_project/screens/CartProvider/cartprovider.dart';
+import 'package:local_farmers_project/screens/CartScreen/mycartscreen.dart';
 import 'package:local_farmers_project/screens/GlobalService/globalservice.dart';
+import 'package:provider/provider.dart';
+
 
 
 class DemoScreensss extends StatefulWidget {
@@ -10,23 +16,14 @@ class DemoScreensss extends StatefulWidget {
 }
 
 class _DemoScreensssState extends State<DemoScreensss> {
-  final GlobalSnackBar _snackbar = GlobalSnackBar();
+
   bool isVisible = false;
-
-  void _toggleVisibility() {
-    setState(() {
-      isVisible = !isVisible;
-    });
-
-    if (isVisible) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        _snackbar.customSnackbar(context: context),
-      );
-    }
-  }
+  late AddCartItem addCartItem;
 
   @override
   Widget build(BuildContext context) {
+    final addtocart=Provider.of<AddtoCartProvider>(context);
+    final cart=Provider.of<CartProvider>(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -43,7 +40,23 @@ class _DemoScreensssState extends State<DemoScreensss> {
             ),
           ),
           child: InkWell(
-            onTap: _toggleVisibility,
+            onTap: ()async {
+        final cartProvider = Provider.of<AddtoCartProvider>(context, listen: false);
+final success = await cartProvider.addItemToCart(productid:addCartItem.productId.toString() ,quanity:addCartItem.quantity.toString() ,userid:addCartItem.userId.toString() ); // Assuming parameters are required for the addItemToCart method
+if (success) {
+  Navigator.push(context, MaterialPageRoute(builder:(context)=>const MyCartScreen()));
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Text('Item added to cart successfully'),
+    
+  ));
+} else {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: Text('Failed to add item to cart'),
+  ));
+}
+            },
+            
+            // onTap: _toggleVisibility,
             child: const Icon(Icons.add, color: Colors.white, size: 13),
           ),
         ),

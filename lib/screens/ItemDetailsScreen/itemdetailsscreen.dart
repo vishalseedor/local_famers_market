@@ -87,24 +87,26 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
               SizedBox(height: size.height * 0.02),
               Text(
                 productData.productName,
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
-              ),
-              Text(
-                'Quantity : ${productData.quantity}',
-                style: TextStyle(color: Colors.grey, fontSize: 16),
+                style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
               ),
                SizedBox(height: size.height * 0.01),
-              Text('Category :${productData.category}',style: TextStyle(fontSize: 15,fontWeight: FontWeight.bold,color: Colors.brown),),
+              Text(
+                'Quantity : ${productData.quantity}',
+                style: const TextStyle(color: Colors.grey, fontSize: 16),
+              ),
+               SizedBox(height: size.height * 0.01),
+              Text('Category : ${productData.category}',style: TextStyle(fontSize: 14,fontWeight: FontWeight.w900,color: Colors.brown),),
               SizedBox(height: size.height * 0.01),
               Text('Farmer : ${productData.farmer}',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+               SizedBox(height: size.height * 0.01),
                Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     '₹ ${productData.price}',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+                    style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                   ),
-                 DemoScreensss()
+                 const DemoScreensss()
                 ],
               ),
               SizedBox(height: size.height * 0.02),
@@ -125,7 +127,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
               ),
               Card(
                 color: Colors.grey[200],
-                shape: RoundedRectangleBorder(
+                shape: const RoundedRectangleBorder(
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(15),
                         topRight: Radius.circular(15))),
@@ -143,7 +145,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
+                      const Text(
                         'Similar Products',
                         style: TextStyle(
                           fontSize: 16,

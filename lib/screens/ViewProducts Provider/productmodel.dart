@@ -39,4 +39,5 @@ class ProductDetails {
     image: json['image']
     );
    
-  }}
+  }
+  }
