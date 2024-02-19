@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/CartProvider/allcartwidget.dart';
+import 'package:local_farmers_project/screens/CartProvider/cartemptyscreen.dart';
 import 'package:local_farmers_project/screens/CartProvider/cartprovider.dart';
 import 'package:local_farmers_project/screens/ExtraScreens/loadingscreen.dart';
 import 'package:provider/provider.dart';
-import 'package:razorpay_flutter/razorpay_flutter.dart';
+
 
 class MyCartScreen extends StatefulWidget {
 
@@ -15,6 +16,7 @@ class MyCartScreen extends StatefulWidget {
 }
 
 class _MyCartScreenState extends State<MyCartScreen> {
+  
    @override
   void initState() {
     Provider.of<CartProvider>(context, listen: false)
@@ -27,19 +29,43 @@ class _MyCartScreenState extends State<MyCartScreen> {
   @override
   Widget build(BuildContext context) {
      final cart = Provider.of<CartProvider>(context);
+    
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: backgroundcolor,
       appBar: AppBar(
+        toolbarHeight: 80,
         automaticallyImplyLeading: false,
         elevation: 0,
+        centerTitle: false,
         backgroundColor: Colors.white,
+         leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+        ),
         title: const Center(
           child: Text(
             'My Cart',
-            style: TextStyle(color: Colors.black, fontSize: 15),
+            style: TextStyle(color: Colors.black, fontSize: 15,fontWeight: FontWeight.bold),
           ),
         ),
+        actions: [
+         SizedBox(
+          height: 35,
+          width: 120,
+           child: ElevatedButton(
+            style: ElevatedButton.styleFrom(backgroundColor: greencolor),
+            onPressed: (){
+               cart.clearCart(userid:cart.userid);
+            
+           }, child:Center(child: const Text('Clear Cart',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 13),))),
+         )
+        ],
       ),
       body: Column(
         children: [
@@ -63,9 +89,9 @@ class _MyCartScreenState extends State<MyCartScreen> {
                     ],
                   )
                 : cart.carts.isEmpty
-                    ? const Center(child: Text('No Carts...'))
+                    ? const CartEmptyScreen()
                     : SizedBox(
-                        height: size.height * 0.5,
+                       height: size.height * 0.8,
                         child: ListView.builder(
                         
                           scrollDirection: Axis.vertical,
@@ -79,6 +105,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                               image: cart.carts[intex].image,
                               quantity: cart.carts[intex].quantity,
                               itemtotal:cart.carts[intex].itemTotal,
+                              deliveryfee: cart.carts[intex].delivertfee,
               
                              
                               
@@ -92,6 +119,13 @@ class _MyCartScreenState extends State<MyCartScreen> {
                           },
                         ),
                       ),       
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Item Total',),
+                          Text('100.00')
+                        ],
+                      )
               
                   // Card(
                   //   elevation: 0,
@@ -261,212 +295,17 @@ class _MyCartScreenState extends State<MyCartScreen> {
                   // SizedBox(
                   //   height: size.height * 0.03,
                   // ),
-                  Card(
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(7)),
-                    // height: size.height * 0.13,
-                    // width: size.width,
-                    // color: Colors.white,
-                    child:  Padding(
-                      padding: EdgeInsets.all(15),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              const Text(
-                                'Item Total',
-                                style: TextStyle( 
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              Text(
-                                '100.00',
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Delivery Fee',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              Text(
-                                '₹ 2.00',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Additional Fee',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              Text(
-                                '₹ 10.00',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    height: size.height * 0.02,
-                  ),
-                  Card(
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(6)),
-                    // height: size.height * 0.080,
-                    // width: size.width,
-                    // color: Colors.white,
-                    child: Padding(
-                      padding: const EdgeInsets.all(23),
-                      child: Column(
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                'Amount To Pay',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                  color: greencolor,
-                                ),
-                              ),
-                              const Text(
-                                '₹ 31.00',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
+                
+                
                 ],
               ),
             ),
           ),
-         InkWell(
-          onTap: () {
-          Razorpay razorpay = Razorpay();
-                  var options = {
-                    'key': 'rzp_test_1DP5mmOlF5G5ag',
-                    'amount': 100,
-                    'name': 'Acme Corp.',
-                    'description': 'Fine T-Shirt',
-                    'retry': {'enabled': true, 'max_count': 1},
-                    'send_sms_hash': true,
-                    'prefill': {
-                      'contact': '8888888888',
-                      'email': 'test@razorpay.com'
-                    },
-                    'external': {
-                      'wallets': ['paytm']
-                    }
-                  };
-                  razorpay.on(
-                      Razorpay.EVENT_PAYMENT_ERROR, handlePaymentErrorResponse);
-                  razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
-                      handlePaymentSuccessResponse);
-                  razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET,
-                      handleExternalWalletSelected);
-                  razorpay.open(options);
-          },
-           child: Container(
-            alignment: Alignment.bottomCenter,
-            height: 65,
-            width: double.infinity,
-            color: greencolor,
-            child: const Center(
-              child: 
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.delivery_dining,color: Colors.white,size: 40,),
-                  SizedBox(width: 5,),
-                  Text('Order Now',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18),),
-                ],
-              ),
-            ),
-           ),
-         )
+        
  
         ],
       ),
     );
   }
-  void handlePaymentErrorResponse(PaymentFailureResponse response) {
-    /*
-    * PaymentFailureResponse contains three values:
-    * 1. Error Code
-    * 2. Error Description
-    * 3. Metadata
-    * */
-    showAlertDialog(context, "Payment Failed",
-        "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
-  }
-
-  void handlePaymentSuccessResponse(PaymentSuccessResponse response) {
-    /*
-    * Payment Success Response contains three values:
-    * 1. Order ID
-    * 2. Payment ID
-    * 3. Signature
-    * */
-    print(response.data.toString());
-    showAlertDialog(
-        
-        context, "Payment Successful", "Payment ID: ${response.paymentId}");
-  }
-
-  void handleExternalWalletSelected(ExternalWalletResponse response) {
-    showAlertDialog(
-        context, "External Wallet Selected", "${response.walletName}");
-  }
-
-  void showAlertDialog(BuildContext context, String title, String message) {
-    // set up the buttons
-    // set up the AlertDialog
-    AlertDialog alert = AlertDialog(
-      title: Text(title),
-      content: Text(message),
-    );
-    // show the dialog
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return alert;
-      },
-    );
-  }
+ 
 }

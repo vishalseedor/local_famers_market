@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:local_farmers_project/screens/GlobalService/globalservice.dart';
-import 'package:local_farmers_project/screens/ItemDetailsScreen/itemdetailsscreen.dart';
-import 'package:local_farmers_project/screens/Widgets/demowidget.dart';
+
 
 
 // ignore: must_be_immutable
@@ -90,7 +89,7 @@ class ItemWidget extends StatelessWidget {
                   //   ),
                   // )
                
-                const DemoScreensss()
+               // const DemoScreensss()
                 ],
               )
             ],

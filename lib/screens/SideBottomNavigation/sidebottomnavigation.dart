@@ -60,7 +60,7 @@ class _LeftWidgetState extends State<LeftWidget> with TickerProviderStateMixin {
     "Category",
     "Farmers",
     "Support",
-    "Cart",
+    //"Cart",
     "Profile"
   ];
 
@@ -69,7 +69,7 @@ class _LeftWidgetState extends State<LeftWidget> with TickerProviderStateMixin {
     GlobalKey(),
     GlobalKey(),
     GlobalKey(),
-    GlobalKey(),
+  //  GlobalKey(),
     GlobalKey()
   
   ];
@@ -310,9 +310,8 @@ class RightWidget extends StatelessWidget {
           HomeScreen(),
           CategoryScreen(),
           FamersScreen(), 
-         // MyOrderScreen(),
           SupportScreen(),
-          MyCartScreen(),
+       //   MyCartScreen(),
          ProfileScreen(),
        
 

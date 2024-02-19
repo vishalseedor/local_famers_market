@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:local_farmers_project/screens/CartScreen/cartscreen.dart';
 import 'package:local_farmers_project/screens/ViewProducts%20Provider/productprovider.dart';
 import 'package:local_farmers_project/screens/Widgets/Itemwidget.dart';
-import 'package:local_farmers_project/screens/Widgets/demowidget.dart';
+
 import 'package:provider/provider.dart';
 
 
@@ -106,7 +106,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                     '₹ ${productData.price}',
                     style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
                   ),
-                 const DemoScreensss()
+                // const DemoScreensss()
                 ],
               ),
               SizedBox(height: size.height * 0.02),

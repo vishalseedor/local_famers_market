@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:local_farmers_project/screens/CartScreen/cartscreen.dart';
 import 'package:local_farmers_project/screens/FarmerProvider/farmprovider.dart';
 import 'package:provider/provider.dart';
 

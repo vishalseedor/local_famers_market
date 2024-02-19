@@ -10,8 +10,8 @@ class SimilarProductScreen extends StatefulWidget {
 class _SimilarProductScreenState extends State<SimilarProductScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       
     );
   }
-}
+} 

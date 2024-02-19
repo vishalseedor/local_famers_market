@@ -24,15 +24,15 @@ class _CartScreenState extends State<CartScreen> {
           'My Cart',
           style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 19),
         ),
-        // leading: IconButton(
-        //   onPressed: () {
-        //     Navigator.pop(context);
-        //   },
-        //   icon: const Icon(
-        //     Icons.arrow_back,
-        //     color: Colors.black,
-        //   ),
-        // ),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+        ),
       ),
       body: Column(
         children: [
@@ -276,25 +276,7 @@ class _CartScreenState extends State<CartScreen> {
                               ),
                             ],
                           ),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //   children: [
-                          //     const Text(
-                          //       'Additional Fee',
-                          //       style: TextStyle(
-                          //         fontSize: 15,
-                          //         fontWeight: FontWeight.w500,
-                          //       ),
-                          //     ),
-                          //     const Text(
-                          //       '₹ 10.00',
-                          //       style: TextStyle(
-                          //         fontSize: 15,
-                          //         fontWeight: FontWeight.bold,
-                          //       ),
-                          //     ),
-                          //   ],
-                          // ),
+                         
                         ],
                       ),
                     ),
@@ -351,7 +333,7 @@ class _CartScreenState extends State<CartScreen> {
                 //         topLeft: Radius.circular(25),
                 //         topRight: Radius.circular(25))),
                 height: size.height * 0.18,
-
+          
                 width: size.width,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
@@ -388,12 +370,7 @@ class _CartScreenState extends State<CartScreen> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => const AddressScreen(),
-                              //   ),
-                              // );
+                             
                             },
                             child: Text(
                               'Change',
@@ -474,7 +451,7 @@ class _CartScreenState extends State<CartScreen> {
                 ),
               ),
             ),
-          ),
+          ), 
         ],
       ),
     );

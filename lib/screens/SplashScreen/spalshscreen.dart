@@ -1,6 +1,11 @@
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:local_farmers_project/screens/HomeScreen/homescreen.dart';
 import 'package:local_farmers_project/screens/LoginScreen/loginscreen.dart';
+import 'package:local_farmers_project/screens/RegisterScreen/getstore.dart';
+import 'package:local_farmers_project/screens/SideBottomNavigation/sidebottomnavigation.dart';
 
 
 
@@ -19,7 +24,20 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
     _navigatetohome() async {
-    await Future.delayed(const Duration(milliseconds: 2500), () {});
+    await Future.delayed(const Duration(milliseconds: 2500), () {
+      // getstorage.read(phone);
+      // getstorage.read(password);
+
+      // Timer(Duration(seconds: 0),(){
+      //  phone =getstorage.read("phone").toString();
+      //  password=getstorage.read("password").toString();
+      // });
+      // Timer(Duration(seconds: 2),(){
+      //   (phone!=null)?
+      //     Navigator.push(context, MaterialPageRoute(builder:(context)=>HomeScreen())):Navigator.push(context,MaterialPageRoute(builder: (context)=>SideBottomNavigation()));
+        
+      // });
+    });
     // ignore: use_build_context_synchronously
     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => const LoginScreen()));

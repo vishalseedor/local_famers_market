@@ -8,6 +8,7 @@ class CartDetails {
   final String price;
   final String quantity;
   final String itemTotal;
+  final String delivertfee;
 
   CartDetails(
       {required this.cartId,
@@ -16,7 +17,9 @@ class CartDetails {
       required this.productName,
       required this.price,
       required this.quantity,
-      required this.itemTotal});
+      required this.itemTotal,
+      required this.delivertfee
+      });
 
  factory CartDetails.fromJson(Map<String, dynamic> json) {
    return CartDetails(
@@ -26,6 +29,8 @@ class CartDetails {
        productName:json['product_name'],
         price:json['price'],
          quantity:json['quantity'],
-          itemTotal: json['item_total']);
+          itemTotal: json['item_total'],
+          delivertfee: json['deliveryFee']
+          );
  
   }}

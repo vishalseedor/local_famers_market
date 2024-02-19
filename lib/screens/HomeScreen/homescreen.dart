@@ -3,6 +3,7 @@ import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/ExtraScreens/loadingscreen.dart';
 import 'package:local_farmers_project/screens/LoginScreen/loginscreen.dart';
+import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
 import 'package:local_farmers_project/screens/ViewProducts%20Provider/allproductwidgetscreen.dart';
 import 'package:local_farmers_project/screens/ViewProducts%20Provider/productprovider.dart';
 import 'package:local_farmers_project/screens/Widgets/categorywidget.dart';
@@ -22,14 +23,17 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     Provider.of<ProductProvider>(context, listen: false)
         .getAllProductData(context: context);
+        
   
     super.initState();
+   
   }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
      final product = Provider.of<ProductProvider>(context);
+     final userprovider=Provider.of<UserProvider>(context);
 
     return Scaffold(
       backgroundColor: Colors.grey[200],
@@ -68,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ))
                 ],
               ),
-              const Text(
+              Text(
                 'Trivandrum,India',
                 style: TextStyle(
                     color: Colors.grey,
@@ -194,19 +198,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                    
-                    // Image.asset(
-
-                    //   'assets/banner2.png',
-                    //   fit: BoxFit.cover,
-                    // ),
-                    // Image.asset(
-                    //   'assets/banner3.png',
-                    //   fit: BoxFit.cover,
-                    // ),
-                    // Image.asset(
-                    //   'assets/banner1.png',
-                    //   fit: BoxFit.cover,
-                    // )
+                  
                   ],
                   onPageChanged: (value) {},
                   autoPlayInterval: 3000,
@@ -217,8 +209,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 1),
-                  child: const Center(
-                    child: TextField(
+                  child:  Center(
+                    child: TextFormField(
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         fillColor: Colors.white,
@@ -236,6 +228,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         focusedBorder: InputBorder.none,
                       ),
                       style: TextStyle(color: Colors.black),
+                      onChanged: (value) {
+                        product.getSearchdata(value: value);
+                      },
                     ),
                   ),
                 ),
@@ -252,27 +247,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: size.height * 0.01,
                 ),
-                //category.loadingSpinner
-                // ? const Column(
-                //     mainAxisAlignment: MainAxisAlignment.center,
-                //     children: [
-                //       LoadingScreen(title: 'Loading'),
-                //       // CircularProgressIndicator(
-                //       //   color: Colors.blue,
-                //       // ),
-                //       SizedBox(
-                //         width: 10,
-                //       ),
-                //       // Text(
-                //       //   'Loading...',
-                //       //   style: TextStyle(fontSize: 20),
-                //       // ),
-                //     ],
-                //   )
-                // : category.categories.isEmpty
-                //     ? const Center(child: Text('No Products...'))
-                //     : const CategoryProductWid(),
-
+               
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Column(
@@ -509,110 +484,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-
-                // SizedBox(
-                //   width: double.infinity,
-                //   height: size.height * 0.078,
-                //   child: GridView(
-                //     scrollDirection: Axis.horizontal,
-                //     gridDelegate:
-                //         const SliverGridDelegateWithMaxCrossAxisExtent(
-                //             maxCrossAxisExtent: 250,
-                //             childAspectRatio: 1 / 2,
-                //             crossAxisSpacing: 15,
-                //             mainAxisSpacing: 15),
-                //     children: [
-                //       CateoGoryWidget(
-                //           image: 'assets/categories4.png',
-                //           title: 'Drink&',
-                //           subtitle: 'Beverages',
-                //           ontap: () {
-                //             Navigator.push(
-                //                 context,
-                //                 MaterialPageRoute(
-                //                     builder: (context) =>
-                //                         const CategoryDashBoardScreen()));
-                //           }),
-                //       CateoGoryWidget(
-                //           image: 'assets/cate.png',
-                //           title: 'Fruits &',
-                //           subtitle: 'Vegtables',
-                //           ontap: () {
-                //             Navigator.push(
-                //                 context,
-                //                 MaterialPageRoute(
-                //                     builder: (context) =>
-                //                         const CategoryDashBoardScreen()));
-                //           }),
-                //       CateoGoryWidget(
-                //           image: 'assets/categories2.png',
-                //           title: 'Cooking',
-                //           subtitle: 'Essentials',
-                //           ontap: () {
-                //             Navigator.push(
-                //                 context,
-                //                 MaterialPageRoute(
-                //                     builder: (context) =>
-                //                         const CategoryDashBoardScreen()));
-                //           }),
-                //       CateoGoryWidget(
-                //           image: 'assets/cate.png',
-                //           title: 'Fruits &',
-                //           subtitle: 'Vegtables',
-                //           ontap: () {
-                //             Navigator.push(
-                //                 context,
-                //                 MaterialPageRoute(
-                //                     builder: (context) =>
-                //                         const CategoryDashBoardScreen()));
-                //           }),
-                //       CateoGoryWidget(
-                //           image: 'assets/cate.png',
-                //           title: 'Fruits &',
-                //           subtitle: 'Vegtables',
-                //           ontap: () {
-                //             Navigator.push(
-                //                 context,
-                //                 MaterialPageRoute(
-                //                     builder: (context) =>
-                //                         const CategoryDashBoardScreen()));
-                //           }),
-                //       CateoGoryWidget(
-                //           image: 'assets/cate.png',
-                //           title: 'Fruits &',
-                //           subtitle: 'Vegtables',
-                //           ontap: () {
-                //             Navigator.push(
-                //                 context,
-                //                 MaterialPageRoute(
-                //                     builder: (context) =>
-                //                         const CategoryDashBoardScreen()));
-                //           }),
-                //       CateoGoryWidget(
-                //           image: 'assets/cate.png',
-                //           title: 'Fruits &',
-                //           subtitle: 'Vegtables',
-                //           ontap: () {
-                //             Navigator.push(
-                //                 context,
-                //                 MaterialPageRoute(
-                //                     builder: (context) =>
-                //                         const CategoryDashBoardScreen()));
-                //           }),
-                //       CateoGoryWidget(
-                //           image: 'assets/cate.png',
-                //           title: 'Fruits &',
-                //           subtitle: 'Vegtables',
-                //           ontap: () {
-                //             Navigator.push(
-                //                 context,
-                //                 MaterialPageRoute(
-                //                     builder: (context) =>
-                //                         const CategoryDashBoardScreen()));
-                //           }),
-                //     ],
-                //   ),
-                // ),
+               
                 SizedBox(
                   height: size.height * 0.01,
                 ),
@@ -624,29 +496,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 SizedBox(height: size.height * 0.01),
-                // product.loadingSpinner
-                //     ? const Column(
-                //         mainAxisAlignment: MainAxisAlignment.center,
-                //         children: [
-                //           LoadingScreen(title: 'Loading'),
-                //           // CircularProgressIndicator(
-                //           //   color: Colors.blue,
-                //           // ),
-                //           SizedBox(
-                //             width: 10,
-                //           ),
-                //           // Text(
-                //           //   'Loading...',
-                //           //   style: TextStyle(fontSize: 20),
-                //           // ),
-                //],
-                //  )
-                // : product.products.isEmpty
-                //     ? const Center(child: Text('No Products...'))
-                //     : const PopularProductWid(),
-                SizedBox(
-                  height: size.height * 0.01,
-                ),
+              
                  product.loadingSpinner
                   ? Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -685,160 +535,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             },
                           ),
                         ),        
-                // Column(
-                //   children: [
-                //     Row(
-                //       children: [
-                //         Expanded(
-                //           child: ItemWidget(
-                //               productName: 'Watermelon',
-                //               image: 'assets/items8.png',
-                //               itemcount: '1 pc',
-                //               price: '5.00',
-                //               onTap: () {
-                //                 // Navigator.push(
-                //                 //     context,
-                //                 //     MaterialPageRoute(
-                //                 //         builder: (context) =>
-                //                 //             const ItemDetailScreen()));
-                //               }),
-                //         ),
-                //         const SizedBox(width: 3),
-                //         Expanded(
-                //           child: ItemWidget(
-                //               productName: 'Mango',
-                //               image: 'assets/items5.png',
-                //               itemcount: '500 gm',
-                //               price: '5.00',
-                //               onTap: () {
-                //                 // Navigator.push(
-                //                 //     context,
-                //                 //     MaterialPageRoute(
-                //                 //         builder: (context) =>
-                //                 //             const ItemDetailScreen()));
-                //               }),
-                //         )
-                //       ],
-                //     ),
-                //     SizedBox(
-                //       height: size.height * 0.004,
-                //     ),
-                //     Row(
-                //       children: [
-                //         Expanded(
-                //           child: ItemWidget(
-                //               productName: 'Tender Coconut',
-                //               image: 'assets/items7.png',
-                //               itemcount: '1 pc',
-                //               price: '6.00',
-                //               onTap: () {
-                //                 // Navigator.push(
-                //                 //     context,
-                //                 //     MaterialPageRoute(
-                //                 //         builder: (context) =>
-                //                 //             const ItemDetailScreen()));
-                //               }),
-                //         ),
-                //         const SizedBox(
-                //           width: 3,
-                //         ),
-                //         //  Spacer(),
-                //         Expanded(
-                //           child: ItemWidget(
-                //               productName: 'Muskmelon',
-                //               image: 'assets/items6.png',
-                //               itemcount: '1 pc',
-                //               price: '4.50',
-                //               onTap: () {
-                //                 // Navigator.push(
-                //                 //     context,
-                //                 //     MaterialPageRoute(
-                //                 //         builder: (context) =>
-                //                 //             const ItemDetailScreen()));
-                //               }),
-                //         )
-                //       ],
-                //     ),
-                //     SizedBox(
-                //       height: size.height * 0.004,
-                //     ),
-                //     Row(
-                //       children: [
-                //         Expanded(
-                //           child: ItemWidget(
-                //               productName: 'Fresh Kiwi',
-                //               image: 'assets/items3.png',
-                //               itemcount: '400 gm',
-                //               price: '5.70',
-                //               onTap: () {
-                //                 // Navigator.push(
-                //                 //     context,
-                //                 //     MaterialPageRoute(
-                //                 //         builder: (context) =>
-                //                 //             const ItemDetailScreen()));
-                //               }),
-                //         ),
-                //         const SizedBox(
-                //           width: 3,
-                //         ),
-                //         //Spacer(),
-                //         Expanded(
-                //           child: ItemWidget(
-                //               productName: 'Jackfruit',
-                //               image: 'assets/items2.png',
-                //               itemcount: '1 kg',
-                //               price: '2.50',
-                //               onTap: () {
-                //                 // Navigator.push(
-                //                 //     context,
-                //                 //     MaterialPageRoute(
-                //                 //         builder: (context) =>
-                //                 //             const ItemDetailScreen()));
-                //               }),
-                //         )
-                //       ],
-                //     ),
-                //     SizedBox(
-                //       height: size.height * 0.004,
-                //     ),
-                //     Row(
-                //       children: [
-                //         Expanded(
-                //           child: ItemWidget(
-                //               productName: 'Green Mango',
-                //               image: 'assets/items4.png',
-                //               itemcount: '1 pc',
-                //               price: '6.00',
-                //               onTap: () {
-                //                 // Navigator.push(
-                //                 //     context,
-                //                 //     MaterialPageRoute(
-                //                 //         builder: (context) =>
-                //                 //             const ItemDetailScreen()));
-                //               }),
-                //         ),
-                //         const SizedBox(
-                //           width: 3,
-                //         ),
-                //         // Spacer(),
-                //         Expanded(
-                //           child: ItemWidget(
-                //               productName: 'Coconut',
-                //               image: 'assets/items1.png',
-                //               itemcount: '1pc',
-                //               price: '5.00',
-                //               onTap: () {
-                //                 // Navigator.push(
-                //                 //     context,
-                //                 //     MaterialPageRoute(
-                //                 //         builder: (context) =>
-                //                 //             const ItemDetailScreen()));
-                //               }),
-                //         )
-                //       ],
-                //     ),
-                //   ],
-                // )
+              
+              
               ],
             ),
           ),

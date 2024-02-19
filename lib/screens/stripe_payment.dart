@@ -1,184 +1,189 @@
-// import 'package:flutter/material.dart';
-// import 'package:razorpay_flutter/razorpay_flutter.dart';
+// List<PagingProduct> _paginatedProductData = [];
 
+// List<PagingProduct> _products = [];
 
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
+// bool showLoadingIndicator = false;
 
-//   // This widget is the root of your application.
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       title: 'Flutter Demo',
-//       theme: ThemeData(
-//         // This is the theme of your application.
-//         //
-//         // Try running your application with "flutter run". You'll see the
-//         // application has a blue toolbar. Then, without quitting the app, try
-//         // changing the primarySwatch below to Colors.green and then invoke
-//         // "hot reload" (press "r" in the console where you ran "flutter run",
-//         // or simply save your changes to "hot reload" in a Flutter IDE).
-//         // Notice that the counter didn't reset back to zero; the application
-//         // is not restarted.
-//         primarySwatch: Colors.blue,
-//       ),
-//       home: const MyHomePage(title: 'Flutter Demo Home Page'),
-//     );
-//   }
+// static const double dataPagerHeight = 70.0;
+
+// @override
+// void initState() {
+//   super.initState();
+//   _products = List.from(populateData());
 // }
 
-// class MyHomePage extends StatefulWidget {
-//   const MyHomePage({super.key, required this.title});
-
-//   // This widget is the home page of your application. It is stateful, meaning
-//   // that it has a State object (defined below) that contains fields that affect
-//   // how it looks.
-
-//   // This class is the configuration for the state. It holds the values (in this
-//   // case the title) provided by the parent (in this case the App widget) and
-//   // used by the build method of the State. Fields in a Widget subclass are
-//   // always marked "final".
-
-//   final String title;
-
-//   @override
-//   State<MyHomePage> createState() => _MyHomePageState();
+// void rebuildList() {
+//   setState(() {});
 // }
 
-// class _MyHomePageState extends State<MyHomePage> {
-//   int _counter = 0;
+// Widget loadListView(BoxConstraints constraints) {
+//   List<Widget> _getChildren() {
+//     final List<Widget> stackChildren = [];
 
-//   void _incrementCounter() {
-//     setState(() {
-//       // This call to setState tells the Flutter framework that something has
-//       // changed in this State, which causes it to rerun the build method below
-//       // so that the display can reflect the updated values. If we changed
-//       // _counter without calling setState(), then the build method would not be
-//       // called again, and so nothing would appear to happen.
-//       _counter++;
-//     });
-//   }
+//     if (_products.isNotEmpty) {
+//       stackChildren.add(ListView.custom(
+//           childrenDelegate: CustomSliverChildBuilderDelegate(indexBuilder)));
+//     }
 
-//   @override
-//   Widget build(BuildContext context) {
-//     // This method is rerun every time setState is called, for instance as done
-//     // by the _incrementCounter method above.
-//     //
-//     // The Flutter framework has been optimized to make rerunning build methods
-//     // fast, so that you can just rebuild anything that needs updating rather
-//     // than having to individually change instances of widgets.
-//     return Scaffold(
-//       appBar: AppBar(
-//         // Here we take the value from the MyHomePage object that was created by
-//         // the App.build method, and use it to set our appbar title.
-//         title: Text(widget.title),
-//       ),
-//       body: Center(
-//         // Center is a layout widget. It takes a single child and positions it
-//         // in the middle of the parent.
-//         child: Column(
-//           // Column is also a layout widget. It takes a list of children and
-//           // arranges them vertically. By default, it sizes itself to fit its
-//           // children horizontally, and tries to be as tall as its parent.
-//           //
-//           // Invoke "debug painting" (press "p" in the console, choose the
-//           // "Toggle Debug Paint" action from the Flutter Inspector in Android
-//           // Studio, or the "Toggle Debug Paint" command in Visual Studio Code)
-//           // to see the wireframe for each widget.
-//           //
-//           // Column has various properties to control how it sizes itself and
-//           // how it positions its children. Here we use mainAxisAlignment to
-//           // center the children vertically; the main axis here is the vertical
-//           // axis because Columns are vertical (the cross axis would be
-//           // horizontal).
-//           mainAxisAlignment: MainAxisAlignment.center,
-//           children: <Widget>[
-//             const Text(
-//               'Pay with Razorpay',
-//             ),
-//             ElevatedButton(
-//                 onPressed: () {
-//                   Razorpay razorpay = Razorpay();
-//                   var options = {
-//                     'key': 'rzp_test_1DP5mmOlF5G5ag',
-//                     'amount': 100,
-//                     'name': 'Acme Corp.',
-//                     'description': 'Fine T-Shirt',
-//                     'retry': {'enabled': true, 'max_count': 1},
-//                     'send_sms_hash': true,
-//                     'prefill': {
-//                       'contact': '8888888888',
-//                       'email': 'test@razorpay.com'
-//                     },
-//                     'external': {
-//                       'wallets': ['paytm']
-//                     }
-//                   };
-//                   razorpay.on(
-//                       Razorpay.EVENT_PAYMENT_ERROR, handlePaymentErrorResponse);
-//                   razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
-//                       handlePaymentSuccessResponse);
-//                   razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET,
-//                       handleExternalWalletSelected);
-//                   razorpay.open(options);
-//                 },
-//                 child: const Text("Pay with Razorpay")),
-//           ],
+//     if (showLoadingIndicator) {
+//       stackChildren.add(Container(
+//         color: Colors.black12,
+//         width: constraints.maxWidth,
+//         height: constraints.maxHeight,
+//         child: Align(
+//           alignment: Alignment.center,
+//           child: CircularProgressIndicator(
+//             strokeWidth: 3,
+//           ),
 //         ),
+//       ));
+//     }
+//     return stackChildren;
+//   }
+
+//   return Stack(
+//     children: _getChildren(),
+//   );
+// }
+
+// @override
+// Widget build(BuildContext context) {
+//   return MaterialApp(
+//     theme: ThemeData(
+//       primarySwatch: Colors.blue,
+//       visualDensity: VisualDensity.adaptivePlatformDensity,
+//     ),
+//     home: Scaffold(
+//       appBar: AppBar(
+//         title: Text('Fruits'),
 //       ),
-//       floatingActionButton: FloatingActionButton(
-//         onPressed: _incrementCounter,
-//         tooltip: 'Increment',
-//         child: const Icon(Icons.add),
-//       ), // This trailing comma makes auto-formatting nicer for build methods.
-//     );
-//   }
+//       body: LayoutBuilder(builder: (context, constraint) {
+//         return Column(
+//           children: [
+//             Container(
+//               height: constraint.maxHeight - dataPagerHeight,
+//               child: loadListView(constraint),
+//             ),
+//             Container(
+//               height: dataPagerHeight,
+//               child: SfDataPagerTheme(
+//                   data: SfDataPagerThemeData(
+//                     itemBorderRadius: BorderRadius.circular(5),
+//                   ),
+//                   child: SfDataPager(
+//                       rowsPerPage: 10,
+//                      onPageNavigationStart: (pageIndex) {
+//                          setState(() {
+//                             showLoadingIndicator = true;
+//                          });
+//                        },
+//                       onPageNavigationEnd: (pageIndex) {
+//                         setState(() {
+//                           showLoadingIndicator = false;
+//                         });
+//                        },
+//                       delegate: CustomSliverChildBuilderDelegate(indexBuilder)
+//                         ..addListener(rebuildList))),
+//             )
+//           ],
+//         );
+//       }),
+//     ),
+//   );
+// }
 
-  
-// }void handlePaymentErrorResponse(PaymentFailureResponse response) {
-//     /*
-//     * PaymentFailureResponse contains three values:
-//     * 1. Error Code
-//     * 2. Error Description
-//     * 3. Metadata
-//     * */
-//     showAlertDialog(context, "Payment Failed",
-//         "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
-//   }
-
-//   void handlePaymentSuccessResponse(PaymentSuccessResponse response) {
-//     /*
-//     * Payment Success Response contains three values:
-//     * 1. Order ID
-//     * 2. Payment ID
-//     * 3. Signature
-//     * */
-//     print(response.data.toString());
-//     showAlertDialog(
-//         context, "Payment Successful", "Payment ID: ${response.paymentId}");
-//   }
-
-//   void handleExternalWalletSelected(ExternalWalletResponse response) {
-//     showAlertDialog(
-//         context, "External Wallet Selected", "${response.walletName}");
-//   }
-
-//   void showAlertDialog(BuildContext context, String title, String message) {
-//     // set up the buttons
-//     Widget continueButton = ElevatedButton(
-//       child: const Text("Continue"),
-//       onPressed: () {},
-//     );
-//     // set up the AlertDialog
-//     AlertDialog alert = AlertDialog(
-//       title: Text(title),
-//       content: Text(message),
-//     );
-//     // show the dialog
-//     showDialog(
-//       context: context,
-//       builder: (BuildContext context) {
-//         return alert;
+// Widget indexBuilder(BuildContext context, int index) {
+//   final PagingProduct data = _paginatedProductData[index];
+//   return ListTile(
+//     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+//     title: LayoutBuilder(
+//       builder: (context, constraint) {
+//         return Container(
+//             width: constraint.maxWidth,
+//             height: 100,
+//             child: Row(
+//               children: [
+//                 Align(
+//                   alignment: Alignment.centerRight,
+//                   child: Container(
+//                     clipBehavior: Clip.antiAlias,
+//                     decoration: BoxDecoration(
+//                         borderRadius: BorderRadius.circular(10)),
+//                     child: Image.asset(data.image, width: 100, height: 100),
+//                   ),
+//                 ),
+//                 Container(
+//                   padding: EdgeInsets.fromLTRB(20, 10, 5, 5),
+//                   child: Column(
+//                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                     children: [
+//                       Container(
+//                         width: constraint.maxWidth - 130,
+//                         child: Text(data.name,
+//                             style: TextStyle(
+//                                 fontWeight: FontWeight.w600,
+//                                 color: Colors.black87,
+//                                 fontSize: 15)),
+//                       ),
+//                       Container(
+//                         width: constraint.maxWidth - 130,
+//                         child: Text(data.weight,
+//                             style: TextStyle(
+//                                 color: Colors.black87, fontSize: 10)),
+//                       ),
+//                       Container(
+//                         width: constraint.maxWidth - 130,
+//                         child: Row(
+//                           children: [
+//                             Container(
+//                               color: Colors.green.shade900,
+//                               padding: EdgeInsets.all(3),
+//                               child: Row(
+//                                 children: [
+//                                   Text('${data.reviewValue}',
+//                                       textAlign: TextAlign.end,
+//                                       style: TextStyle(
+//                                           color: Colors.white, fontSize: 13)),
+//                                   SizedBox(width: 2),
+//                                   Icon(
+//                                     Icons.star,
+//                                     color: Colors.white,
+//                                     size: 15,
+//                                   )
+//                                 ],
+//                               ),
+//                             ),
+//                             SizedBox(width: 5),
+//                             Text('${data.ratings}',
+//                                 textAlign: TextAlign.end,
+//                                 style: TextStyle(
+//                                     color: Colors.black87, fontSize: 11))
+//                           ],
+//                         ),
+//                       ),
+//                       Container(
+//                         width: constraint.maxWidth - 130,
+//                         child: Row(
+//                           children: [
+//                             Container(
+//                               child: Text('\${data.price}',
+//                                   style: TextStyle(
+//                                       color: Colors.green.shade800,
+//                                       fontSize: 13)),
+//                             ),
+//                             SizedBox(width: 8),
+//                             Text('${data.offer}',
+//                                 style: TextStyle(
+//                                     color: Colors.black87, fontSize: 10))
+//                           ],
+//                         ),
+//                       ),
+//                     ],
+//                   ),
+//                 ),
+//               ],
+//             ));
 //       },
-//     );
-//   }
+//     ),
+//   );
+// }

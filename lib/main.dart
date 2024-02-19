@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/CartProvider/allcartscreen.dart';
 import 'package:local_farmers_project/screens/CartProvider/cartaddprovider.dart';
 import 'package:local_farmers_project/screens/CartProvider/cartprovider.dart';
@@ -13,6 +12,8 @@ import 'package:local_farmers_project/screens/FarmerProvider/farmdetailsscreen.d
 import 'package:local_farmers_project/screens/FarmerProvider/farmprovider.dart';
 import 'package:local_farmers_project/screens/ItemDetailsScreen/itemdetailsscreen.dart';
 import 'package:local_farmers_project/screens/SplashScreen/spalshscreen.dart';
+import 'package:local_farmers_project/screens/SupportScreen/supportprovider.dart';
+import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
 import 'package:local_farmers_project/screens/ViewProducts%20Provider/allproductscreen.dart';
 import 'package:local_farmers_project/screens/ViewProducts%20Provider/productprovider.dart';
 import 'package:provider/provider.dart';
@@ -34,7 +35,9 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (context)=>CategoryProvider()),
           ChangeNotifierProvider(create: (context)=>CartProvider()),
           ChangeNotifierProvider(create: (context)=>CategoryEachProvider()),
-          ChangeNotifierProvider(create: (context)=>AddtoCartProvider())
+          ChangeNotifierProvider(create: (context)=>AddtoCartProvider()),
+          ChangeNotifierProvider(create: (context)=>UserProvider()),
+          ChangeNotifierProvider(create: (context)=>FeedbackProvider())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -70,7 +73,7 @@ class MyApp extends StatelessWidget {
     return AllCategoryEachScreen(cateproduct: data['category_id']);
   } else {
     print('Unexpected argument type: ${data.runtimeType}');
-    return Scaffold( 
+    return const Scaffold( 
       body: Center(
         child: Text(''),
       ),

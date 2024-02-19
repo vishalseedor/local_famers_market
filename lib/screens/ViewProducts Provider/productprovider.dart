@@ -27,12 +27,18 @@ class ProductProvider with ChangeNotifier {
     return _isError;
   }
 
+  ProductDetails?productDetail;
+
   List<ProductDetails> _products = [];
   List<ProductDetails> get products {
     return [..._products];
   }
+   List<ProductDetails> _filteredProducts = [];
+  List<ProductDetails> get filteredProducts {
+    return [..._filteredProducts];
+  }
 
-  Future getAllProductData({required BuildContext context}) async {
+  Future getAllProductData({ BuildContext? context,String? value}) async {
     try {
       _isLoading = true;
       // var headers = {'Cookie': 'ci_session=c7lis868nec6nl8r1lb5el72q8n26upv'};
@@ -49,6 +55,7 @@ class ProductProvider with ChangeNotifier {
       if (response.statusCode == 200) {
         _isLoading = false;
         _products = [];
+        _filteredProducts=[];
         var extractedData = json.decode(response.body);
         //  print(json.decode(response.body) + 'printed extrated data');
         final List<dynamic> productDetails = extractedData['productDetails'];
@@ -68,42 +75,6 @@ class ProductProvider with ChangeNotifier {
 
               
             ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             
           );
@@ -128,5 +99,49 @@ class ProductProvider with ChangeNotifier {
       notifyListeners();
     }
   }
+  Future getSearchdata({dynamic value}) async {
+    try {
+      _isLoading = true;
+      // var headers = {'Cookie': 'ci_session=c7lis868nec6nl8r1lb5el72q8n26upv'};
+      var response = await https.get(
+        Uri.parse(
+            "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/search_product.php?product=$value"),
+      );
+
+      print(
+          "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/search_product.php?product=$value");
+
+      print(response.body);
+
+      if (response.statusCode == 200) {
+        _isLoading = false;
+        _products = [];
+        _filteredProducts=[];
+        var extractedData = json.decode(response.body);
+        productDetail=ProductDetails.fromJson(extractedData);
+        //  print(json.decode(response.body) + 'printed extrated data');
+        final List<dynamic> productDetai= extractedData['productDetails'];
+        
+        
+
+        print('product details' + _products.toString());
+        _isLoading = false;
+        print('products loading completed --->' + 'loading data');
+        notifyListeners();
+      } else {
+        _isLoading = true;
+        notifyListeners();
+      }
+    } on HttpException catch (e) {
+      // ignore: prefer_interpolation_to_compose_strings
+      print('error in product prod -->>' + e.toString());
+      print('Product Data is one by one loaded the product' + e.toString());
+      _isLoading = false;
+
+      _isSelect = false;
+      notifyListeners();
+    }
+  }
+
  
 }

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:local_farmers_project/screens/CartScreen/cartscreen.dart';
 import 'package:local_farmers_project/screens/ItemDetailsScreen/itemdetailsscreen.dart';
-import 'package:local_farmers_project/screens/Widgets/demowidget.dart';
+
 
 import '../../Colors/colors.dart';
 
@@ -100,7 +100,7 @@ class _AllEachCategoryWidgetState extends State<AllEachCategoryWidget > {
                   //   ),
                   // )
                
-                const DemoScreensss()
+               // const DemoScreensss()
                 ],
               )
             ],

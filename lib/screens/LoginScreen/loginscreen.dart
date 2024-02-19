@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart'as http;
 import 'package:local_farmers_project/colors/colors.dart';
+import 'package:local_farmers_project/screens/LoginScreen/loginmodel.dart';
 import 'package:local_farmers_project/screens/LoginScreen/roundbutton.dart';
+import 'package:local_farmers_project/screens/RegisterScreen/getstore.dart';
 import 'package:local_farmers_project/screens/RegisterScreen/registerscreen.dart';
 import 'package:local_farmers_project/screens/SideBottomNavigation/sidebottomnavigation.dart';
 
@@ -24,7 +26,8 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController phonecontroller = TextEditingController();
   TextEditingController passwordcontroller =TextEditingController();
   final _formKey = GlobalKey<FormState>();
-   void loginAdopter(String phone,String password
+  LoginModel ?loginModel;
+  void loginAdopter(String phone,String password
 
 ) async {
   const url = 'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/user_login.php';
@@ -38,13 +41,21 @@ class _LoginScreenState extends State<LoginScreen> {
   try {
     final response = await http.post(
       Uri.parse(url),
+      
       body: body,
       
     );
+    print(url);
     var jsonData=json.decode(response.body);
 
     if (response.statusCode == 200) {
+   
       if(jsonData['status']==true){
+      //      getstorage.write("phone",loginModel!.phone.toString());
+      // getstorage.write("password",loginModel!.password.toString());
+      // getstorage.read(phone);
+      // phone=getstorage.read("phone");
+      
           ScaffoldMessenger.of(context).showSnackBar(
          SnackBar(
           backgroundColor: greencolor,
@@ -52,6 +63,7 @@ class _LoginScreenState extends State<LoginScreen> {
           duration: const Duration(seconds: 4),
         ),
       );
+      
       Navigator.push(context,MaterialPageRoute(builder:(context)=>const SideBottomNavigation()));
       print(body);
       print("Response body${response.body}");
@@ -64,7 +76,7 @@ class _LoginScreenState extends State<LoginScreen> {
          ScaffoldMessenger.of(context).showSnackBar(
          SnackBar(
           backgroundColor: greencolor,
-          content: const Text('Invalid phone and password',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+          content: const Text('Invalid email and password',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
           duration: const Duration(seconds: 4),
         ),
       );
@@ -79,7 +91,6 @@ class _LoginScreenState extends State<LoginScreen> {
     print('Error: $error');
   }
 }
-
 
 
  
@@ -110,9 +121,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             width: 3500,
                           ),
                         ),
-                        Center(
-                          child: const Text(
-                            'LOGIN',
+                        const Center( 
+                          child: Text(
+                            'LOGIN ',
                             style:
                                 TextStyle(fontSize: 28, fontWeight: FontWeight.bold,color: Colors.white),
                           ),
@@ -128,7 +139,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         SizedBox(height: size.height * 0.01),
                         TextFormField(
                           
-                          //  controller: emailController,
+                           controller: phonecontroller,
                           keyboardType: TextInputType.phone,
                           decoration:  InputDecoration(
                             
@@ -139,6 +150,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               hintText: 'Phone',
                               hintStyle: TextStyle(fontSize: 13),
                               border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide.none)),
+                              validator: (value) {
+                                if(value!.isEmpty){
+                                  return 'Please enter your phone number';
+                                }
+                              },
                         ),
                         SizedBox(height: size.height * 0.03),
                         const Text(
@@ -148,7 +164,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         SizedBox(height: size.height * 0.01),
                         TextFormField(
-                          //  controller: emailController,
+                            controller: passwordcontroller,
                           keyboardType: TextInputType.phone,
                           decoration:  InputDecoration(
                              fillColor: Colors.grey[400],
@@ -158,6 +174,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               hintText: 'Password',
                               hintStyle: TextStyle(fontSize: 13),
                               border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide.none)),
+                              validator: (value) {
+                                if(value!.isEmpty){
+                                  return 'Please enter your password';
+                                }
+                              },
                         ),
                         SizedBox(
                           height: size.height * 0.02,
@@ -223,8 +244,19 @@ class _LoginScreenState extends State<LoginScreen> {
                         RoundButton(
                             title: 'Login',
                             loading: loading,
-                            onTap: () {
-                            Navigator.push(context,MaterialPageRoute(builder:(context)=>const SideBottomNavigation()));
+                            onTap: () async{
+                                   if (_formKey.currentState!.validate()) {
+                                  loginAdopter(
+                       phonecontroller.text.toString(),
+                       passwordcontroller.text.toString(),
+                       
+                     
+                
+                 );
+
+
+                      }
+                          
                             }),
                                 SizedBox(
                           height: size.height * 0.01,

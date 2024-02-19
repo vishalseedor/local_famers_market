@@ -3,10 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as https;
 import 'package:local_farmers_project/screens/CartProvider/cartmodel.dart';
-import 'package:local_farmers_project/screens/FarmerProvider/farmermodel.dart';
-import 'package:local_farmers_project/screens/ViewProducts%20Provider/productmodel.dart';
 
-class CartProvider with ChangeNotifier {
+
+class CartProvider extends ChangeNotifier {
+  String? userid;
   bool _isLoading = false;
   bool get islOading {
     return _isLoading;
@@ -28,13 +28,13 @@ class CartProvider with ChangeNotifier {
   bool get isError {
     return _isError;
   }
-
+  CartDetails?cartDetails;
   List<CartDetails> _carts = [];
   List<CartDetails> get carts {
     return [..._carts];
   }
 
-  Future getAllCartsData({required BuildContext context}) async {
+  Future getAllCartsData({BuildContext? context}) async {
     try {
       _isLoading = true;
       // var headers = {'Cookie': 'ci_session=c7lis868nec6nl8r1lb5el72q8n26upv'};
@@ -63,7 +63,8 @@ class CartProvider with ChangeNotifier {
               productName: cartDetails[i]['product_name'].toString(),
               price:cartDetails[i]['price'].toString(),
               quantity: cartDetails[i]['quantity'].toString(),
-              itemTotal: cartDetails[i]['item_total'].toString()
+              itemTotal: cartDetails[i]['item_total'].toString(),
+              delivertfee: cartDetails[i]['deliveryFee'].toString()
 
               
             ),
@@ -89,58 +90,46 @@ class CartProvider with ChangeNotifier {
       notifyListeners();
     }
   }
+  Future<void> deleteCart(String cartId) async {
+    final url = Uri.parse('http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/delete_cart.php?cart_id=$cartId');
+    
+    try {
+      final response = await https.delete(url);
 
-  //  Future cartProductPost({
-  //   required BuildContext context,
-  //   required String productId,
-  //   required int quantity,
-  // }) async {
-   
-  //   try {
-  //     // final data = Provider.of<UserDetails>(context, listen: false);
-  //     //data.getAllDetails();
-  //     // var headers = {
-  //     //   'Content-Type': 'application/json',
-  //     // };
-  //     print('');
-  //     print(productId);
-  //     var body = json.encode({
-  //       "userid": data.id,
-  //       "clientid": client_id,
-  //       "productid": productId,
-  //       "status": cartStatus,
-  //       "created_date": dateTimeNow,
-  //       "quantity": quantity
-  //     });
-  //     print("qqqq--->$quantity");
-  //     print(body);
-  //     var response = await http.post(
-  //         Uri.parse('http://eiuat.seedors.com:8290/customer-app/addtocart'),
-  //         headers: headers,
-  //         body: body);
-  //     print('http://eiuat.seedors.com:8290/customer-app/addtocart' +
-  //         'cartproductpost');
+      if (response.statusCode == 200) {
+        getAllCartsData();
+        // Cart deleted successfully
+        print('Cart deleted successfully');
+      } else {
+        // Failed to delete cart
+        print('Failed to delete cart: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error deleting cart: $e');
+    }
+  }
+  Future<void> clearCart({String? userid}) async {
+    final url = Uri.parse('http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/clear_cart.php?user_id=$userid');
+    
+    try {
+      final response = await https.delete(url);
 
-  //     statesCodec = response.statusCode.toString();
-  //     var jsonData = json.decode(response.body);
+      if (response.statusCode == 200) {
+        getAllCartsData();
+        // Cart deleted successfully
+        print('Cart deleted successfully');
+      } else {
+        // Failed to delete cart
+        print('Failed to delete cart: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error deleting cart: $e');
+    }
+  }
 
-  //     print("newjason -->$jsonData");
-  //     statesCodec = jsonData['code'];
-  //     print(response.statusCode);
-  //     // print(response.body);
-  //     if (response.statusCode == 202) {
-  //       print(response.body);
-  //       print('successfully post');
-  //     } else {
-  //       print(response.reasonPhrase);
-  //     }
-  //     print(statesCodec.toString() + 'Status code 2');
-  //     print(response.statusCode.toString() + 'Status code 2');
-  //     return response.statusCode.toString();
-  //   } catch (e) {
-  //     print(e.toString());
-  //   }
-  // }
 
  
 }
+
+
+ 
