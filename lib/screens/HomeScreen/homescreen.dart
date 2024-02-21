@@ -33,7 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
      final product = Provider.of<ProductProvider>(context);
-     final userprovider=Provider.of<UserProvider>(context);
+     final userprovider=Provider.of<UserProvider>(context,listen: false);
 
     return Scaffold(
       backgroundColor: Colors.grey[200],
@@ -228,9 +228,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         focusedBorder: InputBorder.none,
                       ),
                       style: TextStyle(color: Colors.black),
-                      onChanged: (value) {
-                        product.getSearchdata(value: value);
-                      },
+                     onChanged: (value) {
+  if (value != null) {
+    String searchQuery = value.toLowerCase();
+    product.getSearchData(value: searchQuery );
+  }
+},
+
                     ),
                   ),
                 ),

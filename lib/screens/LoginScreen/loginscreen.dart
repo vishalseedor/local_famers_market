@@ -8,6 +8,8 @@ import 'package:local_farmers_project/screens/LoginScreen/roundbutton.dart';
 import 'package:local_farmers_project/screens/RegisterScreen/getstore.dart';
 import 'package:local_farmers_project/screens/RegisterScreen/registerscreen.dart';
 import 'package:local_farmers_project/screens/SideBottomNavigation/sidebottomnavigation.dart';
+import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
+import 'package:provider/provider.dart';
 
 
 
@@ -27,6 +29,7 @@ class _LoginScreenState extends State<LoginScreen> {
   TextEditingController passwordcontroller =TextEditingController();
   final _formKey = GlobalKey<FormState>();
   LoginModel ?loginModel;
+ 
   void loginAdopter(String phone,String password
 
 ) async {
@@ -98,6 +101,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+     final userdata=Provider.of<UserProvider>(context);
     return  SafeArea(
         child: Scaffold(
           backgroundColor: Color.fromARGB(255, 15, 59, 16),

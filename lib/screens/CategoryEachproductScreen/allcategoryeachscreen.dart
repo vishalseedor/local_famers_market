@@ -3,6 +3,7 @@ import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/CartProvider/cartprovider.dart';
 import 'package:local_farmers_project/screens/CategoryEachproductScreen/alleachcategory.dart';
 import 'package:local_farmers_project/screens/CategoryEachproductScreen/caregoryeachprovider.dart';
+import 'package:local_farmers_project/screens/CategoryProvider/emptycategoryscreen.dart';
 import 'package:local_farmers_project/screens/ExtraScreens/loadingscreen.dart';
 
 import 'package:provider/provider.dart';
@@ -75,11 +76,7 @@ class _AllCategoryEachScreenState extends State<AllCategoryEachScreen> {
                         ],
                       )
                     : cateproduct.category.isEmpty
-                        ? Center(
-                            child: Text(
-                            'No Category Products...',
-                            style: TextStyle(color:greencolor,fontWeight: FontWeight.bold),
-                          ))
+                        ? EmptyCategoryScreen()
                         : SizedBox(
                             height: size.height * 0.6,
                             child: GridView.builder(

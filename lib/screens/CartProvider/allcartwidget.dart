@@ -32,11 +32,13 @@ class AllCartWidget extends StatefulWidget {
 }
 
 class _AllCartWidgetState extends State<AllCartWidget> {
+  
   int quanity=1;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final cart = Provider.of<CartProvider>(context);
+    int itemTotal = int.parse(widget.price) * quanity;
     //  final pet = Provider.of<PetModel>(context);
 
     return Padding(
@@ -54,7 +56,7 @@ class _AllCartWidgetState extends State<AllCartWidget> {
             //   color: Colors.white,
             // ),
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -139,6 +141,7 @@ class _AllCartWidgetState extends State<AllCartWidget> {
                                 icon: Icon(IconlyLight.delete))
                           ],
                         ),
+                        
                       ],
                     ),
                   ),
@@ -169,7 +172,7 @@ class _AllCartWidgetState extends State<AllCartWidget> {
           //               ),
           //             ),
           //             Text(
-          //              '₹ ${widget.itemtotal}',
+          //              '₹ ${itemTotal}',
           //               style: const TextStyle(
           //                 fontSize: 14,
           //                 fontWeight: FontWeight.bold,

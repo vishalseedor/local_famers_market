@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:local_farmers_project/colors/colors.dart';
+import 'package:local_farmers_project/screens/CartProvider/cartprovider.dart';
 import 'package:local_farmers_project/screens/CountScreen/countscreen.dart';
+import 'package:provider/provider.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({Key? key}) : super(key: key);
@@ -15,6 +17,7 @@ class _CartScreenState extends State<CartScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final cart=Provider.of<CartProvider>(context);
     return Scaffold(
       backgroundColor: backgroundcolor,
       appBar: AppBar(

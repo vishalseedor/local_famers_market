@@ -1,6 +1,10 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
+
 import 'package:flutter/material.dart';
 import 'package:local_farmers_project/colors/colors.dart';
+import 'package:local_farmers_project/screens/SupportScreen/feebackscreen.dart';
+import 'package:local_farmers_project/screens/SupportScreen/supportprovider.dart';
+import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 
 class SupportScreen extends StatefulWidget {
@@ -17,6 +21,7 @@ class _SupportScreenState extends State<SupportScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final support=Provider.of<FeedbackProvider>(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: backgroundcolor,
@@ -55,36 +60,42 @@ class _SupportScreenState extends State<SupportScreen> {
                   SizedBox(
                     height: size.height * 0.06,
                   ),
-                  Card(
-                    shadowColor: Colors.grey,
-                    // height: size.height * 0.048,
-                    // width: size.width * 0.90,
-                    // decoration: BoxDecoration(
-                    //   boxShadow: [
-                    //     BoxShadow(
-                    //         color: Colors.grey.withOpacity(0.4),
-                    //         spreadRadius: 1,
-                    //         blurRadius: 1)
-                    //   ],
-                    //   color: Colors.white,
-                    //   borderRadius: BorderRadius.circular(5),
-                    // ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'Call us',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 13),
-                          ),
-                          Icon(
-                            Icons.call,
-                            color: greencolor,
-                            size: 20,
-                          )
-                        ],
+                  InkWell(
+                    onTap: (){
+                 launch('tele:+91 8870120688');
+                      
+                    },
+                    child: Card(
+                      shadowColor: Colors.grey,
+                      // height: size.height * 0.048,
+                      // width: size.width * 0.90,
+                      // decoration: BoxDecoration(
+                      //   boxShadow: [
+                      //     BoxShadow(
+                      //         color: Colors.grey.withOpacity(0.4),
+                      //         spreadRadius: 1,
+                      //         blurRadius: 1)
+                      //   ],
+                      //   color: Colors.white,
+                      //   borderRadius: BorderRadius.circular(5),
+                      // ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              'Call us',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 13),
+                            ),
+                            Icon(
+                              Icons.call,
+                              color: greencolor,
+                              size: 20,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -209,12 +220,14 @@ class _SupportScreenState extends State<SupportScreen> {
                             border: InputBorder.none,
                             focusedBorder: InputBorder.none,
                           ),
-                          style: const TextStyle(color: Colors.white),
+                          style: const TextStyle(color: Colors.black),
                           validator: (value) {
                             if(value!.isEmpty){
                               return 'Please enter your comments';
                             }
+                            
                           },
+                        
                         ),
                       ),
                     ),
@@ -230,7 +243,8 @@ class _SupportScreenState extends State<SupportScreen> {
                             ElevatedButton.styleFrom(backgroundColor: greencolor),
                         onPressed: ()async {
                         if (_formKey.currentState!.validate()) {
-                                  commentcontroller.toString();
+                                support.addFeedback(comments: commentcontroller.toString());
+                                await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>FeedbackSuccessScreen()));
 
 
                       }

@@ -110,14 +110,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         Row(
                           children: [
                             Icon(
-                              Icons.question_mark_sharp,
+                              Icons.person,
                               size: 25,
                               color: greencolor,
                             ),
                             SizedBox(
                               width: size.width * 0.02,
                             ),
-                            const Text('FAQs',
+                            const Text('Edit Profile',
                                 style: TextStyle(
                                     fontSize: 15, fontWeight: FontWeight.w600)),
                           ],
@@ -125,7 +125,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         const Padding(
                           padding: EdgeInsets.only(left: 31),
                           child: Text(
-                            'Get your question answered',
+                            'Edit your profile',
                             style: TextStyle(color: Colors.grey, fontSize: 13),
                           ),
                         )

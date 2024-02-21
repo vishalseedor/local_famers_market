@@ -161,7 +161,7 @@ class _LeftWidgetState extends State<LeftWidget> with TickerProviderStateMixin {
                 widget.onPageSelected(index);
               },
               child: Padding(
-                padding: const EdgeInsets.only(bottom: 50, left: 6),
+                padding: const EdgeInsets.only(bottom: 70, left: 6),
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: VerticalText(

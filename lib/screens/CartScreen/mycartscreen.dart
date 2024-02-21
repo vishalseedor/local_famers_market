@@ -63,7 +63,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
             onPressed: (){
                cart.clearCart(userid:cart.userid);
             
-           }, child:Center(child: const Text('Clear Cart',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 13),))),
+           }, child:const Center(child: Text('Clear Cart',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 13),))),
          )
         ],
       ),

@@ -50,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
    // backgroundColor:purpleColor,
       body: Container(
         decoration: const BoxDecoration(
-        image: DecorationImage(image:AssetImage('assets/P.jpg'),fit: BoxFit.cover)
+        image: DecorationImage(image:AssetImage('assets/p.jpg'),fit: BoxFit.cover)
         ),
         
       ),

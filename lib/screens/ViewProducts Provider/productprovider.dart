@@ -99,49 +99,81 @@ class ProductProvider with ChangeNotifier {
       notifyListeners();
     }
   }
-  Future getSearchdata({dynamic value}) async {
-    try {
-      _isLoading = true;
-      // var headers = {'Cookie': 'ci_session=c7lis868nec6nl8r1lb5el72q8n26upv'};
-      var response = await https.get(
-        Uri.parse(
-            "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/search_product.php?product=$value"),
-      );
+//  Future  getSearchData({dynamic value}) async {
+//   try {
+//     _isLoading = true;
+//     var response = await https.get(
+//       Uri.parse(
+//           "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/search_product.php?product=$value"),
+//     );
 
-      print(
-          "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/search_product.php?product=$value");
+//     print(
+//         "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/search_product.php?product=$value");
 
-      print(response.body);
+//     if (response.statusCode == 200) {
+//       var responseBody = response.body;
+//       if (responseBody != null && responseBody.isNotEmpty) {
+//         print(responseBody);
 
-      if (response.statusCode == 200) {
-        _isLoading = false;
-        _products = [];
-        _filteredProducts=[];
-        var extractedData = json.decode(response.body);
-        productDetail=ProductDetails.fromJson(extractedData);
-        //  print(json.decode(response.body) + 'printed extrated data');
-        final List<dynamic> productDetai= extractedData['productDetails'];
+//         _products = [];
+//         _filteredProducts = [];
+
+//         var extractedData = json.decode(responseBody);
+//         productDetail = ProductDetails.fromJson(extractedData);
+//         final List<dynamic> productDetailList = extractedData['productDetails'];
         
-        
+//         print('product details' + _products.toString());
+//         print('products loading completed --->' + 'loading data');
+//       } else {
+//         print('Response body is null or empty.');
+//       }
+//     } else {
+//       print('Failed to fetch data. Status code: ${response.statusCode}');
+//     }
+//   } on SocketException catch (e) {
+//     print('Socket Exception: $e');
+//   } on HttpException catch (e) {
+//     print('HTTP Exception: $e');
+//   } on FormatException catch (e) {
+//     print('Format Exception: $e');
+//   } catch (e) {
+//     print('Error: $e');
+//   } finally {
+//     _isLoading = false;
+//     notifyListeners();
+//   }
+// }
+Future<void> getSearchData({dynamic value}) async {
+  _isLoading = true;
+  var response = await https.get(
+    Uri.parse("http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/search_product.php?product=$value"),
+  );
 
-        print('product details' + _products.toString());
-        _isLoading = false;
-        print('products loading completed --->' + 'loading data');
-        notifyListeners();
-      } else {
-        _isLoading = true;
-        notifyListeners();
-      }
-    } on HttpException catch (e) {
-      // ignore: prefer_interpolation_to_compose_strings
-      print('error in product prod -->>' + e.toString());
-      print('Product Data is one by one loaded the product' + e.toString());
-      _isLoading = false;
+  print("http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/search_product.php?product=$value");
 
-      _isSelect = false;
-      notifyListeners();
+  if (response.statusCode == 200) {
+    var responseBody = response.body;
+    if (responseBody != null && responseBody.isNotEmpty) {
+      print(responseBody);
+
+      _products = [];
+      _filteredProducts = [];
+
+      var extractedData = json.decode(responseBody);
+      productDetail = ProductDetails.fromJson(extractedData);
+      final List<dynamic> productDetailList = extractedData['productDetails'];
+
+      print('product details' + _products.toString());
+      print('products loading completed --->' + 'loading data');
+    } else {
+      print('Response body is null or empty.');
     }
+  } else {
+    print('Failed to fetch data. Status code: ${response.statusCode}');
   }
 
- 
+  _isLoading = false;
+  notifyListeners();
+}
+
 }
