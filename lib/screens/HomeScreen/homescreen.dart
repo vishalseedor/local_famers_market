@@ -23,17 +23,17 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     Provider.of<ProductProvider>(context, listen: false)
         .getAllProductData(context: context);
-        
-  
+
     super.initState();
-   
   }
+
+  TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-     final product = Provider.of<ProductProvider>(context);
-     final userprovider=Provider.of<UserProvider>(context,listen: false);
+    final product = Provider.of<ProductProvider>(context);
+    final userprovider = Provider.of<UserProvider>(context, listen: false);
 
     return Scaffold(
       backgroundColor: Colors.grey[200],
@@ -54,7 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   const Text(
                     'Local Farmers Market',
-                    style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
                     width: 5,
@@ -62,7 +62,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   InkWell(
                       onTap: () {
                         // Navigator.push(
-                        //     context, 
+                        //     context,
                         //     MaterialPageRoute(
                         //         builder: (context) => const AddressScreen()));
                       },
@@ -90,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
             },
             child: GestureDetector(
               onTap: () {
-                  showDialog(
+                showDialog(
                   context: context,
                   builder: (BuildContext context) {
                     return AlertDialog(
@@ -102,7 +102,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           const Text('Are you sure want to exit this app?'),
                       actions: <Widget>[
                         ElevatedButton(
-                          style: ElevatedButton.styleFrom(backgroundColor: greencolor),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: greencolor),
                           onPressed: () {
                             Navigator.push(
                                 context,
@@ -112,13 +113,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Text(
                             'OK',
                             style: TextStyle(
-                              fontSize: 14,
+                                fontSize: 14,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
                         ElevatedButton(
-                                style: ElevatedButton.styleFrom(backgroundColor: greencolor),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: greencolor),
                           onPressed: () {
                             // Close the dialog
                             Navigator.of(context).pop();
@@ -126,7 +128,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: Text(
                             'CANCEL',
                             style: TextStyle(
-                               fontSize: 14,
+                                fontSize: 14,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),
                           ),
@@ -159,7 +161,6 @@ class _HomeScreenState extends State<HomeScreen> {
                   height: size.height * 0.01,
                 ),
                 ImageSlideshow(
-
                   //  indicatorRadius: ,
                   width: double.infinity,
                   height: size.height * 0.26,
@@ -167,8 +168,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   indicatorColor: Colors.blue,
                   indicatorBackgroundColor: Colors.grey,
                   children: [
-                     Container(
-                     // width: 300,
+                    Container(
+                      // width: 300,
                       // margin: EdgeInsets.all(10),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(16),
@@ -178,7 +179,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     Container(
-                    //  width: 500,
+                      //  width: 500,
                       // margin: EdgeInsets.all(10),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(14),
@@ -188,7 +189,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     Container(
-                    //  width: 300,
+                      //  width: 300,
                       //  margin: EdgeInsets.all(10),
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(16),
@@ -197,20 +198,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                   
-                  
                   ],
                   onPageChanged: (value) {},
                   autoPlayInterval: 3000,
                   isLoop: false,
-                 ),
+                ),
                 SizedBox(
                   height: size.height * 0.03,
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 1),
-                  child:  Center(
+                  child: Center(
                     child: TextFormField(
+                      controller: searchController,
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         fillColor: Colors.white,
@@ -228,13 +228,13 @@ class _HomeScreenState extends State<HomeScreen> {
                         focusedBorder: InputBorder.none,
                       ),
                       style: TextStyle(color: Colors.black),
-                     onChanged: (value) {
-  if (value != null) {
-    String searchQuery = value.toLowerCase();
-    product.getSearchData(value: searchQuery );
-  }
-},
-
+                      onChanged: (value) {
+                        if (value != "") {
+                          String searchQuery = value.toLowerCase();
+                          print("hhhhhhhhh");
+                          product.getSearchData(value: searchQuery);
+                        }
+                      },
                     ),
                   ),
                 ),
@@ -251,7 +251,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: size.height * 0.01,
                 ),
-               
                 SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
                   child: Column(
@@ -488,7 +487,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     ],
                   ),
                 ),
-               
                 SizedBox(
                   height: size.height * 0.01,
                 ),
@@ -500,47 +498,88 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ),
                 SizedBox(height: size.height * 0.01),
-              
-                 product.loadingSpinner
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const LoadingScreen(title: 'Loading'),
-                        CircularProgressIndicator(
-                          color: greencolor,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                     
-                      ],
-                    )
-                  : product.products.isEmpty
-                      ? Center(
-                          child: Text(
-                          'No Pets...',
-                          style: TextStyle(color:greencolor),
-                        ))
-                      : SizedBox(
-                          height: size.height * 0.6,
-                          child: GridView.builder(
-                            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,crossAxisSpacing: 10,mainAxisSpacing: 10,childAspectRatio: 0.9),
-                            scrollDirection: Axis.vertical,
-                            itemCount: product.products.length,
-                            itemBuilder: (context, intex) {
-                              return AllProductWidget(
-                                productid: product.products[intex].productId,
-                                productname: product.products[intex].productName,
-                                productprice: product.products[intex].price,
-                                quantity: product.products[intex].quantity,
-                                image: product.products[intex].image,
-                              
-                              );
-                            },
+                product.loadingSpinner
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const LoadingScreen(title: 'Loading'),
+                          CircularProgressIndicator(
+                            color: greencolor,
                           ),
-                        ),        
-              
-              
+                          const SizedBox(
+                            width: 10,
+                          ),
+                        ],
+                      )
+                    : product.products.isEmpty
+                        ? Center(
+                            child: Text(
+                            'No Pets...',
+                            style: TextStyle(color: greencolor),
+                          ))
+                        : product.searchProducts.isEmpty &&
+                                searchController.text.isNotEmpty
+                            ? Center(
+                                child: Text(
+                                'No Pets available...',
+                                style: TextStyle(color: greencolor),
+                              ))
+                            : searchController.text.isNotEmpty &&
+                                    product.searchProducts.isNotEmpty
+                                ? SizedBox(
+                                    height: size.height * 0.6,
+                                    child: GridView.builder(
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 2,
+                                              crossAxisSpacing: 10,
+                                              mainAxisSpacing: 10,
+                                              childAspectRatio: 0.9),
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: product.searchProducts.length,
+                                      itemBuilder: (context, intex) {
+                                        return AllProductWidget(
+                                          productid: product
+                                              .searchProducts[intex].productId,
+                                          productname: product
+                                              .searchProducts[intex]
+                                              .productName,
+                                          productprice: product
+                                              .searchProducts[intex].price,
+                                          quantity: product
+                                              .searchProducts[intex].quantity,
+                                          image: product
+                                              .searchProducts[intex].image,
+                                        );
+                                      },
+                                    ),
+                                  )
+                                : SizedBox(
+                                    height: size.height * 0.6,
+                                    child: GridView.builder(
+                                      gridDelegate:
+                                          const SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisCount: 2,
+                                              crossAxisSpacing: 10,
+                                              mainAxisSpacing: 10,
+                                              childAspectRatio: 0.9),
+                                      scrollDirection: Axis.vertical,
+                                      itemCount: product.products.length,
+                                      itemBuilder: (context, intex) {
+                                        return AllProductWidget(
+                                          productid:
+                                              product.products[intex].productId,
+                                          productname: product
+                                              .products[intex].productName,
+                                          productprice:
+                                              product.products[intex].price,
+                                          quantity:
+                                              product.products[intex].quantity,
+                                          image: product.products[intex].image,
+                                        );
+                                      },
+                                    ),
+                                  ),
               ],
             ),
           ),

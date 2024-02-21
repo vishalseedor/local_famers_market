@@ -27,18 +27,24 @@ class ProductProvider with ChangeNotifier {
     return _isError;
   }
 
-  ProductDetails?productDetail;
+  ProductDetails? productDetail;
 
   List<ProductDetails> _products = [];
   List<ProductDetails> get products {
     return [..._products];
   }
-   List<ProductDetails> _filteredProducts = [];
+
+  List<ProductDetails> _searchProducts = [];
+  List<ProductDetails> get searchProducts {
+    return [..._searchProducts];
+  }
+
+  List<ProductDetails> _filteredProducts = [];
   List<ProductDetails> get filteredProducts {
     return [..._filteredProducts];
   }
 
-  Future getAllProductData({ BuildContext? context,String? value}) async {
+  Future getAllProductData({BuildContext? context, String? value}) async {
     try {
       _isLoading = true;
       // var headers = {'Cookie': 'ci_session=c7lis868nec6nl8r1lb5el72q8n26upv'};
@@ -55,28 +61,24 @@ class ProductProvider with ChangeNotifier {
       if (response.statusCode == 200) {
         _isLoading = false;
         _products = [];
-        _filteredProducts=[];
+        _filteredProducts = [];
         var extractedData = json.decode(response.body);
         //  print(json.decode(response.body) + 'printed extrated data');
         final List<dynamic> productDetails = extractedData['productDetails'];
         for (var i = 0; i < productDetails.length; i++) {
           _products.add(
             ProductDetails(
-              productId: productDetails[i]['product_id'].toString(),
-              productName: productDetails[i]['product_name'].toString(),
-              quantity: productDetails[i]['quantity'].toString(),
-              description: productDetails[i]['description'].toString(),
-              additionalInformation:productDetails[i]['additional_information'].toString(),
-              price:productDetails[i]['price'].toString(),
-              category: productDetails[i]['category'].toString(),
-              categoryId: productDetails[i]['category_id'].toString(),
-              farmer: productDetails[i]['farmer'].toString(),
-              image: productDetails[i]['image'.toString()]  
-
-              
-            ),
-
-            
+                productId: productDetails[i]['product_id'].toString(),
+                productName: productDetails[i]['product_name'].toString(),
+                quantity: productDetails[i]['quantity'].toString(),
+                description: productDetails[i]['description'].toString(),
+                additionalInformation:
+                    productDetails[i]['additional_information'].toString(),
+                price: productDetails[i]['price'].toString(),
+                category: productDetails[i]['category'].toString(),
+                categoryId: productDetails[i]['category_id'].toString(),
+                farmer: productDetails[i]['farmer'].toString(),
+                image: productDetails[i]['image'.toString()]),
           );
         }
         ;
@@ -121,7 +123,7 @@ class ProductProvider with ChangeNotifier {
 //         var extractedData = json.decode(responseBody);
 //         productDetail = ProductDetails.fromJson(extractedData);
 //         final List<dynamic> productDetailList = extractedData['productDetails'];
-        
+
 //         print('product details' + _products.toString());
 //         print('products loading completed --->' + 'loading data');
 //       } else {
@@ -143,37 +145,56 @@ class ProductProvider with ChangeNotifier {
 //     notifyListeners();
 //   }
 // }
-Future<void> getSearchData({dynamic value}) async {
-  _isLoading = true;
-  var response = await https.get(
-    Uri.parse("http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/search_product.php?product=$value"),
-  );
+  Future<void> getSearchData({dynamic value}) async {
+    _isLoading = true;
+    var response = await https.get(
+      Uri.parse(
+          "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/search_product.php?product=$value"),
+    );
 
-  print("http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/search_product.php?product=$value");
+    print(
+        "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/search_product.php?product=$value");
 
-  if (response.statusCode == 200) {
-    var responseBody = response.body;
-    if (responseBody != null && responseBody.isNotEmpty) {
-      print(responseBody);
+    if (response.statusCode == 200) {
+      var responseBody = response.body;
 
-      _products = [];
-      _filteredProducts = [];
+        print(responseBody);
 
-      var extractedData = json.decode(responseBody);
-      productDetail = ProductDetails.fromJson(extractedData);
-      final List<dynamic> productDetailList = extractedData['productDetails'];
+        _searchProducts = [];
 
-      print('product details' + _products.toString());
-      print('products loading completed --->' + 'loading data');
+        var extractedData = json.decode(response.body);
+        //  print(json.decode(response.body) + 'printed extrated data');
+        final List<dynamic> productDetails = extractedData['productDetails'];
+        for (var i = 0; i < productDetails.length; i++) {
+          _searchProducts.add(
+            ProductDetails(
+                productId: productDetails[i]['product_id'].toString(),
+                productName: productDetails[i]['product_name'].toString(),
+                quantity: productDetails[i]['quantity'].toString(),
+                description: productDetails[i]['description'].toString(),
+                additionalInformation:
+                    productDetails[i]['additional_information'].toString(),
+                price: productDetails[i]['price'].toString(),
+                category: productDetails[i]['category'].toString(),
+                categoryId: productDetails[i]['category_id'].toString(),
+                farmer: productDetails[i]['farmer'].toString(),
+                image: ""),
+          );
+        }
+
+        print('product details search' + _searchProducts.toString());
+        print('products loading completed --->' + 'loading data');
+          _isLoading = false;
+        notifyListeners();
+
+
     } else {
-      print('Response body is null or empty.');
+        _isLoading = false;
+          notifyListeners();
+      print('Failed to fetch data. Status code: ${response.statusCode}');
     }
-  } else {
-    print('Failed to fetch data. Status code: ${response.statusCode}');
+
+    _isLoading = false;
+    notifyListeners();
   }
-
-  _isLoading = false;
-  notifyListeners();
-}
-
 }
