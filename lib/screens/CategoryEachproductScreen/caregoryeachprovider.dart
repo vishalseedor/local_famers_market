@@ -30,6 +30,8 @@ class CategoryEachProvider with ChangeNotifier {
     return _isError;
   }
 
+  
+
   List<CategoryDetails> _category = [];
   List<CategoryDetails> get category {
     return [..._category];
@@ -98,5 +100,6 @@ class CategoryEachProvider with ChangeNotifier {
       notifyListeners();
     }
   }
+  
  
 }

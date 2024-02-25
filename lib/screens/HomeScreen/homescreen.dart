@@ -125,7 +125,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             // Close the dialog
                             Navigator.of(context).pop();
                           },
-                          child: Text(
+                          child: const Text(
                             'CANCEL',
                             style: TextStyle(
                                 fontSize: 14,
@@ -206,37 +206,32 @@ class _HomeScreenState extends State<HomeScreen> {
                 SizedBox(
                   height: size.height * 0.03,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 1),
-                  child: Center(
-                    child: TextFormField(
-                      controller: searchController,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        fillColor: Colors.white,
-                        filled: true,
-                        prefixIcon: Icon(
-                          Icons.search,
-                          size: 17,
-                        ),
-                        hintText: "Search a Products",
-                        hintStyle: TextStyle(
-                            color: Colors.grey,
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600),
-                        border: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                      ),
-                      style: TextStyle(color: Colors.black),
-                      onChanged: (value) {
-                        if (value != "") {
-                          String searchQuery = value.toLowerCase();
-                          print("hhhhhhhhh");
-                          product.getSearchData(value: searchQuery);
-                        }
-                      },
+                TextFormField(
+                  controller: searchController,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    fillColor: Colors.white,
+                    filled: true,
+                    prefixIcon: Icon(
+                      Icons.search,
+                     // size: 17,
                     ),
+                    hintText: "Search a Products",
+                    hintStyle: TextStyle(
+                        color: Colors.grey,
+                       fontSize: 14,
+                        fontWeight: FontWeight.w600),
+                    border: InputBorder.none,
+                    focusedBorder: InputBorder.none,
                   ),
+                  style: TextStyle(color: Colors.black),
+                  onChanged: (value) {
+                    if (value != "") {
+                      String searchQuery = value.toLowerCase();
+                      print("hhhhhhhhh");
+                      product.getSearchData(value: searchQuery);
+                    }
+                  },
                 ),
                 SizedBox(
                   height: size.height * 0.01,

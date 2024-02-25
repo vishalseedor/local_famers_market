@@ -49,7 +49,7 @@ class _CategoryProductScreenState extends State<CategoryProductScreen> {
                   : cateproduct.category.isEmpty
                       ? Center(
                           child: Text(
-                          'No Pets...',
+                          'No Categories Products...',
                           style: TextStyle(color:greencolor),
                         ))
                       : SizedBox(

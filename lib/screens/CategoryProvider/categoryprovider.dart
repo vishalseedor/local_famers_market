@@ -27,6 +27,10 @@ class CategoryProvider with ChangeNotifier {
   bool get isError {
     return _isError;
   }
+   List<CategoryModel> _searchCategoryProducts = [];
+  List<CategoryModel> get searchCategoryProducts {
+    return [..._searchCategoryProducts];
+  }
 
   List<CategoryModel> _categories = [];
   List<CategoryModel> get categories {
@@ -85,6 +89,55 @@ class CategoryProvider with ChangeNotifier {
       _isSelect = false;
       notifyListeners();
     }
+  }
+    Future<void> getSearchCategoryData({dynamic value}) async {
+    _isLoading = true;
+    var response = await https.get(
+      Uri.parse(
+          "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/search_category.php?category=$value"),
+    );
+
+    print(
+        "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/search_category.php?category=$value");
+
+    if (response.statusCode == 200) {
+      var responseBody = response.body;
+
+        print(responseBody);
+
+      _searchCategoryProducts=[];
+
+        var extractedData = json.decode(response.body);
+        //  print(json.decode(response.body) + 'printed extrated data');
+           final List<dynamic>catDetails= extractedData['productDetails'];
+        for (var i = 0; i < catDetails.length; i++) {
+          _searchCategoryProducts.add(
+            CategoryModel(
+              id:  catDetails[i]['id'].toString(),
+              name:  catDetails[i]['name'].toString(),
+              quantity:  catDetails[i]['quantity'].toString(),
+              farmerid:  catDetails[i]['farmer_id'].toString(),
+              image:  catDetails[i]['image'].toString()
+    
+            ),
+          );
+        }
+        
+
+        print('product details search' + _searchCategoryProducts.toString());
+        print('products loading completed --->' + 'loading data');
+          _isLoading = false;
+        notifyListeners();
+
+
+    } else {
+        _isLoading = false;
+          notifyListeners();
+      print('Failed to fetch data. Status code: ${response.statusCode}');
+    }
+
+    _isLoading = false;
+    notifyListeners();
   }
  
 }

@@ -101,50 +101,7 @@ class ProductProvider with ChangeNotifier {
       notifyListeners();
     }
   }
-//  Future  getSearchData({dynamic value}) async {
-//   try {
-//     _isLoading = true;
-//     var response = await https.get(
-//       Uri.parse(
-//           "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/search_product.php?product=$value"),
-//     );
 
-//     print(
-//         "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/search_product.php?product=$value");
-
-//     if (response.statusCode == 200) {
-//       var responseBody = response.body;
-//       if (responseBody != null && responseBody.isNotEmpty) {
-//         print(responseBody);
-
-//         _products = [];
-//         _filteredProducts = [];
-
-//         var extractedData = json.decode(responseBody);
-//         productDetail = ProductDetails.fromJson(extractedData);
-//         final List<dynamic> productDetailList = extractedData['productDetails'];
-
-//         print('product details' + _products.toString());
-//         print('products loading completed --->' + 'loading data');
-//       } else {
-//         print('Response body is null or empty.');
-//       }
-//     } else {
-//       print('Failed to fetch data. Status code: ${response.statusCode}');
-//     }
-//   } on SocketException catch (e) {
-//     print('Socket Exception: $e');
-//   } on HttpException catch (e) {
-//     print('HTTP Exception: $e');
-//   } on FormatException catch (e) {
-//     print('Format Exception: $e');
-//   } catch (e) {
-//     print('Error: $e');
-//   } finally {
-//     _isLoading = false;
-//     notifyListeners();
-//   }
-// }
   Future<void> getSearchData({dynamic value}) async {
     _isLoading = true;
     var response = await https.get(
@@ -178,7 +135,7 @@ class ProductProvider with ChangeNotifier {
                 category: productDetails[i]['category'].toString(),
                 categoryId: productDetails[i]['category_id'].toString(),
                 farmer: productDetails[i]['farmer'].toString(),
-                image: ""),
+                 image: productDetails[i]['image'.toString()]),
           );
         }
 

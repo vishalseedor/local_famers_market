@@ -33,6 +33,13 @@ class CartProvider extends ChangeNotifier {
   List<CartDetails> get carts {
     return [..._carts];
   }
+  double calculateTotalPrice() {
+    double totalPrice = 0.0;
+    for (var cartItem in _carts) {
+     // totalPrice += cartItem.price * cartItem.quantity;
+    }
+    return totalPrice;
+  }
 
   Future getAllCartsData({BuildContext? context}) async {
     try {

@@ -29,7 +29,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
   @override
   Widget build(BuildContext context) {
      final cart = Provider.of<CartProvider>(context);
-    
+    double totalPrice = cart.calculateTotalPrice();
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: backgroundcolor,
@@ -106,26 +106,14 @@ class _MyCartScreenState extends State<MyCartScreen> {
                               quantity: cart.carts[intex].quantity,
                               itemtotal:cart.carts[intex].itemTotal,
                               deliveryfee: cart.carts[intex].delivertfee,
-              
-                             
-                              
-                            
-                         
-                         
-                             
+  
                             
                             );
                             
                           },
                         ),
                       ),       
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text('Item Total',),
-                          Text('100.00')
-                        ],
-                      )
+                  
               
                   // Card(
                   //   elevation: 0,
@@ -301,6 +289,124 @@ class _MyCartScreenState extends State<MyCartScreen> {
               ),
             ),
           ),
+          Container(
+            color: Colors.grey[100],
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                // shape: const RoundedRectangleBorder(
+                //     borderRadius: BorderRadius.only(
+                //         topLeft: Radius.circular(25),
+                //         topRight: Radius.circular(25))),
+                height: size.height * 0.18,
+          
+                width: size.width,
+                decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(28),
+                    topRight: Radius.circular(28),
+                  ),
+                  color: Colors.black,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: Column(
+                    children: [
+                      SizedBox(height: size.height * 0.02),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+
+                          const Text(
+                            'Item Total',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                            ),
+                            overflow: TextOverflow.fade,
+                          ),
+                           Text(
+                            '₹ ${totalPrice.toStringAsFixed(2)}',
+                            style: TextStyle(
+                              color: greencolor,
+                              fontWeight: FontWeight.w900,
+                            ),
+                            overflow: TextOverflow.fade,
+                          ),
+                        
+                        
+                        ],
+                      ),
+                      SizedBox(height: size.height * 0.02),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 13),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'Delivery fee',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Row(
+                                  children: [
+                                    Text(
+                                      '₹',
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 11,
+                                      ),
+                                    ),
+                                    Icon(
+                                      Icons.label_important_outline,
+                                      color: Colors.white,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) =>
+                                //         const PaymentMethodScreen(),
+                                //   ),
+                                // );
+                              },
+                              child: Container(
+                                height: size.height * 0.05,
+                                width: size.width * 0.5,
+                                decoration: BoxDecoration(
+                                  color: greencolor,
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                child: const Center(
+                                  child: Text(
+                                    'Continue To Pay',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ), 
         
  
         ],

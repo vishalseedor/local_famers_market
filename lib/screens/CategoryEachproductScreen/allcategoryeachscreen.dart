@@ -41,21 +41,14 @@ class _AllCategoryEachScreenState extends State<AllCategoryEachScreen> {
           toolbarHeight: 80,
           elevation: 0,
           backgroundColor: Colors.grey[200],
-          title: Row(
+          title: const Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 'CategoryProducts',
                 style: TextStyle(fontSize: 14),
               ),
-              CircleAvatar(
-                radius: 20,
-                backgroundColor: Colors.white,
-                child: Icon(
-                  Icons.search,
-                  color: Colors.grey,
-                ),
-              )
+           
             ],
           ),
         ),
@@ -65,6 +58,7 @@ class _AllCategoryEachScreenState extends State<AllCategoryEachScreen> {
                     ? Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
+                       
                           const LoadingScreen(title: 'Loading'),
                           CircularProgressIndicator(
                             color: greencolor,
@@ -72,11 +66,13 @@ class _AllCategoryEachScreenState extends State<AllCategoryEachScreen> {
                           const SizedBox(
                             width: 10,
                           ),
+                           
                        
                         ],
                       )
+                      
                     : cateproduct.category.isEmpty
-                        ? EmptyCategoryScreen()
+                        ? const EmptyCategoryScreen()
                         : SizedBox(
                             height: size.height * 0.6,
                             child: GridView.builder(

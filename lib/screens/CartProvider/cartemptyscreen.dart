@@ -19,11 +19,11 @@ class _CartEmptyScreenState extends State<CartEmptyScreen> {
         children: [
           const SizedBox(height: 80),
           Center(child: Image.asset('assets/cartempty.gif')),
-          Center(child: Text('Your Cart is Empty....',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),),
+          const Center(child: Text('Your Cart is Empty....',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),),
           SizedBox(height: size.height*0.02),
           ElevatedButton(onPressed: (){},
           style: ElevatedButton.styleFrom(backgroundColor: greencolor),
-           child:Text('Add to Cart',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),))
+           child:const Text('Add to Cart',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),))
         ],
       );
     

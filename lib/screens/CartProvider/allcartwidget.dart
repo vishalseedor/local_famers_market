@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/CartProvider/cartprovider.dart';
-import 'package:local_farmers_project/screens/CountScreen/countscreen.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
@@ -70,18 +69,19 @@ class _AllCartWidgetState extends State<AllCartWidget> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                       
+                        Row(
+                          children: [
+                             Text(
                           widget.name,
                           style: const TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Row(
-                          children: [
-                            Text(
-                              '${widget.quantity} pcs',
-                              style: const TextStyle(color: Colors.grey),
-                            ),
+                            // Text(
+                            //   '${widget.quantity} pcs',
+                            //   style: const TextStyle(color: Colors.grey),
+                            // ),
                             SizedBox(
                               width: size.width * 0.03,
                             ),
@@ -120,6 +120,9 @@ class _AllCartWidgetState extends State<AllCartWidget> {
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
                               ),
+                            ),
+                             SizedBox(
+                              width: size.width * 0.03,
                             ),
                             IconButton(
                                 onPressed: () {
