@@ -3,8 +3,9 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/CartProvider/cartaddprovider.dart';
 import 'package:local_farmers_project/screens/CartProvider/cartprovider.dart';
-import 'package:local_farmers_project/screens/CartScreen/cartscreen.dart';
+
 import 'package:local_farmers_project/screens/CartScreen/mycartscreen.dart';
+import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
 import 'package:local_farmers_project/screens/ViewProducts%20Provider/productprovider.dart';
 
 
@@ -35,6 +36,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
     final size = MediaQuery.of(context).size;
       final products = Provider.of<ProductProvider>(context,listen: false);
       final cartapi=Provider.of<AddtoCartProvider>(context);
+      final user=Provider.of<UserProvider>(context);
       final productData =
         Provider.of<ProductProvider>(context).products.firstWhere((element) => element.productId == widget.id);
 
@@ -43,6 +45,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
+        title: const Text('Products Details',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 15),),
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
@@ -53,36 +56,20 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
           ),
         ),
         actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const CartScreen()),
-              );
-            },
-            icon: const Stack(
-              alignment: Alignment.center,
-              children: [
-                Icon(
-                  Icons.shopping_bag_outlined,
-                  color: Colors.black,
-                  size: 28,
-                ),
-                Positioned(
-                  top: 7,
-                  bottom: 1,
-                  child: Text(
-                    '1',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ),
-              ],
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: GestureDetector(
+              onTap: () {
+               Navigator.push(context,MaterialPageRoute(builder:(context)=> MyCartScreen()));
+              },
+              child: Image.asset(
+                'assets/cart.png',
+                height: 35,
+                width: 35,
+                
+              ),
             ),
-          ),
+          )
         ],
       ),
       body: SingleChildScrollView(
@@ -141,15 +128,15 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
               ),
               InkWell(
                 onTap: ()async {
-                         cartapi.addItemToCart(productid: productData.productId.toString(), quanity:productData.quantity.toString()); 
+                            cartapi.addItemToCart(productid: productData.productId.toString(),userid:user.currentUserId.toString(),quanity:productData.quantity.toString()); 
                                 ScaffoldMessenger.of(context).showSnackBar(
          SnackBar(
           backgroundColor: greencolor,
           content: const Text('Item added to cart successfully!',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-          duration: const Duration(seconds: 4),
+          duration: const Duration(seconds: 1),
         ),
       );
-                             await Navigator.push(context,MaterialPageRoute(builder: (context)=>const MyCartScreen()));
+                             await Navigator.push(context,MaterialPageRoute(builder: (context)=> MyCartScreen()));
                   
                 },
                 child: Container(

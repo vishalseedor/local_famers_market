@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/ProfileScreen/profileditscreen.dart';
+import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
+import 'package:provider/provider.dart';
 
 
 class ProfileScreen extends StatefulWidget {
@@ -12,7 +14,16 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
+  void initState() {
+    Provider.of<UserProvider>(context,listen: false).getUsertData(context: context);
+    super.initState();
+  }
+  
+  
+  
+  @override
   Widget build(BuildContext context) {
+    
     final size = MediaQuery.of(context).size;
 
     return SafeArea(
@@ -58,13 +69,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text(
-                            'Vishal',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                            ),
-                          ),
+                          Consumer<UserProvider>(builder: (context, value, child) {
+                String userName = "";
+                for (var i = 0; i < value.users.length; i++) {
+                  userName = value.users[i].name;
+                }
+                return Text(
+                  userName,
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold),
+                );
+              }),
                           Text(
                             'View Profile',
                             style: TextStyle(

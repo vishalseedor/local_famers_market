@@ -1,12 +1,18 @@
 import 'dart:convert';
 import 'dart:io';
+
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as https;
 import 'package:local_farmers_project/screens/CartProvider/cartmodel.dart';
+import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
+import 'package:provider/provider.dart';
 
 
 class CartProvider extends ChangeNotifier {
-  String? userid;
+ 
+
+  
   bool _isLoading = false;
   bool get islOading {
     return _isLoading;
@@ -29,6 +35,8 @@ class CartProvider extends ChangeNotifier {
     return _isError;
   }
   CartDetails?cartDetails;
+ 
+
   List<CartDetails> _carts = [];
   List<CartDetails> get carts {
     return [..._carts];
@@ -40,18 +48,18 @@ class CartProvider extends ChangeNotifier {
     }
     return totalPrice;
   }
-
-  Future getAllCartsData({BuildContext? context}) async {
+  
+  Future getAllCartsData({BuildContext? context,String? userid}) async {
     try {
       _isLoading = true;
       // var headers = {'Cookie': 'ci_session=c7lis868nec6nl8r1lb5el72q8n26upv'};
       var response = await https.get(
         Uri.parse(
-            "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/view_cart.php?userid=1"),
+            "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/view_cart.php?userid=$userid"),
       );
 
       print(
-            "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/view_cart.php?userid=1");
+            "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/view_cart.php?userid=$userid");
 
       print(response.body);
 
@@ -78,7 +86,7 @@ class CartProvider extends ChangeNotifier {
           );
         }
         ;
-
+        
         print('product details' + _carts.toString());
         _isLoading = false;
         print('products loading completed --->' + 'loading data');
@@ -97,14 +105,17 @@ class CartProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-  Future<void> deleteCart(String cartId) async {
+  Future<void> deleteCart(String? cartId,BuildContext context) async {
+    final user=Provider.of<UserProvider>(context,listen: false);
     final url = Uri.parse('http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/delete_cart.php?cart_id=$cartId');
+    
     
     try {
       final response = await https.delete(url);
-
+      print(url);
       if (response.statusCode == 200) {
-        getAllCartsData();
+        
+      getAllCartsData(userid:user.currentUserId);
         // Cart deleted successfully
         print('Cart deleted successfully');
       } else {
@@ -122,7 +133,8 @@ class CartProvider extends ChangeNotifier {
       final response = await https.delete(url);
 
       if (response.statusCode == 200) {
-        getAllCartsData();
+        print(url);
+        getAllCartsData( );
         // Cart deleted successfully
         print('Cart deleted successfully');
       } else {
@@ -131,6 +143,24 @@ class CartProvider extends ChangeNotifier {
       }
     } catch (e) {
       print('Error deleting cart: $e');
+    }
+  }
+   Future<void> quantityUpdate({String? userid,String? quantity}) async {
+    final url = Uri.parse('http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/update_quantity.php?cart_id=$userid&quantity=$quantity');
+    
+    try {
+      final response = await https.get(url);
+
+      if (response.statusCode == 200) {
+        print(url);
+       
+        print('Cart quanity update successfully');
+      } else {
+        // Failed to delete cart
+        print('Failed to quanity update: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error quantity update: $e');
     }
   }
 

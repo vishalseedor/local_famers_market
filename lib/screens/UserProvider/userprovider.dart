@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:ffi';
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as https;
@@ -28,25 +29,30 @@ class UserProvider with ChangeNotifier {
     return _isError;
   }
 
-  ProductDetails?productDetail;
+  ProductDetails? productDetail;
 
   List<UserData> _users = [];
   List<UserData> get users {
     return [..._users];
   }
- 
 
-  Future getUsertData({ BuildContext? context,String? userid}) async {
+  String? currentUserId;
+  void setCurrentUserId(String userId) {
+    currentUserId = userId;
+    notifyListeners();
+  }
+
+  Future getUsertData({BuildContext? context}) async {
     try {
       _isLoading = true;
       // var headers = {'Cookie': 'ci_session=c7lis868nec6nl8r1lb5el72q8n26upv'};
       var response = await https.get(
         Uri.parse(
-            "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/view_user.php?userid=$userid"),
+            "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/view_user.php?userid=$currentUserId"),
       );
 
       print(
-          "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/view_user.php?userid=$userid");
+          "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/view_user.php?userid=$currentUserId");
 
       print(response.body);
 
@@ -59,20 +65,15 @@ class UserProvider with ChangeNotifier {
         for (var i = 0; i < userDetails.length; i++) {
           _users.add(
             UserData(
-              id: userDetails[i]['id'].toString(),
-              name:userDetails[i]['name'].toString(),
-              phone: userDetails[i]['phone'].toString(),
-              email: userDetails[i]['email'].toString(),
-              password: userDetails[i]['password'].toString(),
-              image: userDetails[i]['image'].toString(),
-              address:userDetails[i]['address'].toString(),
-              state: userDetails[i]['state'].toString(),
-              userType: userDetails[i]['user_type'].toString()
-
-              
-            ),
-
-            
+                id: userDetails[i]['id'].toString(),
+                name: userDetails[i]['name'].toString(),
+                phone: userDetails[i]['phone'].toString(),
+                email: userDetails[i]['email'].toString(),
+                password: userDetails[i]['password'].toString(),
+                image: userDetails[i]['image'].toString(),
+                address: userDetails[i]['address'].toString(),
+                state: userDetails[i]['state'].toString(),
+                userType: userDetails[i]['user_type'].toString()),
           );
         }
         ;
@@ -94,4 +95,5 @@ class UserProvider with ChangeNotifier {
       _isSelect = false;
       notifyListeners();
     }
-  }}
+  }
+}

@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
           ChangeNotifierProvider(create: (context) => ProductProvider()),
           ChangeNotifierProvider(create: (context) => FarmProvider()),
           ChangeNotifierProvider(create: (context)=>CategoryProvider()),
-          ChangeNotifierProvider(create: (context)=>CartProvider()),
+          ChangeNotifierProvider(create: (context)=>CartProvider( )),
           ChangeNotifierProvider(create: (context)=>CategoryEachProvider()),
           ChangeNotifierProvider(create: (context)=>AddtoCartProvider()),
           ChangeNotifierProvider(create: (context)=>UserProvider()),

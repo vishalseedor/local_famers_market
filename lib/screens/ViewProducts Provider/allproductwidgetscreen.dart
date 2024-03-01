@@ -3,6 +3,7 @@ import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/CartProvider/cartaddprovider.dart';
 import 'package:local_farmers_project/screens/CartScreen/mycartscreen.dart';
 import 'package:local_farmers_project/screens/ItemDetailsScreen/itemdetailsscreen.dart';
+import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
 import 'package:local_farmers_project/screens/ViewProducts%20Provider/productprovider.dart';
 import 'package:provider/provider.dart';
 
@@ -38,6 +39,7 @@ class _AllProductWidgetState extends State<AllProductWidget > {
     final size = MediaQuery.of(context).size;
      final productapi = Provider.of<ProductProvider>(context,listen: false);
      final cartapi=Provider.of<AddtoCartProvider>(context,listen: false);
+     final userData=Provider.of<UserProvider>(context,listen: false);
      return InkWell(
       onTap: (){
        Navigator.of(context).pushNamed(ItemDetailScreen.routeName,arguments:widget.productid);
@@ -154,19 +156,19 @@ class _AllProductWidgetState extends State<AllProductWidget > {
                           ),
                           child: InkWell(
                             onTap: () async{
-                             cartapi.addItemToCart(productid: widget.productid.toString(), quanity:widget.quantity.toString()); 
+                             cartapi.addItemToCart(productid: widget.productid.toString(),userid:userData.currentUserId.toString(),quanity:widget.quantity.toString()); 
                                 ScaffoldMessenger.of(context).showSnackBar(
          SnackBar(
           backgroundColor: greencolor,
           content: const Text('Item added to cart successfully!',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-          duration: const Duration(seconds: 4),
+          duration: const Duration(seconds: 1),
         ),
       );
-                             await Navigator.push(context,MaterialPageRoute(builder: (context)=>const MyCartScreen()));
+                             await Navigator.push(context,MaterialPageRoute(builder: (context)=> MyCartScreen()));
                                                         },
                             child: Center(
                               child: Text(
-                                'Add +',
+                                'Add',
                                 style: TextStyle(
                                     fontSize: 10,
                                     fontWeight: FontWeight.bold,

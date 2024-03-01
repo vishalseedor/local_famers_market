@@ -4,12 +4,15 @@ import 'package:local_farmers_project/screens/CartProvider/allcartwidget.dart';
 import 'package:local_farmers_project/screens/CartProvider/cartemptyscreen.dart';
 import 'package:local_farmers_project/screens/CartProvider/cartprovider.dart';
 import 'package:local_farmers_project/screens/ExtraScreens/loadingscreen.dart';
+import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
 import 'package:provider/provider.dart';
+import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 
 class MyCartScreen extends StatefulWidget {
+ 
 
-  const MyCartScreen({Key? key,}) : super(key: key);
+   MyCartScreen({Key? key}) : super(key: key);
 
   @override
   State<MyCartScreen> createState() => _MyCartScreenState();
@@ -19,8 +22,11 @@ class _MyCartScreenState extends State<MyCartScreen> {
   
    @override
   void initState() {
+     final userProvider = Provider.of<UserProvider>(context, listen: false);
     Provider.of<CartProvider>(context, listen: false)
-        .getAllCartsData(context: context);
+        .getAllCartsData(context: context,userid: userProvider.currentUserId);
+    Provider.of<UserProvider>(context,listen: false)
+        .getUsertData(context: context);
   
     super.initState();
   }
@@ -29,41 +35,43 @@ class _MyCartScreenState extends State<MyCartScreen> {
   @override
   Widget build(BuildContext context) {
      final cart = Provider.of<CartProvider>(context);
+     final userData=Provider.of<UserProvider>(context);
     double totalPrice = cart.calculateTotalPrice();
     final size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: backgroundcolor,
       appBar: AppBar(
+        iconTheme: const IconThemeData(color: Colors.white),
         toolbarHeight: 80,
         automaticallyImplyLeading: false,
         elevation: 0,
         centerTitle: false,
-        backgroundColor: Colors.white,
+        backgroundColor:greencolor,
          leading: IconButton(
           onPressed: () {
             Navigator.pop(context);
           },
           icon: const Icon(
             Icons.arrow_back,
-            color: Colors.black,
+            color: Colors.white,
           ),
         ),
-        title: const Center(
-          child: Text(
-            'My Cart',
-            style: TextStyle(color: Colors.black, fontSize: 15,fontWeight: FontWeight.bold),
-          ),
+        title: Text(
+          'My Cart',
+          style: TextStyle(color: Colors.white, fontSize: 15,fontWeight: FontWeight.bold),
         ),
         actions: [
-         SizedBox(
-          height: 35,
-          width: 120,
-           child: ElevatedButton(
-            style: ElevatedButton.styleFrom(backgroundColor: greencolor),
-            onPressed: (){
-               cart.clearCart(userid:cart.userid);
-            
-           }, child:const Center(child: Text('Clear Cart',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 13),))),
+         Padding(
+           padding: const EdgeInsets.all(8.0),
+           child: SizedBox(
+            height: 35,
+            width: 100,
+             child: ElevatedButton(
+              style: ElevatedButton.styleFrom(backgroundColor:Colors.white,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+              onPressed: (){
+                cart.clearCart(userid: userData.currentUserId);
+             }, child:Center(child: Text('Clear',style: TextStyle(color:greencolor,fontWeight: FontWeight.bold,fontSize: 14),))),
+           ),
          )
         ],
       ),
@@ -115,180 +123,16 @@ class _MyCartScreenState extends State<MyCartScreen> {
                       ),       
                   
               
-                  // Card(
-                  //   elevation: 0,
-                  //   shape: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.circular(8)),
-                  //   // height: size.height * 0.13,
-                  //   // width: size.width,
-                  //   // decoration: BoxDecoration(
-                  //   //   borderRadius: BorderRadius.circular(8),
-                  //   //   color: Colors.white,
-                  //   // ),
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.start,
-                  //     children: [
-                  //       Image.asset(
-                  //         'assets/items5.png',
-                  //         scale: 4,
-                  //       ),
-                  //       Padding(
-                  //         padding: const EdgeInsets.all(12),
-                  //         child: Column(
-                  //           crossAxisAlignment: CrossAxisAlignment.start,
-                  //           children: [
-                  //             const Text(
-                  //               'Mango',
-                  //               style: TextStyle(
-                  //                 fontWeight: FontWeight.bold,
-                  //               ),
-                  //             ),
-                  //             Row(
-                  //               children: [
-                  //                 const Text(
-                  //                   '5 pcs',
-                  //                   style: TextStyle(color: Colors.grey),
-                  //                 ),
-                  //                 SizedBox(
-                  //                   width: size.width * 0.04,
-                  //                 ),
-                  //                 const Countscreens(),
-                  //                 SizedBox(
-                  //                   width: size.width * 0.02,
-                  //                 ),
-                  //                 const Text(
-                  //                   '₹ 10.00',
-                  //                   style: TextStyle(
-                  //                     fontWeight: FontWeight.bold,
-                  //                   ),
-                  //                 ),
-                  //               ],
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                  // // SizedBox(
-                  // //   height: size.height * 0.01,
-                  // // ),
-                  // Card(
-                  //   elevation: 0,
-                  //   shape: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.circular(8)),
-                  //   // height: size.height * 0.13,
-                  //   // width: size.width,
-                  //   // decoration: BoxDecoration(
-                  //   //   borderRadius: BorderRadius.circular(8),
-                  //   //   color: Colors.white,
-                  //   // ),
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.start,
-                  //     children: [
-                  //       Image.asset('assets/items7.png', scale: 4),
-                  //       Padding(
-                  //         padding: const EdgeInsets.all(12),
-                  //         child: Column(
-                  //           crossAxisAlignment: CrossAxisAlignment.start,
-                  //           children: [
-                  //             const Text(
-                  //               'Tender Coconut',
-                  //               style: TextStyle(
-                  //                 fontWeight: FontWeight.bold,
-                  //               ),
-                  //             ),
-                  //             Row(
-                  //               children: [
-                  //                 const Text(
-                  //                   '5 pcs',
-                  //                   style: TextStyle(color: Colors.grey),
-                  //                 ),
-                  //                 SizedBox(
-                  //                   width: size.width * 0.04,
-                  //                 ),
-                  //                 const Countscreens(),
-                  //                 SizedBox(
-                  //                   width: size.width * 0.02,
-                  //                 ),
-                  //                 const Text(
-                  //                   '₹ 4.50',
-                  //                   style: TextStyle(
-                  //                     fontWeight: FontWeight.bold,
-                  //                   ),
-                  //                 ),
-                  //               ],
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                  // // SizedBox(
-                  // //   height: size.height * 0.01,
-                  // // ),
-                  // Card(
-                  //   elevation: 0,
-                  //   shape: RoundedRectangleBorder(
-                  //       borderRadius: BorderRadius.circular(8)),
-                  //   // height: size.height * 0.13,
-                  //   // width: size.width,
-                  //   // decoration: BoxDecoration(
-                  //   //   borderRadius: BorderRadius.circular(8),
-                  //   //   color: Colors.white,
-                  //   // ),
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.start,
-                  //     children: [
-                  //       Image.asset('assets/items8.png', scale: 4),
-                  //       Padding(
-                  //         padding: const EdgeInsets.all(12),
-                  //         child: Column(
-                  //           crossAxisAlignment: CrossAxisAlignment.start,
-                  //           children: [
-                  //             const Text(
-                  //               'Watermelon',
-                  //               style: TextStyle(
-                  //                 fontWeight: FontWeight.bold,
-                  //               ),
-                  //             ),
-                  //             Row(
-                  //               children: [
-                  //                 const Text(
-                  //                   '5 pcs',
-                  //                   style: TextStyle(color: Colors.grey),
-                  //                 ),
-                  //                 SizedBox(
-                  //                   width: size.width * 0.04,
-                  //                 ),
-                  //                 const Countscreens(),
-                  //                 SizedBox(
-                  //                   width: size.width * 0.02,
-                  //                 ),
-                  //                 const Text(
-                  //                   '₹ 10.00',
-                  //                   style: TextStyle(
-                  //                     fontWeight: FontWeight.bold,
-                  //                   ),
-                  //                 ),
-                  //               ],
-                  //             ),
-                  //           ],
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                  // SizedBox(
-                  //   height: size.height * 0.03,
-                  // ),
+               
                 
                 
                 ],
               ),
             ),
           ),
+      cart.carts.isEmpty
+                    ? const Text('')
+                    : 
           Container(
             color: Colors.grey[100],
             child: Align(
@@ -326,7 +170,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                             overflow: TextOverflow.fade,
                           ),
                            Text(
-                            '₹ ${totalPrice.toStringAsFixed(2)}',
+                            '₹100.00',
                             style: TextStyle(
                               color: greencolor,
                               fontWeight: FontWeight.w900,
@@ -356,29 +200,42 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                 Row(
                                   children: [
                                     Text(
-                                      '₹',
+                                      '₹ 50.0',
                                       style: TextStyle(
                                         color: Colors.white,
-                                        fontSize: 11,
+                                        fontSize: 11,fontWeight: FontWeight.bold
                                       ),
                                     ),
-                                    Icon(
-                                      Icons.label_important_outline,
-                                      color: Colors.white,
-                                    ),
+                                  
                                   ],
                                 ),
                               ],
                             ),
                             GestureDetector(
                               onTap: () {
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (context) =>
-                                //         const PaymentMethodScreen(),
-                                //   ),
-                                // );
+                                Razorpay razorpay = Razorpay();
+                  var options = {
+                    'key': 'rzp_test_1DP5mmOlF5G5ag',
+                    'amount': 100,
+                    'name': 'Acme Corp.',
+                    'description': 'Fine T-Shirt',
+                    'retry': {'enabled': true, 'max_count': 1},
+                    'send_sms_hash': true,
+                    'prefill': {
+                      'contact': '8888888888',
+                      'email': 'test@razorpay.com'
+                    },
+                    'external': {
+                      'wallets': ['paytm']
+                    }
+                  };
+                  razorpay.on(
+                      Razorpay.EVENT_PAYMENT_ERROR, handlePaymentErrorResponse);
+                  razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
+                      handlePaymentSuccessResponse);
+                  razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET,
+                      handleExternalWalletSelected);
+                  razorpay.open(options);
                               },
                               child: Container(
                                 height: size.height * 0.05,
@@ -389,7 +246,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                 ),
                                 child: const Center(
                                   child: Text(
-                                    'Continue To Pay',
+                                    'Check Out',
                                     style: TextStyle(
                                       color: Colors.white,
                                       fontWeight: FontWeight.w600,
@@ -413,5 +270,53 @@ class _MyCartScreenState extends State<MyCartScreen> {
       ),
     );
   }
- 
+   void handlePaymentErrorResponse(PaymentFailureResponse response) {
+    /*
+    * PaymentFailureResponse contains three values:
+    * 1. Error Code
+    * 2. Error Description
+    * 3. Metadata
+    * */
+    showAlertDialog(context, "Payment Failed",
+        "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
+  }
+
+  void handlePaymentSuccessResponse(PaymentSuccessResponse response) {
+    /*
+    * Payment Success Response contains three values:
+    * 1. Order ID
+    * 2. Payment ID
+    * 3. Signature
+    * */
+    print(response.data.toString());
+    showAlertDialog(
+        context, "Payment Successful", "Payment ID: ${response.paymentId}");
+  }
+
+  void handleExternalWalletSelected(ExternalWalletResponse response) {
+    showAlertDialog(
+        context, "External Wallet Selected", "${response.walletName}");
+  }
+
+  void showAlertDialog(BuildContext context, String title, String message) {
+    // set up the buttons
+    Widget continueButton = ElevatedButton(
+      child: const Text("Continue"),
+      onPressed: () {},
+    );
+    // set up the AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text(title),
+      content: Text(message),
+    );
+    // show the dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
 }
+ 
+

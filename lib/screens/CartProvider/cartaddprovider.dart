@@ -15,11 +15,11 @@ class AddtoCartProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future addItemToCart({required String productid,
+  Future addItemToCart({ String? productid,
   
- // required String userid,
+   String? userid,
   
-  required String quanity}) async {
+   String? quanity}) async {
       var body = {
     'product_id': productid.toString(),
     
@@ -28,7 +28,7 @@ class AddtoCartProvider extends ChangeNotifier {
   };
 
   try {
-    var response = await http.post(Uri.parse('http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/add_cart.php?product_id=$productid&user_id=1&quantity=$quanity'),
+    var response = await http.post(Uri.parse('http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/add_cart.php?product_id=$productid&user_id=$userid&quantity=$quanity'),
         body: body);
 
     if (response.statusCode == 200) {

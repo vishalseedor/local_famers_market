@@ -1,8 +1,10 @@
 
 import 'package:flutter/material.dart';
 import 'package:local_farmers_project/colors/colors.dart';
+import 'package:local_farmers_project/screens/SideBottomNavigation/sidebottomnavigation.dart';
 import 'package:local_farmers_project/screens/SupportScreen/feebackscreen.dart';
 import 'package:local_farmers_project/screens/SupportScreen/supportprovider.dart';
+import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -17,11 +19,28 @@ class SupportScreen extends StatefulWidget {
 class _SupportScreenState extends State<SupportScreen> {
   TextEditingController commentcontroller=TextEditingController();
    final _formKey = GlobalKey<FormState>();
+   void launchEmailSubmission() async {
+    final Uri params = Uri(
+      scheme: 'mailto',
+      path: 'myOwnEmailAddress@gmail.com',
+      queryParameters: {
+        'subject': 'Default Subject',
+        'body': 'Default body'
+      }
+    );
+    String url = params.toString();
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      print('Could not launch $url');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final support=Provider.of<FeedbackProvider>(context);
+    final userData=Provider.of<UserProvider>(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: backgroundcolor,
@@ -100,35 +119,38 @@ class _SupportScreenState extends State<SupportScreen> {
                     ),
                   ),
                   SizedBox(height: size.height * 0.02),
-                  Card(
-                    // height: size.height * 0.048,
-                    // width: size.width * 0.90,
-                    // decoration: BoxDecoration(
-                    //   color: Colors.white,
-                    //   borderRadius: BorderRadius.circular(5),
-                    //   boxShadow: [
-                    //     BoxShadow(
-                    //         color: Colors.grey.withOpacity(0.4),
-                    //         spreadRadius: 1,
-                    //         blurRadius: 1)
-                    //   ],
-                    // ),
-                    child: Padding(
-                      padding: const EdgeInsets.all(10),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            'Email us',
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold, fontSize: 13),
-                          ),
-                          Icon(
-                            Icons.email,
-                            color: greencolor,
-                            size: 20,
-                          )
-                        ],
+                  InkWell(
+                    onTap:launchEmailSubmission,
+                    child: Card(
+                      // height: size.height * 0.048,
+                      // width: size.width * 0.90,
+                      // decoration: BoxDecoration(
+                      //   color: Colors.white,
+                      //   borderRadius: BorderRadius.circular(5),
+                      //   boxShadow: [
+                      //     BoxShadow(
+                      //         color: Colors.grey.withOpacity(0.4),
+                      //         spreadRadius: 1,
+                      //         blurRadius: 1)
+                      //   ],
+                      // ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text(
+                              'Email us',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold, fontSize: 13),
+                            ),
+                            Icon(
+                              Icons.email,
+                              color: greencolor,
+                              size: 20,
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ),
@@ -243,9 +265,12 @@ class _SupportScreenState extends State<SupportScreen> {
                             ElevatedButton.styleFrom(backgroundColor: greencolor),
                         onPressed: ()async {
                         if (_formKey.currentState!.validate()) {
-                                support.addFeedback(comments: commentcontroller.toString());
-                                await Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>FeedbackSuccessScreen()));
-
+                                support.addFeedback(comments: commentcontroller.toString(),userId:userData.currentUserId);                        
+                                ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  backgroundColor: greencolor,
+                                  content: const Text("Feedback added successfully",style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold),)));
+                                await Navigator.push(context,MaterialPageRoute(builder:(context)=>const SideBottomNavigation()));
+ 
 
                       }
                         },

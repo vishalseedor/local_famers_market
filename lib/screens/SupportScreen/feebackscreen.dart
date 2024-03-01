@@ -18,7 +18,7 @@ class _FeedbackSuccessScreenState extends State<FeedbackSuccessScreen> {
         children: [
           Center(child: Image.asset('assets/feedback.png',scale: 4,)),
           SizedBox(height: size.height*0.02,),
-          Text('Feedback Added successfully',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
+          const Text('Feedback Added successfully',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),)
         ],
       ),
     );

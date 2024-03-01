@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:local_farmers_project/screens/CartScreen/cartscreen.dart';
+import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/ItemDetailsScreen/itemdetailsscreen.dart';
 
-
-import '../../Colors/colors.dart';
 
 
 class AllEachCategoryWidget extends StatefulWidget {
@@ -86,19 +84,15 @@ class _AllEachCategoryWidgetState extends State<AllEachCategoryWidget > {
                   // SizedBox(
                   //   width: 40,
                   // ),
-                  // Container(
-                  //   height: 25,
-                  //   width: 25,
-                  //   decoration: BoxDecoration(
-                  //     borderRadius: BorderRadius.circular(6),
-                  //     color: greencolor,
-                  //   ),
-                  //   child: Icon(
-                  //     Icons.add,
-                  //     color: Colors.white,
-                  //     size: 13,
-                  //   ),
-                  // )
+                  Container(
+                    height: 30,
+                    width: 35,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6),
+                      color: greencolor,
+                    ),
+                    child: Center(child: Text('Add',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 10),))
+                  )
                
                // const DemoScreensss()
                 ],

@@ -1,11 +1,10 @@
 import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart'as http;
 import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/LoginScreen/loginmodel.dart';
 import 'package:local_farmers_project/screens/LoginScreen/roundbutton.dart';
-import 'package:local_farmers_project/screens/RegisterScreen/getstore.dart';
+import 'package:local_farmers_project/screens/ProfileScreen/usermodel.dart';
 import 'package:local_farmers_project/screens/RegisterScreen/registerscreen.dart';
 import 'package:local_farmers_project/screens/SideBottomNavigation/sidebottomnavigation.dart';
 import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
@@ -30,70 +29,79 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   LoginModel ?loginModel;
  
-  void loginAdopter(String phone,String password
+ void loginAdopter(String phone, String password) async {
+    const url =
+        'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/user_login.php';
 
-) async {
-  const url = 'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/user_login.php';
+    Map<String, String> body = {'phone': phone, 'password': password};
 
-  Map<String, String> body = {
-  'phone':phone,
-  'password':password
-   
-  };
+    try {
+      final response = await http.post(
+        Uri.parse(url),
+        body: body,
+      );
+      print(url);
+      var jsonData = json.decode(response.body);
 
-  try {
-    final response = await http.post(
-      Uri.parse(url),
-      
-      body: body,
-      
-    );
-    print(url);
-    var jsonData=json.decode(response.body);
+      if (response.statusCode == 200) {
+        if (jsonData['status'] == true) {
+          //      getstorage.write("phone",loginModel!.phone.toString());
+          // getstorage.write("password",loginModel!.password.toString());
+          // getstorage.read(phone);
+          // phone=getstorage.read("phone");
 
-    if (response.statusCode == 200) {
-   
-      if(jsonData['status']==true){
-      //      getstorage.write("phone",loginModel!.phone.toString());
-      // getstorage.write("password",loginModel!.password.toString());
-      // getstorage.read(phone);
-      // phone=getstorage.read("phone");
-      
+          List user = jsonData['userData'];
+          if (user.isNotEmpty) {
+            UserData userdata = UserData.fromJson(user[0]);
+            String userId = userdata.id;
+            Provider.of<UserProvider>(context, listen: false)
+                .setCurrentUserId(userId);
+            print(userId);
+          }
+
           ScaffoldMessenger.of(context).showSnackBar(
-         SnackBar(
-          backgroundColor: greencolor,
-          content: const Text('Login Successful!',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-          duration: const Duration(seconds: 4),
-        ),
-      );
-      
-      Navigator.push(context,MaterialPageRoute(builder:(context)=>const SideBottomNavigation()));
-      print(body);
-      print("Response body${response.body}");
-    
-      print('Login successful');
+            SnackBar(
+              backgroundColor: greencolor,
+              content: const Text(
+                'Login Successful!',
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              duration: const Duration(seconds: 4),
+            ),
+          );
+
+          Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => const SideBottomNavigation()));
+          print(body);
+          print("Response body${response.body}");
+
+          print('Login successful');
+        } else {
+          jsonData['status'] == false;
+          // ignore: use_build_context_synchronously
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              backgroundColor: greencolor,
+              content: const Text(
+                'Invalid email and password',
+                style:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              duration: const Duration(seconds: 4),
+            ),
+          );
+          print('Error: ${response.statusCode}');
+        }
+      } else {
+        print('fffff');
       }
-      else{
-        jsonData['status']==false;
-         // ignore: use_build_context_synchronously
-         ScaffoldMessenger.of(context).showSnackBar(
-         SnackBar(
-          backgroundColor: greencolor,
-          content: const Text('Invalid email and password',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-          duration: const Duration(seconds: 4),
-        ),
-      );
-         print('Error: ${response.statusCode}');
-      }
-     
-    } else {
-      
-     print('fffff');
+    } catch (error) {
+      print('Error: $error');
     }
-  } catch (error) {
-    print('Error: $error');
   }
-}
 
 
  
@@ -257,8 +265,8 @@ class _LoginScreenState extends State<LoginScreen> {
                      
                 
                  );
-
-
+              
+              
                       }
                           
                             }),

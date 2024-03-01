@@ -36,6 +36,10 @@ class CategoryEachProvider with ChangeNotifier {
   List<CategoryDetails> get category {
     return [..._category];
   }
+   List<CategoryDetails> _searchProducts = [];
+  List<CategoryDetails> get searchProducts {
+    return [..._searchProducts];
+  }
 
   Future getAllEachCategorysData({required BuildContext context,required String categoryproduct}) async {
     try {
@@ -100,6 +104,65 @@ class CategoryEachProvider with ChangeNotifier {
       notifyListeners();
     }
   }
+   Future<void> getSearchData({dynamic value}) async {
+    _isLoading = true;
+    var response = await https.get(
+      Uri.parse(
+          "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/search_productby_category.php?category_id=$value"),
+    );
+
+    print(
+        "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/search_productby_category.php?category_id=$value");
+
+    if (response.statusCode == 200) {
+      var responseBody = response.body;
+
+        print(responseBody);
+
+        _searchProducts = [];
+
+        var extractedData = json.decode(response.body);
+        //  print(json.decode(response.body) + 'printed extrated data');
+        final List<dynamic> catDetails = extractedData['productDetails'];
+        for (var i = 0; i < catDetails.length; i++) {
+          _searchProducts.add(
+             CategoryDetails(
+              
+              productId: catDetails[i]['product_id'].toString(),
+              productName: catDetails[i]['product_name'].toString(),
+              quantity: catDetails[i]['quantity'].toString(),
+              description: catDetails[i]['description'].toString(),
+              additionalInformation: catDetails[i]['additional_information'].toString(),
+              price:catDetails[i]['price'].toString(),
+              category: catDetails[i]['category'].toString(),
+              categoryId: catDetails[i]['category_id'].toString(),
+              farmer: catDetails[i]['farmer'].toString(),
+              image: catDetails[i]['image'].toString(),
+             
+             
+              
+              
+
+              
+            ),
+          );
+        }
+
+        print('product details search' + _searchProducts.toString());
+        print('products loading completed --->' + 'loading data');
+          _isLoading = false;
+        notifyListeners();
+
+
+    } else {
+        _isLoading = false;
+          notifyListeners();
+      print('Failed to fetch data. Status code: ${response.statusCode}');
+    }
+
+    _isLoading = false;
+    notifyListeners();
+  }
+}
   
  
-}

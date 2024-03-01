@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:local_farmers_project/colors/colors.dart';
+import 'package:local_farmers_project/screens/CartScreen/mycartscreen.dart';
+import 'package:local_farmers_project/screens/CategoryProvider/categoryprovider.dart';
 import 'package:local_farmers_project/screens/ExtraScreens/loadingscreen.dart';
-import 'package:local_farmers_project/screens/LoginScreen/loginscreen.dart';
+import 'package:local_farmers_project/screens/GlobalService/globalservice.dart';
 import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
 import 'package:local_farmers_project/screens/ViewProducts%20Provider/allproductwidgetscreen.dart';
 import 'package:local_farmers_project/screens/ViewProducts%20Provider/productprovider.dart';
@@ -18,30 +20,35 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController searchText = TextEditingController();
-
+bool isVisible=false;
   @override
   void initState() {
     Provider.of<ProductProvider>(context, listen: false)
         .getAllProductData(context: context);
+    Provider.of<UserProvider>(context,listen: false).getUsertData(context: context);
+      Provider.of<CategoryProvider>(context, listen: false)
+        .getAllCategoryData(context: context);
+   
 
     super.initState();
   }
-
+ 
   TextEditingController searchController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final product = Provider.of<ProductProvider>(context);
+    final category=Provider.of<CategoryProvider>(context);
     final userprovider = Provider.of<UserProvider>(context, listen: false);
 
     return Scaffold(
-      backgroundColor: Colors.grey[200],
+   backgroundColor: backgroundcolor,
       appBar: AppBar(
         automaticallyImplyLeading: false,
         elevation: 0,
         toolbarHeight: 80,
-        backgroundColor: Colors.grey[200],
+       backgroundColor: backgroundcolor,
         title:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
           Column(
@@ -72,78 +79,30 @@ class _HomeScreenState extends State<HomeScreen> {
                       ))
                 ],
               ),
-              Text(
-                'Trivandrum,India',
-                style: TextStyle(
-                    color: Colors.grey,
-                    fontSize: 10,
-                    fontWeight: FontWeight.w900),
-              ),
+              Consumer<UserProvider>(builder: (context, value, child) {
+                String userAddress = "";
+                for (var i = 0; i < value.users.length; i++) {
+                  userAddress = value.users[i].address;
+                }
+                return Text(
+                  userAddress,
+                  style: const TextStyle(
+                      color: Colors.black,
+                      fontSize: 10,
+                      fontWeight: FontWeight.w900),
+                );
+              }),
             ],
           ),
           GestureDetector(
             onTap: () {
-              // Navigator.push(
-              //     context,
-              //     MaterialPageRoute(
-              //         builder: (context) => const WalletHomeScreen()));
+             Navigator.push(context,MaterialPageRoute(builder:(context)=> MyCartScreen()));
             },
-            child: GestureDetector(
-              onTap: () {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text(
-                        'Logout',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      content:
-                          const Text('Are you sure want to exit this app?'),
-                      actions: <Widget>[
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: greencolor),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => const LoginScreen()));
-                          },
-                          child: Text(
-                            'OK',
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                              backgroundColor: greencolor),
-                          onPressed: () {
-                            // Close the dialog
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text(
-                            'CANCEL',
-                            style: TextStyle(
-                                fontSize: 14,
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        )
-                      ],
-                    );
-                  },
-                );
-              },
-              child: Image.asset(
-                'assets/logout.png',
-                height: 30,
-                width: 30,
-                color: Colors.green,
-              ),
+            child: Image.asset(
+              'assets/cart.png',
+              height: 35,
+              width: 35,
+              
             ),
           )
         ]),
@@ -209,7 +168,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 TextFormField(
                   controller: searchController,
                   keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     fillColor: Colors.white,
                     filled: true,
                     prefixIcon: Icon(
@@ -224,7 +183,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     border: InputBorder.none,
                     focusedBorder: InputBorder.none,
                   ),
-                  style: TextStyle(color: Colors.black),
+                  style: const TextStyle(color: Colors.black),
                   onChanged: (value) {
                     if (value != "") {
                       String searchQuery = value.toLowerCase();
@@ -252,6 +211,37 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Row(
                         children: [
+                //             category.loadingSpinner
+                // ? const Column(
+                //     mainAxisAlignment: MainAxisAlignment.center,
+                //     children: [
+                //       LoadingScreen(title: 'Loading'),
+                //       CircularProgressIndicator(
+                //         color: Colors.blue,
+                //       ),
+                //       SizedBox(
+                //         width: 10,
+                //       ),
+                //       Text(
+                //         'Loading...',
+                //         style: TextStyle(fontSize: 20),
+                //       ),
+                //     ],
+                //   )
+                // : category.categories.isEmpty
+                //     ? const Center(child: Text('No Products...'))
+                //     : ListView.builder(
+                //       scrollDirection: Axis.horizontal,
+                //       itemCount: category.categories.length,
+                //       itemBuilder: (context, index) {
+                //         return AllCategoryWidget(
+                //           id: category.categories[index].id,
+                //           name:  category.categories[index].name,
+                //           quantity: category.categories[index].quantity,
+                //           farmerid:  category.categories[index].farmerid,
+                //           image:  category.categories[index].image);
+                      
+                //     },),
                           CateoGoryWidget(
                               image: 'assets/cate.png',
                               title: 'Fruits &',
@@ -557,7 +547,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               crossAxisCount: 2,
                                               crossAxisSpacing: 10,
                                               mainAxisSpacing: 10,
-                                              childAspectRatio: 0.9),
+                                              childAspectRatio: 0.86),
                                       scrollDirection: Axis.vertical,
                                       itemCount: product.products.length,
                                       itemBuilder: (context, intex) {
