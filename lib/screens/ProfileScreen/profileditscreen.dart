@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../colors/colors.dart';
+import 'package:http/http.dart' as http;
 
 class ProfileEditScreen extends StatefulWidget {
   const ProfileEditScreen({super.key});
@@ -14,6 +15,9 @@ class ProfileEditScreen extends StatefulWidget {
 }
 
 class _ProfileEditScreenState extends State<ProfileEditScreen> {
+  TextEditingController userNameController = TextEditingController();
+  TextEditingController phoneNumberController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
   File? image;
   Future pickImage() async {
     try {
@@ -103,7 +107,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                 SizedBox(
                   height: size.height * 0.07,
                   child: TextFormField(
-                    //  controller: phoneNumberController,
+                    controller: userNameController,
                     keyboardType: TextInputType.text,
                     decoration: const InputDecoration(
                         hintText: 'Enter User Name',
@@ -125,7 +129,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                 SizedBox(
                   height: size.height * 0.07,
                   child: TextFormField(
-                    // controller: nameController,
+                    controller: phoneNumberController,
                     keyboardType: TextInputType.phone,
                     decoration: const InputDecoration(
                         hintText: 'Enter Phone Number',
@@ -144,7 +148,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                 SizedBox(
                   height: size.height * 0.07,
                   child: TextFormField(
-                    //controller: emailController,
+                    controller: addressController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
                         hintText: 'Enter Email Address',
@@ -204,6 +208,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                           ElevatedButton.styleFrom(backgroundColor: greencolor),
                       onPressed: () {
                         Navigator.pop(context);
+                        updateProfileApi();
                       },
                       child: const Text(
                         'Update',
@@ -297,5 +302,34 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
         ],
       ),
     );
+  }
+
+  Future<dynamic> updateProfileApi() async {
+    try {
+      var request = http.MultipartRequest(
+          'POST',
+          Uri.parse(
+              'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/edit_user.php'));
+      request.fields.addAll({
+        'name': userNameController.text.trim(),
+        'phone': phoneNumberController.text.trim(),
+        'email': 'athira@gmail.com',
+        'password': '123',
+        'address': addressController.text.trim(),
+        'state': 'Kerala.',
+        'user_type': 'Consumer',
+        'userid': '1'
+      });
+      request.files
+          .add(await http.MultipartFile.fromPath('image', image!.path));
+
+      http.StreamedResponse response = await request.send();
+      print(await response.stream.bytesToString());
+      if (response.statusCode == 200) {
+        print(await response.stream.bytesToString());
+      } else {
+        print(response.reasonPhrase);
+      }
+    } catch (e) {}
   }
 }

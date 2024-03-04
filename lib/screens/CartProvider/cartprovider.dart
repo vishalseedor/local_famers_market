@@ -1,18 +1,13 @@
 import 'dart:convert';
 import 'dart:io';
 
-
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as https;
 import 'package:local_farmers_project/screens/CartProvider/cartmodel.dart';
 import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
 import 'package:provider/provider.dart';
 
-
 class CartProvider extends ChangeNotifier {
- 
-
-  
   bool _isLoading = false;
   bool get islOading {
     return _isLoading;
@@ -34,22 +29,45 @@ class CartProvider extends ChangeNotifier {
   bool get isError {
     return _isError;
   }
-  CartDetails?cartDetails;
- 
+
+  CartDetails? cartDetails;
 
   List<CartDetails> _carts = [];
   List<CartDetails> get carts {
     return [..._carts];
   }
-  double calculateTotalPrice() {
-    double totalPrice = 0.0;
-    for (var cartItem in _carts) {
-     // totalPrice += cartItem.price * cartItem.quantity;
-    }
-    return totalPrice;
+
+  double totalAmount = 0.0;
+
+  void updateQuantity(int index, String newQuantity) {
+    _carts[index].quantity = newQuantity;
+    calculateTotalPrice();
+    notifyListeners();
   }
-  
-  Future getAllCartsData({BuildContext? context,String? userid}) async {
+
+  // Calculate total amount
+  double addQuantity(String price) {
+    totalAmount += int.parse(price) * 1;
+    notifyListeners();
+    return totalAmount;
+  }
+
+  double removeQuantity(String price) {
+    totalAmount -= int.parse(price) * 1;
+    //  notifyListeners();
+    return totalAmount;
+  }
+
+  double calculateTotalPrice() {
+    totalAmount = 0.0;
+    for (var item in _carts) {
+      totalAmount += int.parse(item.price) * int.parse(item.quantity);
+    }
+    // notifyListeners();
+    return double.parse(totalAmount.toString());
+  }
+
+  Future getAllCartsData({BuildContext? context, String? userid}) async {
     try {
       _isLoading = true;
       // var headers = {'Cookie': 'ci_session=c7lis868nec6nl8r1lb5el72q8n26upv'};
@@ -59,7 +77,7 @@ class CartProvider extends ChangeNotifier {
       );
 
       print(
-            "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/view_cart.php?userid=$userid");
+          "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/view_cart.php?userid=$userid");
 
       print(response.body);
 
@@ -72,21 +90,18 @@ class CartProvider extends ChangeNotifier {
         for (var i = 0; i < cartDetails.length; i++) {
           _carts.add(
             CartDetails(
-              cartId: cartDetails[i]['cart_id'].toString(),
-              productId: cartDetails[i]['product_id'].toString(),
-              image: cartDetails[i]['image'].toString(),
-              productName: cartDetails[i]['product_name'].toString(),
-              price:cartDetails[i]['price'].toString(),
-              quantity: cartDetails[i]['quantity'].toString(),
-              itemTotal: cartDetails[i]['item_total'].toString(),
-              delivertfee: cartDetails[i]['deliveryFee'].toString()
-
-              
-            ),
+                cartId: cartDetails[i]['cart_id'].toString(),
+                productId: cartDetails[i]['product_id'].toString(),
+                image: cartDetails[i]['image'].toString(),
+                productName: cartDetails[i]['product_name'].toString(),
+                price: cartDetails[i]['price'].toString(),
+                quantity: cartDetails[i]['quantity'].toString(),
+                itemTotal: cartDetails[i]['item_total'].toString(),
+                delivertfee: cartDetails[i]['deliveryFee'].toString()),
           );
         }
-        ;
-        
+        calculateTotalPrice();
+
         print('product details' + _carts.toString());
         _isLoading = false;
         print('products loading completed --->' + 'loading data');
@@ -105,17 +120,17 @@ class CartProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-  Future<void> deleteCart(String? cartId,BuildContext context) async {
-    final user=Provider.of<UserProvider>(context,listen: false);
-    final url = Uri.parse('http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/delete_cart.php?cart_id=$cartId');
-    
-    
+
+  Future<void> deleteCart(String? cartId, BuildContext context) async {
+    final user = Provider.of<UserProvider>(context, listen: false);
+    final url = Uri.parse(
+        'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/delete_cart.php?cart_id=$cartId');
+
     try {
       final response = await https.delete(url);
       print(url);
       if (response.statusCode == 200) {
-        
-      getAllCartsData(userid:user.currentUserId);
+        getAllCartsData(userid: user.currentUserId);
         // Cart deleted successfully
         print('Cart deleted successfully');
       } else {
@@ -126,15 +141,17 @@ class CartProvider extends ChangeNotifier {
       print('Error deleting cart: $e');
     }
   }
+
   Future<void> clearCart({String? userid}) async {
-    final url = Uri.parse('http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/clear_cart.php?user_id=$userid');
-    
+    final url = Uri.parse(
+        'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/clear_cart.php?user_id=$userid');
+
     try {
       final response = await https.delete(url);
 
       if (response.statusCode == 200) {
         print(url);
-        getAllCartsData( );
+        getAllCartsData();
         // Cart deleted successfully
         print('Cart deleted successfully');
       } else {
@@ -145,15 +162,17 @@ class CartProvider extends ChangeNotifier {
       print('Error deleting cart: $e');
     }
   }
-   Future<void> quantityUpdate({String? userid,String? quantity}) async {
-    final url = Uri.parse('http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/update_quantity.php?cart_id=$userid&quantity=$quantity');
-    
+
+  Future<void> quantityUpdate({String? userid, String? quantity}) async {
+    final url = Uri.parse(
+        'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/update_quantity.php?cart_id=$userid&quantity=$quantity');
+
     try {
       final response = await https.get(url);
 
       if (response.statusCode == 200) {
         print(url);
-       
+
         print('Cart quanity update successfully');
       } else {
         // Failed to delete cart
@@ -163,10 +182,4 @@ class CartProvider extends ChangeNotifier {
       print('Error quantity update: $e');
     }
   }
-
-
- 
 }
-
-
- 

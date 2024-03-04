@@ -10,7 +10,7 @@ import 'package:razorpay_flutter/razorpay_flutter.dart';
 
 
 class MyCartScreen extends StatefulWidget {
- 
+
 
    MyCartScreen({Key? key}) : super(key: key);
 
@@ -19,7 +19,7 @@ class MyCartScreen extends StatefulWidget {
 }
 
 class _MyCartScreenState extends State<MyCartScreen> {
-  
+
    @override
   void initState() {
      final userProvider = Provider.of<UserProvider>(context, listen: false);
@@ -27,7 +27,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
         .getAllCartsData(context: context,userid: userProvider.currentUserId);
     Provider.of<UserProvider>(context,listen: false)
         .getUsertData(context: context);
-  
+
     super.initState();
   }
   int quantity = 0;
@@ -93,7 +93,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                       const SizedBox(
                         width: 10,
                       ),
-                   
+
                     ],
                   )
                 : cart.carts.isEmpty
@@ -101,11 +101,12 @@ class _MyCartScreenState extends State<MyCartScreen> {
                     : SizedBox(
                        height: size.height * 0.8,
                         child: ListView.builder(
-                        
+
                           scrollDirection: Axis.vertical,
                           itemCount:cart.carts.length,
                           itemBuilder: (context, intex) {
                             return AllCartWidget(
+                              index: intex,
                               cartid: cart.carts[intex].cartId,
                               productid: cart.carts[intex].productId,
                               name: cart.carts[intex].productName,
@@ -114,25 +115,25 @@ class _MyCartScreenState extends State<MyCartScreen> {
                               quantity: cart.carts[intex].quantity,
                               itemtotal:cart.carts[intex].itemTotal,
                               deliveryfee: cart.carts[intex].delivertfee,
-  
-                            
+
+
                             );
-                            
+
                           },
                         ),
-                      ),       
-                  
-              
-               
-                
-                
+                      ),
+
+
+
+
+
                 ],
               ),
             ),
           ),
       cart.carts.isEmpty
                     ? const Text('')
-                    : 
+                    :
           Container(
             color: Colors.grey[100],
             child: Align(
@@ -143,7 +144,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                 //         topLeft: Radius.circular(25),
                 //         topRight: Radius.circular(25))),
                 height: size.height * 0.18,
-          
+
                 width: size.width,
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.only(
@@ -170,15 +171,15 @@ class _MyCartScreenState extends State<MyCartScreen> {
                             overflow: TextOverflow.fade,
                           ),
                            Text(
-                            '₹100.00',
+                            cart.calculateTotalPrice().toString(),
                             style: TextStyle(
                               color: greencolor,
                               fontWeight: FontWeight.w900,
                             ),
                             overflow: TextOverflow.fade,
                           ),
-                        
-                        
+
+
                         ],
                       ),
                       SizedBox(height: size.height * 0.02),
@@ -206,7 +207,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                         fontSize: 11,fontWeight: FontWeight.bold
                                       ),
                                     ),
-                                  
+
                                   ],
                                 ),
                               ],
@@ -216,7 +217,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                 Razorpay razorpay = Razorpay();
                   var options = {
                     'key': 'rzp_test_1DP5mmOlF5G5ag',
-                    'amount': 100,
+                    'amount': cart.totalAmount*100,
                     'name': 'Acme Corp.',
                     'description': 'Fine T-Shirt',
                     'retry': {'enabled': true, 'max_count': 1},
@@ -263,9 +264,9 @@ class _MyCartScreenState extends State<MyCartScreen> {
                 ),
               ),
             ),
-          ), 
-        
- 
+          ),
+
+
         ],
       ),
     );
@@ -318,5 +319,5 @@ class _MyCartScreenState extends State<MyCartScreen> {
     );
   }
 }
- 
+
 

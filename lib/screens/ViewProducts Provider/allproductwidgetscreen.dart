@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/CartProvider/cartaddprovider.dart';
+import 'package:local_farmers_project/screens/CartProvider/cartprovider.dart';
 import 'package:local_farmers_project/screens/CartScreen/mycartscreen.dart';
 import 'package:local_farmers_project/screens/ItemDetailsScreen/itemdetailsscreen.dart';
 import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
 import 'package:local_farmers_project/screens/ViewProducts%20Provider/productprovider.dart';
 import 'package:provider/provider.dart';
-
-
-
 
 class AllProductWidget extends StatefulWidget {
   final String productid;
@@ -16,34 +14,33 @@ class AllProductWidget extends StatefulWidget {
   final String productprice;
   final String quantity;
   final String image;
-  
 
   const AllProductWidget(
       {super.key,
-     required this.productid,
-     required this.productname,
-     required this.productprice,
-     required this.quantity,
-     required this.image
-      });
+      required this.productid,
+      required this.productname,
+      required this.productprice,
+      required this.quantity,
+      required this.image});
 
   @override
-  State<AllProductWidget > createState() => _AllProductWidgetState();
+  State<AllProductWidget> createState() => _AllProductWidgetState();
 }
 
-class _AllProductWidgetState extends State<AllProductWidget > {
-  int _counter=1;
-  int totalCost=0;
+class _AllProductWidgetState extends State<AllProductWidget> {
+  int _counter = 1;
+  int totalCost = 0;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-     final productapi = Provider.of<ProductProvider>(context,listen: false);
-     final cartapi=Provider.of<AddtoCartProvider>(context,listen: false);
-     final userData=Provider.of<UserProvider>(context,listen: false);
-     return InkWell(
-      onTap: (){
-       Navigator.of(context).pushNamed(ItemDetailScreen.routeName,arguments:widget.productid);
-      // Navigator.push(context,MaterialPageRoute(builder: (context)=>CartScreen()));
+    final productapi = Provider.of<ProductProvider>(context, listen: false);
+    final cartapi = Provider.of<AddtoCartProvider>(context, listen: false);
+    final userData = Provider.of<UserProvider>(context, listen: false);
+    return InkWell(
+      onTap: () {
+        Navigator.of(context)
+            .pushNamed(ItemDetailScreen.routeName, arguments: widget.productid);
+        // Navigator.push(context,MaterialPageRoute(builder: (context)=>CartScreen()));
       },
       child: Card(
         elevation: 0,
@@ -59,12 +56,13 @@ class _AllProductWidgetState extends State<AllProductWidget > {
             children: [
               Text(
                 widget.productname,
-                style: const TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
+                style:
+                    const TextStyle(fontWeight: FontWeight.w500, fontSize: 13),
               ),
               Center(
                 child: GestureDetector(
                   onTap: () {
-                   // onTap();
+                    // onTap();
                   },
                   child: Image.network(
                     widget.image,
@@ -80,8 +78,9 @@ class _AllProductWidgetState extends State<AllProductWidget > {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                       'Qty:${ widget.quantity}',
-                        style: const TextStyle(color: Colors.grey, fontSize: 12),
+                        'Qty:${widget.quantity}',
+                        style:
+                            const TextStyle(color: Colors.grey, fontSize: 12),
                       ),
                       Text(
                         "₹ ${widget.productprice}",
@@ -152,20 +151,51 @@ class _AllProductWidgetState extends State<AllProductWidget > {
                             color: greencolor,
                             //shape: BoxShape.rectangle,
                             borderRadius: BorderRadius.circular(5),
-                            
                           ),
                           child: InkWell(
-                            onTap: () async{
-                             cartapi.addItemToCart(productid: widget.productid.toString(),userid:userData.currentUserId.toString(),quanity:widget.quantity.toString()); 
-                                ScaffoldMessenger.of(context).showSnackBar(
-         SnackBar(
-          backgroundColor: greencolor,
-          content: const Text('Item added to cart successfully!',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
-          duration: const Duration(seconds: 1),
-        ),
-      );
-                             await Navigator.push(context,MaterialPageRoute(builder: (context)=> MyCartScreen()));
-                                                        },
+                            onTap: () async {
+                              final provider =
+                                  Provider.of<CartProvider>(context,listen: false);
+                              bool isInCart = provider.carts.any(
+                                  (item) => item.productId == widget.productid);
+                              if (isInCart) {
+                                 ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  backgroundColor: greencolor,
+                                  content: const Text(
+                                    'Product Already in cart',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  duration: const Duration(seconds: 1),
+                                ),
+                              );
+                              } else {
+                                 cartapi.addItemToCart(
+                                  productid: widget.productid.toString(),
+                                  userid: userData.currentUserId.toString(),
+                                  quanity: widget.quantity.toString());
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  backgroundColor: greencolor,
+                                  content: const Text(
+                                    'Item added to cart successfully!',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  duration: const Duration(seconds: 1),
+                                ),
+                              );
+                               await Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => MyCartScreen()));
+                              }
+
+
+                            },
                             child: Center(
                               child: Text(
                                 'Add',
@@ -180,8 +210,7 @@ class _AllProductWidgetState extends State<AllProductWidget > {
                       ],
                     ),
                   ),
-             
-                 
+
 //                 Container(
 //           height: 30,
 //           width: 30,
@@ -199,7 +228,7 @@ class _AllProductWidgetState extends State<AllProductWidget > {
 // //   Navigator.push(context, MaterialPageRoute(builder:(context)=>const MyCartScreen()));
 // //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
 // //     content: Text('Item added to cart successfully'),
-    
+
 // //   ));
 // // } else {
 // //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -207,13 +236,11 @@ class _AllProductWidgetState extends State<AllProductWidget > {
 // //   ));
 // // }
 //             },
-            
+
 //             // onTap: _toggleVisibility,
 //             child: const Icon(Icons.add, color: Colors.white, size: 13),
 //           ),
 //         ),
-               
-               
                 ],
               )
             ],

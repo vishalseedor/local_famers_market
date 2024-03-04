@@ -6,7 +6,7 @@ class CartDetails {
   final String image;
   final String productName;
   final String price;
-  final String quantity;
+   String quantity;
   final String itemTotal;
   final String delivertfee;
 
@@ -32,5 +32,5 @@ class CartDetails {
           itemTotal: json['item_total'],
           delivertfee: json['deliveryFee']
           );
- 
+
   }}
