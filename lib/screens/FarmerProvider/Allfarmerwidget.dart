@@ -85,38 +85,18 @@ class _AllPetWidgetState extends State<AllFarmersWidget > {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 6.0),
                       child: Text(
-                        widget.farmname,
-                        style: Theme.of(context).textTheme.bodyLarge,
+                        'Farm Name : ${widget.farmname}',
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold)
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        RichText(
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                  text: widget.address,
-                                  style: Theme.of(context).textTheme.bodyLarge),
-                                  
-                              TextSpan(
-                                  text: widget.email,
-                                  style: Theme.of(context).textTheme.bodySmall),
-                            ],
-                          ),
-                        ),
-                        // SizedBox(
-                        //   width: 30,
-                        //   height: 30,
-                        //   child: IconButton.filled(
-                        //     padding: EdgeInsets.zero,
-                        //     onPressed: () {},
-                        //     iconSize: 18,
-                        //     icon: const Icon(Icons.add),
-                        //   ),
-                        // )
-                      ],
-                    )
+                     Padding(
+                      padding: const EdgeInsets.only(bottom: 6.0),
+                      child: Text(
+                        'Email : ${widget.email}',
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(fontWeight: FontWeight.bold,fontSize: 11)
+                      ),
+                    ),
+                   
                   ],
                 ),
               )

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:local_farmers_project/colors/colors.dart';
+
 
 class CartEmptyScreen extends StatefulWidget {
   const CartEmptyScreen({super.key});
@@ -21,9 +21,6 @@ class _CartEmptyScreenState extends State<CartEmptyScreen> {
           Center(child: Image.asset('assets/cartempty.gif')),
           const Center(child: Text('Your Cart is Empty....',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),),
           SizedBox(height: size.height*0.02),
-          ElevatedButton(onPressed: (){},
-          style: ElevatedButton.styleFrom(backgroundColor: greencolor),
-           child:const Text('Add to Cart',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),))
         ],
       );
     

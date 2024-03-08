@@ -183,3 +183,23 @@ class CartProvider extends ChangeNotifier {
     }
   }
 }
+Future<void> placeOrderApi({String? userid}) async {
+    final url = Uri.parse(
+        'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/placed_order.php?user_id=$userid');
+
+    try {
+      final response = await https.get(url);
+
+      if (response.statusCode == 200) {
+        print(url);
+
+        print('Placed order successfully');
+      } else {
+        // Failed to delete cart
+        print('Failed to placed order: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Error place oder: $e');
+    }
+  }
+

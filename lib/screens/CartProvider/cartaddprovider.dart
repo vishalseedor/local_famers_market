@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 
 import 'package:flutter/material.dart';
 import 'package:local_farmers_project/screens/CartProvider/addtocartmodel.dart';
@@ -22,8 +20,7 @@ class AddtoCartProvider extends ChangeNotifier {
    String? quanity}) async {
       var body = {
     'product_id': productid.toString(),
-    
-   // 'user_id': userid.toString(),
+    'user_id': userid.toString(),
     'quantity': quanity.toString(),
   };
 

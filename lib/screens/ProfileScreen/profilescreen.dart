@@ -1,6 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:local_farmers_project/colors/colors.dart';
+import 'package:local_farmers_project/screens/LoginScreen/loginscreen.dart';
+import 'package:local_farmers_project/screens/ProfileScreen/privacyandpoliicyscreen.dart';
 import 'package:local_farmers_project/screens/ProfileScreen/profileditscreen.dart';
+import 'package:local_farmers_project/screens/ProfileScreen/termsandconditionscreen.dart';
 import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
 import 'package:provider/provider.dart';
 
@@ -76,7 +81,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 }
                 return Text(
                   userName,
-                  style: TextStyle(
+                  style: const TextStyle(
                       color: Colors.black,
                       fontSize: 20,
                       fontWeight: FontWeight.bold),
@@ -93,10 +98,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const ProfileEditScreen()));
+                        
                         },
                         child: CircleAvatar(
                           radius: 45,
@@ -126,10 +128,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       children: [
                         Row(
                           children: [
-                            Icon(
-                              Icons.person,
-                              size: 25,
-                              color: greencolor,
+                            InkWell(
+                              onTap: () {
+                                Navigator.push(context,MaterialPageRoute(builder:(context)=>const ProfileEditScreen()));
+                              },
+                              child: Icon(
+                                Icons.person,
+                                size: 25,
+                                color: greencolor,
+                              ),
                             ),
                             SizedBox(
                               width: size.width * 0.02,
@@ -156,10 +163,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       children: [
                         Row(
                           children: [
-                            Icon(
-                              Icons.book,
-                              size: 25,
-                              color: greencolor,
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(context,MaterialPageRoute(builder:(context)=>const TermsandConditions()));
+                              },
+                              child: Icon(
+                                Icons.book,
+                                size: 25,
+                                color: greencolor,
+                              ),
                             ),
                             SizedBox(
                               width: size.width * 0.02,
@@ -186,10 +198,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       children: [
                         Row(
                           children: [
-                            Icon(
-                              Icons.privacy_tip,
-                              size: 25,
-                              color: greencolor,
+                            GestureDetector(
+                              onTap: (){
+                                Navigator.push(context,MaterialPageRoute(builder: (context)=>const PrivacyandPolicy()));
+                              },
+                              child: Icon(
+                                Icons.privacy_tip,
+                                size: 25,
+                                color: greencolor,
+                              ),
                             ),
                             SizedBox(
                               width: size.width * 0.02,
@@ -216,10 +233,59 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       children: [
                         Row(
                           children: [
-                            Icon(
-                              Icons.logout,
-                              size: 25,
-                              color: greencolor,
+                            InkWell(
+                              onTap: (){
+                                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text(
+                        'Logout',
+                        style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),
+                      ),
+                      content:
+                          const Text('Are you sure want to exit this app?',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 14),),
+                      actions: <Widget>[
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(backgroundColor: greencolor,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const LoginScreen()));
+                          },
+                          child: const Text(
+                            'OK',
+                            style: TextStyle(
+                              fontSize: 12,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w900),
+                          ),
+                        ),
+                        ElevatedButton(
+                                style: ElevatedButton.styleFrom(backgroundColor:greencolor,shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10))),
+                          onPressed: () {
+                            // Close the dialog
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text(
+                            'CANCEL',
+                            style: TextStyle(
+                               fontSize: 12,
+                                color: Colors.white,
+                                fontWeight: FontWeight.w900),
+                          ),
+                        )
+                      ],
+                    );
+                  },
+                );
+                              },
+                              child: Icon(
+                                Icons.logout,
+                                size: 25,
+                                color: greencolor,
+                              ),
                             ),
                             SizedBox(
                               width: size.width * 0.02,

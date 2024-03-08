@@ -155,13 +155,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         decoration: InputDecoration(
                             fillColor: Colors.grey[400],
                             filled: true,
-                            prefixIcon: Icon(
+                            prefixIcon: const Icon(
                               Icons.phone_android_outlined,
                               color: Colors.black,
                             ),
                             // hintText: 'Enter Phone Number/Email ID/BN User Id',
                             hintText: 'Phone',
-                            hintStyle: TextStyle(fontSize: 13),
+                            hintStyle: const TextStyle(fontSize: 13),
                             border: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 borderSide: BorderSide.none)),

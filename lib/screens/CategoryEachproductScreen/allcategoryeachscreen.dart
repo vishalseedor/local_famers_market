@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:local_farmers_project/colors/colors.dart';
-import 'package:local_farmers_project/screens/CartProvider/cartprovider.dart';
 import 'package:local_farmers_project/screens/CategoryEachproductScreen/alleachcategory.dart';
 import 'package:local_farmers_project/screens/CategoryEachproductScreen/caregoryeachprovider.dart';
 import 'package:local_farmers_project/screens/CategoryProvider/emptycategoryscreen.dart';

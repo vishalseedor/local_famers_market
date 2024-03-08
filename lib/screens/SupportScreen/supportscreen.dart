@@ -80,9 +80,17 @@ class _SupportScreenState extends State<SupportScreen> {
                     height: size.height * 0.06,
                   ),
                   InkWell(
-                    onTap: (){
-                 launch('tele:+91 8870120688');
-                      
+                    onTap: ()async{
+                      final Uri url=Uri(
+                        scheme: 'tel',
+                        path: "887 012 0688",
+                      );
+                      if( await canLaunchUrl(url)){
+                        await launchUrl(url);
+                      }else{
+                        print('cannot lanuch this url');
+                      }
+                     
                     },
                     child: Card(
                       shadowColor: Colors.grey,

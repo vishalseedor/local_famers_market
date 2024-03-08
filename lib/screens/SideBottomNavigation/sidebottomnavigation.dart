@@ -56,7 +56,7 @@ class _LeftWidgetState extends State<LeftWidget> with TickerProviderStateMixin {
   final List<String> _list = [
     "Home",
     "Category",
-    "Farmers",
+    "Farms",
     "Support",
     //"Cart",
     "Profile"

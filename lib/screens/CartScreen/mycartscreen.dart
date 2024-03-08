@@ -218,7 +218,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                   var options = {
                     'key': 'rzp_test_1DP5mmOlF5G5ag',
                     'amount': cart.totalAmount*100,
-                    'name': 'Acme Corp.',
+                    'name': 'Local Farmers Market',
                     'description': 'Fine T-Shirt',
                     'retry': {'enabled': true, 'max_count': 1},
                     'send_sms_hash': true,

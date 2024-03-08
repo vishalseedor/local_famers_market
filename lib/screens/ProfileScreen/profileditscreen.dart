@@ -3,6 +3,10 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:local_farmers_project/screens/ProfileScreen/profilescreen.dart';
+import 'package:local_farmers_project/screens/SideBottomNavigation/sidebottomnavigation.dart';
+import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
+import 'package:provider/provider.dart';
 
 import '../../colors/colors.dart';
 import 'package:http/http.dart' as http;
@@ -35,6 +39,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final user=Provider.of<UserProvider>(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -206,9 +211,10 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                   child: ElevatedButton(
                       style:
                           ElevatedButton.styleFrom(backgroundColor: greencolor),
-                      onPressed: () {
-                        Navigator.pop(context);
+                      onPressed: (){
+                        
                         updateProfileApi();
+                         
                       },
                       child: const Text(
                         'Update',
@@ -309,7 +315,11 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       var request = http.MultipartRequest(
           'POST',
           Uri.parse(
-              'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/edit_user.php'));
+              'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/edit_user.php'),
+              
+              
+              );
+              print('http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/edit_user.php');
       request.fields.addAll({
         'name': userNameController.text.trim(),
         'phone': phoneNumberController.text.trim(),
@@ -326,10 +336,14 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       http.StreamedResponse response = await request.send();
       print(await response.stream.bytesToString());
       if (response.statusCode == 200) {
+         Navigator.push(context,MaterialPageRoute(builder:(context)=>const SideBottomNavigation()));
+       
         print(await response.stream.bytesToString());
       } else {
         print(response.reasonPhrase);
       }
-    } catch (e) {}
+    } catch (e) {
+      
+    }
   }
 }

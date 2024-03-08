@@ -4,7 +4,6 @@ import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/CartScreen/mycartscreen.dart';
 import 'package:local_farmers_project/screens/CategoryProvider/categoryprovider.dart';
 import 'package:local_farmers_project/screens/ExtraScreens/loadingscreen.dart';
-import 'package:local_farmers_project/screens/GlobalService/globalservice.dart';
 import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
 import 'package:local_farmers_project/screens/ViewProducts%20Provider/allproductwidgetscreen.dart';
 import 'package:local_farmers_project/screens/ViewProducts%20Provider/productprovider.dart';
@@ -85,7 +84,7 @@ bool isVisible=false;
                   userAddress = value.users[i].address;
                 }
                 return Text(
-                  userAddress,
+                  '$userAddress , India',
                   style: const TextStyle(
                       color: Colors.black,
                       fontSize: 10,
@@ -519,7 +518,7 @@ bool isVisible=false;
                                               crossAxisCount: 2,
                                               crossAxisSpacing: 10,
                                               mainAxisSpacing: 10,
-                                              childAspectRatio: 0.9),
+                                              childAspectRatio: 0.86),
                                       scrollDirection: Axis.vertical,
                                       itemCount: product.searchProducts.length,
                                       itemBuilder: (context, intex) {
