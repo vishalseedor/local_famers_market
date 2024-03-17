@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/ExtraScreens/loadingscreen.dart';
@@ -30,45 +31,48 @@ class _FamersScreenState extends State<FamersScreen> {
         backgroundColor: Colors.white,
         title: const Text('Farms',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16),),
       ),
-      body:farmer.loadingSpinner
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        const LoadingScreen(title: 'Loading'),
-                        CircularProgressIndicator(
-                          color: greencolor,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                     
-                      ],
-                    )
-                  : farmer.farmers.isEmpty
-                      ? Text('No Famers...')
-                      : SizedBox(
-                        height: size.height * 0.6,
-                          child: ListView.builder(
-                            scrollDirection: Axis.vertical,
-                            itemCount: farmer.farmers.length,
-                            itemBuilder: (context, intex) {
-                              return AllFarmersWidget(
-                                id: farmer.farmers[intex].id,
-                                name: farmer.farmers[intex].name,
-                                farmname: farmer.farmers[intex].farmName,
-                                address: farmer.farmers[intex].address,
-                                image: farmer.farmers[intex].file,
-                                email: farmer.farmers[intex].email,
-                                farmstatus: farmer.farmers[intex].farmerStatus,
-
-                           
-                           
-                               
-                              
-                              );
-                            },
+      body:FadeInUp(
+        duration: const Duration(milliseconds: 3000),
+        child: farmer.loadingSpinner
+                    ? Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const LoadingScreen(title: 'Loading'),
+                          CircularProgressIndicator(
+                            color: greencolor,
                           ),
-                        ),        
+                          const SizedBox(
+                            width: 10,
+                          ),
+                       
+                        ],
+                      )
+                    : farmer.farmers.isEmpty
+                        ? Text('No Famers...')
+                        : SizedBox(
+                          height: size.height * 0.6,
+                            child: ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              itemCount: farmer.farmers.length,
+                              itemBuilder: (context, intex) {
+                                return AllFarmersWidget(
+                                  id: farmer.farmers[intex].id,
+                                  name: farmer.farmers[intex].name,
+                                  farmname: farmer.farmers[intex].farmName,
+                                  address: farmer.farmers[intex].address,
+                                  image: farmer.farmers[intex].file,
+                                  email: farmer.farmers[intex].email,
+                                  farmstatus: farmer.farmers[intex].farmerStatus,
+        
+                             
+                             
+                                 
+                                
+                                );
+                              },
+                            ),
+                          ),
+      ),        
     );
   }
 }

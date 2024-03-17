@@ -1,62 +1,47 @@
 import 'package:flutter/material.dart';
 
-class CateoGoryWidget extends StatelessWidget {
-  final String image;
+class CateoGoryWidget extends StatefulWidget {
+  final String id;
   final String title;
-  final String subtitle;
-  final Function() ontap;
+  final String image;
+
   const CateoGoryWidget({
     super.key,
-    required this.image,
+    required this.id,
     required this.title,
-    required this.subtitle,
-    required this.ontap,
+    required this.image,
+   
   });
 
   @override
+  State<CateoGoryWidget> createState() => _CateoGoryWidgetState();
+}
+
+class _CateoGoryWidgetState extends State<CateoGoryWidget> {
+  @override
   Widget build(BuildContext context) {
+    final size=MediaQuery.of(context).size;
     return GestureDetector(
       onTap: () {
-        ontap();
+      
       },
       child: Card(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(6),
+          borderRadius: BorderRadius.circular(8),
         ),
         elevation: 0,
         child: Padding(
-          padding: const EdgeInsets.all(5),
+          padding: const EdgeInsets.symmetric(horizontal: 8),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              const SizedBox(
-                width: 7,
+              Container(
+                height: 35,
+                width: 35,
+                decoration: BoxDecoration(image: DecorationImage(image: NetworkImage(widget.image))),
               ),
-              Image.asset(
-                image,
-                scale: 3.5,
-              ),
-              const SizedBox(
-                width: 6,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(4.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(title,
-                        style: const TextStyle(
-                          fontSize: 9,
-                          fontWeight: FontWeight.w700,
-                        )),
-                    Text(
-                      subtitle,
-                      style: const TextStyle(
-                          fontSize: 9, fontWeight: FontWeight.w700),
-                    )
-                  ],
-                ),
-              )
+              SizedBox(width: size.width*0.02),
+              Text(widget.title,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 12),)
             ],
           ),
         ),

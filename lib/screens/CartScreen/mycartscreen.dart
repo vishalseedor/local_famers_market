@@ -1,9 +1,11 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/CartProvider/allcartwidget.dart';
 import 'package:local_farmers_project/screens/CartProvider/cartemptyscreen.dart';
 import 'package:local_farmers_project/screens/CartProvider/cartprovider.dart';
 import 'package:local_farmers_project/screens/ExtraScreens/loadingscreen.dart';
+import 'package:local_farmers_project/screens/SupportScreen/feebackscreen.dart';
 import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -91,41 +93,44 @@ class _MyCartScreenState extends State<MyCartScreen> {
               child: Column(
                 children: [
                   SizedBox(height: size.height * 0.02),
-                  cart.loadingSpinner
-                      ? Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const LoadingScreen(title: 'Loading'),
-                            CircularProgressIndicator(
-                              color: greencolor,
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                          ],
-                        )
-                      : cart.carts.isEmpty
-                          ? const CartEmptyScreen()
-                          : SizedBox(
-                              height: size.height * 0.8,
-                              child: ListView.builder(
-                                scrollDirection: Axis.vertical,
-                                itemCount: cart.carts.length,
-                                itemBuilder: (context, intex) {
-                                  return AllCartWidget(
-                                    index: intex,
-                                    cartid: cart.carts[intex].cartId,
-                                    productid: cart.carts[intex].productId,
-                                    name: cart.carts[intex].productName,
-                                    price: cart.carts[intex].price,
-                                    image: cart.carts[intex].image,
-                                    quantity: cart.carts[intex].quantity,
-                                    itemtotal: cart.carts[intex].itemTotal,
-                                    deliveryfee: cart.carts[intex].delivertfee,
-                                  );
-                                },
+                  FadeInUp(
+                    duration: const Duration(milliseconds: 3000),
+                    child: cart.loadingSpinner
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              const LoadingScreen(title: 'Loading'),
+                              CircularProgressIndicator(
+                                color: greencolor,
                               ),
-                            ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                            ],
+                          )
+                        : cart.carts.isEmpty
+                            ? const CartEmptyScreen()
+                            : SizedBox(
+                                height: size.height * 0.8,
+                                child: ListView.builder(
+                                  scrollDirection: Axis.vertical,
+                                  itemCount: cart.carts.length,
+                                  itemBuilder: (context, intex) {
+                                    return AllCartWidget(
+                                      index: intex,
+                                      cartid: cart.carts[intex].cartId,
+                                      productid: cart.carts[intex].productId,
+                                      name: cart.carts[intex].productName,
+                                      price: cart.carts[intex].price,
+                                      image: cart.carts[intex].image,
+                                      quantity: cart.carts[intex].quantity,
+                                      itemtotal: cart.carts[intex].itemTotal,
+                                      deliveryfee: cart.carts[intex].delivertfee,
+                                    );
+                                  },
+                                ),
+                              ),
+                  ),
                 ],
               ),
             ),
@@ -146,18 +151,19 @@ class _MyCartScreenState extends State<MyCartScreen> {
                       width: size.width,
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(28),
-                          topRight: Radius.circular(28),
+                          topLeft: Radius.circular(20),
+                          topRight: Radius.circular(20),
                         ),
                         color: Colors.black,
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 10),
                         child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SizedBox(height: size.height * 0.02),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 const Text(
                                   'Item Total',
@@ -168,7 +174,29 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                   overflow: TextOverflow.fade,
                                 ),
                                 Text(
-                                  cart.calculateTotalPrice().toString(),
+                                  "₹ .${cart.calculateTotalPrice().toString()}",
+                                  style: TextStyle(
+                                    color: greencolor,
+                                    fontWeight: FontWeight.w900,
+                                  ),
+                                  overflow: TextOverflow.fade,
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: size.height*0.01),
+                              Row(
+                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                const Text(
+                                  'Delivery Fee',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w600,
+                                  ),
+                                  overflow: TextOverflow.fade,
+                                ),
+                                Text(
+                                  "₹ .50.00",
                                   style: TextStyle(
                                     color: greencolor,
                                     fontWeight: FontWeight.w900,
@@ -178,87 +206,53 @@ class _MyCartScreenState extends State<MyCartScreen> {
                               ],
                             ),
                             SizedBox(height: size.height * 0.02),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 13),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  const Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Delivery fee',
-                                        style: TextStyle(
-                                          fontWeight: FontWeight.w600,
-                                          color: Colors.white,
-                                        ),
-                                      ),
-                                      Row(
-                                        children: [
-                                          Text(
-                                            '₹ 50.0',
-                                            style: TextStyle(
-                                                color: Colors.white,
-                                                fontSize: 11,
-                                                fontWeight: FontWeight.bold),
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                  GestureDetector(
-                                    onTap: () async {
-                                      Razorpay razorpay = Razorpay();
-                                      var options = {
-                                        'key': 'rzp_test_1DP5mmOlF5G5ag',
-                                        'amount': cart.totalAmount * 100,
-                                        'name': 'Local Farmers Market',
-                                        'description': 'Fine T-Shirt',
-                                        'retry': {
-                                          'enabled': true,
-                                          'max_count': 1
-                                        },
-                                        'send_sms_hash': true,
-                                        'prefill': {
-                                          'contact': '8888888888',
-                                          'email': 'test@razorpay.com'
-                                        },
-                                        'external': {
-                                          'wallets': ['paytm']
-                                        }
-                                      };
-                                      razorpay.on(Razorpay.EVENT_PAYMENT_ERROR,
-                                          handlePaymentErrorResponse);
-                                      razorpay.on(
-                                          Razorpay.EVENT_PAYMENT_SUCCESS,
-                                          handlePaymentSuccessResponse);
-                                      razorpay.on(
-                                          Razorpay.EVENT_EXTERNAL_WALLET,
-                                          handleExternalWalletSelected);
-                                      razorpay.open(options);
-                                    },
-                                    child: Container(
-                                      height: size.height * 0.05,
-                                      width: size.width * 0.5,
-                                      decoration: BoxDecoration(
-                                        color: greencolor,
-                                        borderRadius: BorderRadius.circular(6),
-                                      ),
-                                      child: const Center(
-                                        child: Text(
-                                          'Check Out',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.w600,
-                                          ),
-                                        ),
-                                      ),
+                            GestureDetector(
+                              onTap: () async {
+                                Razorpay razorpay = Razorpay();
+                                var options = {
+                                  'key': 'rzp_test_1DP5mmOlF5G5ag',
+                                  'amount': cart.totalAmount * 100,
+                                  'name': 'Local Farmers Market',
+                                  'description': 'Fine T-Shirt',
+                                  'retry': {
+                                    'enabled': true,
+                                    'max_count': 1
+                                  },
+                                  'send_sms_hash': true,
+                                  'prefill': {
+                                    'contact': '8888888888',
+                                    'email': 'test@razorpay.com'
+                                  },
+                                  'external': {
+                                    'wallets': ['paytm']
+                                  }
+                                };
+                                razorpay.on(Razorpay.EVENT_PAYMENT_ERROR,
+                                    handlePaymentErrorResponse);
+                                razorpay.on(
+                                    Razorpay.EVENT_PAYMENT_SUCCESS,
+                                    handlePaymentSuccessResponse);
+                                razorpay.on(
+                                    Razorpay.EVENT_EXTERNAL_WALLET,
+                                    handleExternalWalletSelected);
+                                razorpay.open(options);
+                              },
+                              child: Container(
+                                height: size.height * 0.05,
+                                width: double.infinity,
+                                decoration: BoxDecoration(
+                                  color: greencolor,
+                                  borderRadius: BorderRadius.circular(6),
+                                ),
+                                child: const Center(
+                                  child: Text(
+                                    'Place Order',
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w600,
                                     ),
                                   ),
-                                ],
+                                ),
                               ),
                             ),
                           ],
@@ -283,15 +277,18 @@ class _MyCartScreenState extends State<MyCartScreen> {
         "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
   }
 
-  void handlePaymentSuccessResponse(PaymentSuccessResponse response) {
+  void handlePaymentSuccessResponse(PaymentSuccessResponse response){
+
+   
     /*
     * Payment Success Response contains three values:
     * 1. Order ID
     * 2. Payment ID
     * 3. Signature
     * */
-    context.read<CartProvider>().clearCart();
+   context.read<CartProvider>().placeOrderApi();
     print(response.data.toString());
+    // const OrderSuccessScreen();
     showAlertDialog(
         context, "Payment Successful", "Payment ID: ${response.paymentId}");
   }

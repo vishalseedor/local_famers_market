@@ -144,7 +144,7 @@ class CartProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> clearCart({String? userid}) async {
+  Future<void> clearCart({String? userid, BuildContext? context}) async {
     final url = Uri.parse(
         'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/clear_cart.php?user_id=$userid');
 
@@ -184,15 +184,17 @@ class CartProvider extends ChangeNotifier {
       print('Error quantity update: $e');
     }
   }
-}
-Future<void> placeOrderApi({String? userid}) async {
+  Future<void>placeOrderApi({String? userid}) async {
     final url = Uri.parse(
         'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/placed_order.php?user_id=$userid');
+       
 
     try {
       final response = await https.get(url);
 
       if (response.statusCode == 200) {
+        clearCart();
+      
         print(url);
 
         print('Placed order successfully');
@@ -204,4 +206,6 @@ Future<void> placeOrderApi({String? userid}) async {
       print('Error place oder: $e');
     }
   }
+}
+
 

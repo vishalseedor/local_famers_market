@@ -17,7 +17,7 @@ class _EmptyCategoryScreenState extends State<EmptyCategoryScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const SizedBox(height: 50),
+          const SizedBox(height: 200),
           Center(child: Image.asset('assets/emptycate.gif')),
           Center(child: const Text('Your Category is Empty....',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),),
           SizedBox(height: size.height*0.02),

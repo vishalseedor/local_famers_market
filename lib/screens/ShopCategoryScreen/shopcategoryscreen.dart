@@ -1,3 +1,4 @@
+import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/CategoryEachproductScreen/caregoryeachprovider.dart';
@@ -72,66 +73,69 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   ),
                 ),
                 SizedBox(height: size.height*0.02,),
-               category.loadingSpinner
-                    ? Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          const LoadingScreen(title: 'Loading'),
-                          CircularProgressIndicator(
-                            color: greencolor,
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                        ],
-                      )
-                    : category.categories.isEmpty
-                        ? Center(
-                            child: Text(
-                            'No Categoriess...',
-                            style: TextStyle(color: greencolor),
-                          ))
-                        : category.searchCategoryProducts.isEmpty &&
-                                searchController.text.isNotEmpty
-                            ? Center(
-                                child: Text(
-                                'No Category available...',
-                                style: TextStyle(color: greencolor),
-                              ))
-                            : searchController.text.isNotEmpty &&
-                                    category.searchCategoryProducts.isNotEmpty
-                                ? SizedBox(
-                                    height: size.height * 0.6,
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: category.searchCategoryProducts.length,
-                                      itemBuilder: (context, intex) {
-                                        return AllCategoryWidget(
-                                          id:category.searchCategoryProducts[intex].id,
-                                          name: category.searchCategoryProducts[intex].name,
-                                          image: category.searchCategoryProducts[intex].image,
-                                          farmerid: category.searchCategoryProducts[intex].farmerid,
-                                           quantity: category.searchCategoryProducts[intex].quantity,
-                                        );
-                                      },
+               FadeInUp(
+                duration: const Duration(milliseconds: 3000),
+                 child: category.loadingSpinner
+                      ? Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const LoadingScreen(title: 'Loading'),
+                            CircularProgressIndicator(
+                              color: greencolor,
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                          ],
+                        )
+                      : category.categories.isEmpty
+                          ? Center(
+                              child: Text(
+                              'No Categoriess...',
+                              style: TextStyle(color: greencolor),
+                            ))
+                          : category.searchCategoryProducts.isEmpty &&
+                                  searchController.text.isNotEmpty
+                              ? Center(
+                                  child: Text(
+                                  'No Category available...',
+                                  style: TextStyle(color: greencolor),
+                                ))
+                              : searchController.text.isNotEmpty &&
+                                      category.searchCategoryProducts.isNotEmpty
+                                  ? SizedBox(
+                                      height: size.height * 0.6,
+                                      child: ListView.builder(
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: category.searchCategoryProducts.length,
+                                        itemBuilder: (context, intex) {
+                                          return AllCategoryWidget(
+                                            id:category.searchCategoryProducts[intex].id,
+                                            name: category.searchCategoryProducts[intex].name,
+                                            image: category.searchCategoryProducts[intex].image,
+                                            farmerid: category.searchCategoryProducts[intex].farmerid,
+                                             quantity: category.searchCategoryProducts[intex].quantity,
+                                          );
+                                        },
+                                      ),
+                                    )
+                                  : SizedBox(
+                                      height: size.height * 0.6,
+                                      child: ListView.builder(
+                                        scrollDirection: Axis.vertical,
+                                        itemCount: category.categories.length,
+                                        itemBuilder: (context, intex) {
+                                          return AllCategoryWidget(
+                                            id:category.categories[intex].id,
+                                            name: category.categories[intex].name,
+                                            image: category.categories[intex].image,
+                                            farmerid: category.categories[intex].farmerid,
+                                             quantity: category.categories[intex].quantity,
+                                          );
+                                        },
+                                      ),
                                     ),
-                                  )
-                                : SizedBox(
-                                    height: size.height * 0.6,
-                                    child: ListView.builder(
-                                      scrollDirection: Axis.vertical,
-                                      itemCount: category.categories.length,
-                                      itemBuilder: (context, intex) {
-                                        return AllCategoryWidget(
-                                          id:category.categories[intex].id,
-                                          name: category.categories[intex].name,
-                                          image: category.categories[intex].image,
-                                          farmerid: category.categories[intex].farmerid,
-                                           quantity: category.categories[intex].quantity,
-                                        );
-                                      },
-                                    ),
-                                  ),
+               ),
                
               ],
             ),

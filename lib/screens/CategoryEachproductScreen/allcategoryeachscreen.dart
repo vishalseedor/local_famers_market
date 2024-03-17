@@ -56,17 +56,19 @@ class _AllCategoryEachScreenState extends State<AllCategoryEachScreen> {
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15,vertical: 15),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-             cateproduct.category.isEmpty?Text(''): TextFormField(
-                decoration: InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide.none),fillColor: Colors.white,filled: true,hintText: 'Search',suffixIcon: Icon(Icons.search)),
-                  onChanged: (value) {
-                  if (value != "") {
-                    String searchQuery = value.toLowerCase();
-                    print("hhhhhhhhh");
-                    cateproduct.getSearchData(value: searchQuery);
-                  }
-                },
-              ),
+              Text('Category Products Near You',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+            //  cateproduct.category.isEmpty?Text(''): TextFormField(
+            //     decoration: InputDecoration(border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide.none),fillColor: Colors.white,filled: true,hintText: 'Search',suffixIcon: Icon(Icons.search)),
+            //       onChanged: (value) {
+            //       if (value != "") {
+            //         String searchQuery = value.toLowerCase();
+            //         print("hhhhhhhhh");
+            //         cateproduct.getSearchData(value: searchQuery);
+            //       }
+            //     },
+            //   ),
               SizedBox(height: size.height*0.02),
               cateproduct.loadingSpinner
                         ? Column(
