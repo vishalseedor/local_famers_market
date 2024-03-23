@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/LoginScreen/loginscreen.dart';
 import 'package:local_farmers_project/screens/ProfileScreen/privacyandpoliicyscreen.dart';
@@ -96,15 +96,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           ),
                         ],
                       ),
-                      GestureDetector(
-                        onTap: () {
+                        Consumer<UserProvider>(builder: (context, value, child) {
+                String userphoto = "";
+                for (var i = 0; i < value.users.length; i++) {
+                  userphoto = value.users[i].image;
+                }
+                return CircleAvatar(
+                  radius: 45,
+                  child: Image.network(userphoto),
+                );
+              }),
+                      // GestureDetector(
+                      //   onTap: () {
                         
-                        },
-                        child: CircleAvatar(
-                          radius: 45,
-                          child: Image.asset('assets/profile.png'),
-                        ),
-                      )
+                      //   },
+                      //   child: CircleAvatar(
+                      //     radius: 45,
+                      //     child: Image.asset('assets/profile.png'),
+                      //   ),
+                      // )
                     ],
                   ),
                   SizedBox(

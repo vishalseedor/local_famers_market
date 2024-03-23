@@ -40,7 +40,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
       final product = Provider.of<ProductProvider>(context,listen: false);
-      final cartapi=Provider.of<AddtoCartProvider>(context);
+      final cartapi=Provider.of<CartProvider>(context);
       final user=Provider.of<UserProvider>(context);
       final productData =
         Provider.of<ProductProvider>(context).products.firstWhere((element) => element.productId == widget.id);
@@ -161,51 +161,51 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                     ),
                   ),
                 ),
-                   FadeInUp(
-                  duration: const Duration(milliseconds: 3000),
-                  child: product.loadingSpinner
-                      ? Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            const LoadingScreen(title: 'Loading'),
-                            CircularProgressIndicator(
-                              color: greencolor,
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                          ],
-                        )
-                      : product.products.isEmpty
-                          ? Center(
-                              child: Text(
-                              'No Pets...',
-                              style: TextStyle(color: greencolor),
-                            ))
+                //    FadeInUp(
+                //   duration: const Duration(milliseconds: 3000),
+                //   child: product.loadingSpinner
+                //       ? Column(
+                //           mainAxisAlignment: MainAxisAlignment.center,
+                //           children: [
+                //             const LoadingScreen(title: 'Loading'),
+                //             CircularProgressIndicator(
+                //               color: greencolor,
+                //             ),
+                //             const SizedBox(
+                //               width: 10,
+                //             ),
+                //           ],
+                //         )
+                //       : product.products.isEmpty
+                //           ? Center(
+                //               child: Text(
+                //               'No Pets...',
+                //               style: TextStyle(color: greencolor),
+                //             ))
                         
-                                  : SizedBox(
-                                      height: size.height * 0.26,
+                //                   : SizedBox(
+                //                       height: size.height * 0.26,
                                     
-                                      child: ListView.builder(
+                //                       child: ListView.builder(
                                         
-                                        scrollDirection: Axis.horizontal,
-                                        itemCount: product.products.length,
-                                        itemBuilder: (context, intex) {
-                                          return AllProductWidget(
-                                            productid:
-                                                product.products[intex].productId,
-                                            productname: product
-                                                .products[intex].productName,
-                                            productprice:
-                                                product.products[intex].price,
-                                            quantity:
-                                                product.products[intex].quantity,
-                                            image: product.products[intex].image,
-                                          );
-                                        },
-                                      ),
-                                    ),
-                ),
+                //                         scrollDirection: Axis.horizontal,
+                //                         itemCount: product.products.length,
+                //                         itemBuilder: (context, intex) {
+                //                           return AllProductWidget(
+                //                             productid:
+                //                                 product.products[intex].productId,
+                //                             productname: product
+                //                                 .products[intex].productName,
+                //                             productprice:
+                //                                 product.products[intex].price,
+                //                             quantity:
+                //                                 product.products[intex].quantity,
+                //                             image: product.products[intex].image,
+                //                           );
+                //                         },
+                //                       ),
+                //                     ),
+                // ),
               ],
             ),
           ),

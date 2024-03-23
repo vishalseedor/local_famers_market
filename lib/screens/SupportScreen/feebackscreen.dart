@@ -18,7 +18,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Center(child: Image.asset('assets/feedback.png',scale: 4,)),
+          Center(child: Image.asset('assets/jj.png',scale: 6,)),
           SizedBox(height: size.height*0.02,),
           const Text('Order Placed Successfully',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
             SizedBox(height: size.height*0.02,),
@@ -26,7 +26,7 @@ class _OrderSuccessScreenState extends State<OrderSuccessScreen> {
             style: ElevatedButton.styleFrom(backgroundColor: greencolor,shape:RoundedRectangleBorder(borderRadius: BorderRadius.circular(5))),
             onPressed: (){
               Navigator.push(context,MaterialPageRoute(builder: (context)=>SideBottomNavigation()));
-            }, child: Text('OK',style: TextStyle(color:Colors.white),))
+            }, child: const Text('OK',style: TextStyle(color:Colors.white),))
         ],
       ),
     );

@@ -36,9 +36,9 @@ class _CateoGoryWidgetState extends State<CateoGoryWidget> {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               Container(
-                height: 35,
+                height: 40,
                 width: 35,
-                decoration: BoxDecoration(image: DecorationImage(image: NetworkImage(widget.image))),
+                decoration: BoxDecoration(image: DecorationImage(image: NetworkImage(widget.image)),borderRadius: BorderRadius.circular(10)),
               ),
               SizedBox(width: size.width*0.02),
               Text(widget.title,style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 12),)

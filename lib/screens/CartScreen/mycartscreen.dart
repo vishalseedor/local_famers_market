@@ -278,6 +278,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
   }
 
   void handlePaymentSuccessResponse(PaymentSuccessResponse response){
+ 
 
    
     /*
@@ -288,9 +289,9 @@ class _MyCartScreenState extends State<MyCartScreen> {
     * */
    context.read<CartProvider>().placeOrderApi();
     print(response.data.toString());
-    // const OrderSuccessScreen();
-    showAlertDialog(
-        context, "Payment Successful", "Payment ID: ${response.paymentId}");
+    Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=>const OrderSuccessScreen()));
+    // showAlertDialog(
+    //     context, "Payment Successful", "Payment ID: ${response.paymentId}");
   }
 
   void handleExternalWalletSelected(ExternalWalletResponse response) {

@@ -34,7 +34,7 @@ class _AllProductWidgetState extends State<AllProductWidget> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final productapi = Provider.of<ProductProvider>(context, listen: false);
-    final cartapi = Provider.of<AddtoCartProvider>(context, listen: false);
+    final cartapi = Provider.of<CartProvider>(context, listen: false);
     final userData = Provider.of<UserProvider>(context, listen: false);
     return InkWell(
       onTap: () {
@@ -175,7 +175,7 @@ class _AllProductWidgetState extends State<AllProductWidget> {
                                  cartapi.addItemToCart(
                                   productid: widget.productid.toString(),
                                   userid: userData.currentUserId.toString(),
-                                  quanity: widget.quantity.toString());
+                                  quanity: '1');
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   backgroundColor: greencolor,

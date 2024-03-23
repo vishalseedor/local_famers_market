@@ -5,8 +5,8 @@ import 'package:provider/provider.dart';
 
 class FeedbackProvider extends ChangeNotifier {
 
-  Future  addFeedback({String? userId, String? comments}) async {
-    String apiUrl = 'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/add_feedback.php?userid=$userId&comments=$comments';
+  Future  addFeedback({String? userId, String? comments,String? productId}) async {
+    String apiUrl = 'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/add_feedback.php?userid=$userId&comments=$comments&product_id=$productId';
     var response = await http.post(Uri.parse(apiUrl));
 
     if (response.statusCode == 200) {

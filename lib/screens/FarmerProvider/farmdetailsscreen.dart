@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/FarmerProvider/farmprovider.dart';
 import 'package:provider/provider.dart';
 
@@ -24,8 +25,9 @@ class _FarmerDetailsScreenState extends State<FarmerDetailsScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Farm Details',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16),),
-        backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Colors.white),
+        title: Text('Farm Details',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16),),
+        backgroundColor: greencolor,
         elevation: 0,
         // leading: IconButton(
         //   onPressed: () {

@@ -5,6 +5,7 @@ import 'package:local_farmers_project/screens/SideBottomNavigation/sidebottomnav
 import 'package:local_farmers_project/screens/SupportScreen/feebackscreen.dart';
 import 'package:local_farmers_project/screens/SupportScreen/supportprovider.dart';
 import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
+import 'package:local_farmers_project/screens/ViewProducts%20Provider/productprovider.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -41,6 +42,7 @@ class _SupportScreenState extends State<SupportScreen> {
     final size = MediaQuery.of(context).size;
     final support=Provider.of<FeedbackProvider>(context);
     final userData=Provider.of<UserProvider>(context);
+    final product=Provider.of<ProductProvider>(context);
     return SafeArea(
       child: Scaffold(
         backgroundColor: backgroundcolor,

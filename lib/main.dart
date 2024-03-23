@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:local_farmers_project/screens/CartProvider/allcartscreen.dart';
-import 'package:local_farmers_project/screens/CartProvider/cartaddprovider.dart';
+
 import 'package:local_farmers_project/screens/CartProvider/cartprovider.dart';
 import 'package:local_farmers_project/screens/CategoryEachproductScreen/allcategoryeachscreen.dart';
 import 'package:local_farmers_project/screens/CategoryEachproductScreen/caregoryeachprovider.dart';
@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => CategoryProvider()),
         ChangeNotifierProvider(create: (context) => CartProvider()),
         ChangeNotifierProvider(create: (context) => CategoryEachProvider()),
-        ChangeNotifierProvider(create: (context) => AddtoCartProvider()),
+       // ChangeNotifierProvider(create: (context) => AddtoCartProvider()),
         ChangeNotifierProvider(create: (context) => UserProvider()),
         ChangeNotifierProvider(create: (context) => FeedbackProvider())
       ],

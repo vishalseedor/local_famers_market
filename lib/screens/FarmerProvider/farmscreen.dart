@@ -28,6 +28,8 @@ class _FamersScreenState extends State<FamersScreen> {
     return Scaffold(
       backgroundColor: backgroundcolor,
       appBar: AppBar(
+        toolbarHeight: 80,
+        automaticallyImplyLeading: false,
         backgroundColor: Colors.white,
         title: const Text('Farms',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 16),),
       ),

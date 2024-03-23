@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as https;
+import 'package:local_farmers_project/screens/CartProvider/addtocartmodel.dart';
 import 'package:local_farmers_project/screens/CartProvider/cartmodel.dart';
 import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
 import 'package:provider/provider.dart';
@@ -66,6 +67,14 @@ class CartProvider extends ChangeNotifier {
     // notifyListeners();
     return double.parse(totalAmount.toString());
   }
+    List<AddCartItem> _cartItems = [];
+
+  List<AddCartItem> get cartItems => _cartItems;
+ 
+ void addToCart(AddCartItem item) {
+    _cartItems.add(item);
+    notifyListeners();
+  }
 
   Future getAllCartsData({BuildContext? context, String? userid}) async {
     try {
@@ -120,6 +129,39 @@ class CartProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
+    Future addItemToCart({ String? productid,
+  
+   String? userid,
+  
+   String? quanity}) async {
+      var body = {
+    'product_id': productid.toString(),
+    'user_id': userid.toString(),
+   // 'quantity': quanity.toString(),
+     'quantity': '1',
+  };
+
+  try {
+    var response = await https.post(Uri.parse('http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/add_cart.php?product_id=$productid&user_id=$userid&quantity=1'),
+        body: body);
+
+    if (response.statusCode == 200) {
+      
+      // Request successful
+      print('Added to cart successfully');
+      print('Response: ${response.body}');
+    } else {
+      // Request failed with error code
+      print('Failed to add to cart. Status Code: ${response.statusCode}');
+    }
+  } catch (e) {
+    // Exception thrown during request
+    print('Failed to add to cart. Exception: $e');
+  }
+    
+  }
+
+  
 
   
 
@@ -164,29 +206,35 @@ class CartProvider extends ChangeNotifier {
       print('Error deleting cart: $e');
     }
   }
+ Future<void>productQuantityupdate(String cartId, String quantity) async {
 
-  Future<void> quantityUpdate({String? userid, String? quantity}) async {
-    final url = Uri.parse(
-        'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/update_quantity.php?cart_id=$userid&quantity=$quantity');
+   final url = Uri.parse(
+        'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/update_quantity.php?cart_id=$cartId&quantity=$quantity');
+       
 
-    try {
-      final response = await https.get(url);
 
-      if (response.statusCode == 200) {
-        print(url);
+  try {
+       final response = await https.put(url);
 
-        print('Cart quanity update successfully');
-      } else {
-        // Failed to delete cart
-        print('Failed to quanity update: ${response.statusCode}');
-      }
-    } catch (e) {
-      print('Error quantity update: $e');
+    //   body: {'quantity': quantity.toString()},
+    // );
+
+    if (response.statusCode == 200) {
+      // Request successful, handle response here if needed
+      print('Quantity updated successfully');
+    } else {
+      // Request failed with an error code, handle error here
+      print('Failed to update quantity. Status code: ${response.statusCode}');
     }
+  } catch (e) {
+    // An error occurred, handle error here
+    print('Failed to update quantity. Error: $e');
   }
-  Future<void>placeOrderApi({String? userid}) async {
+}
+  
+  Future<void>placeOrderApi({String? userid,String? cartId}) async {
     final url = Uri.parse(
-        'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/placed_order.php?user_id=$userid');
+        'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/placed_order.php?user_id=$userid&cart_id=$cartId');
        
 
     try {
