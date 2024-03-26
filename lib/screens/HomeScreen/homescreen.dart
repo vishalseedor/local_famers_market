@@ -17,7 +17,7 @@ class HomeScreen extends StatefulWidget {
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
-
+ 
 class _HomeScreenState extends State<HomeScreen> {
   TextEditingController searchText = TextEditingController();
 bool isVisible=false;
@@ -290,9 +290,9 @@ bool isVisible=false;
                                         gridDelegate:
                                             const SliverGridDelegateWithFixedCrossAxisCount(
                                                 crossAxisCount: 2,
-                                                crossAxisSpacing: 10,
+                                                crossAxisSpacing: 10,   
                                                 mainAxisSpacing: 10,
-                                                childAspectRatio: 0.86),
+                                                childAspectRatio: 0.78),
                                         scrollDirection: Axis.vertical,
                                         itemCount: product.searchProducts.length,
                                         itemBuilder: (context, intex) {
@@ -320,7 +320,7 @@ bool isVisible=false;
                                                 crossAxisCount: 2,
                                                 crossAxisSpacing: 10,
                                                 mainAxisSpacing: 10,
-                                                childAspectRatio: 0.86),
+                                                childAspectRatio: 0.78),
                                         scrollDirection: Axis.vertical,
                                         itemCount: product.products.length,
                                         itemBuilder: (context, intex) {

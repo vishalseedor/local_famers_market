@@ -19,7 +19,7 @@ class CartDetails {
       required this.quantity,
       required this.itemTotal,
       required this.delivertfee
-      });
+      }); 
 
  factory CartDetails.fromJson(Map<String, dynamic> json) {
    return CartDetails(

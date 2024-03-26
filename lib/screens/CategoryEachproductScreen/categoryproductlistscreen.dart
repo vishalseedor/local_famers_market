@@ -53,7 +53,7 @@ class _CategoryProductScreenState extends State<CategoryProductScreen> {
                           style: TextStyle(color:greencolor),
                         ))
                       : SizedBox(
-                          height: size.height * 0.6,
+                        //  height: size.height * 0.6,
                           child: GridView.builder(
                             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,crossAxisSpacing: 10,mainAxisSpacing: 10),
                             scrollDirection: Axis.vertical,

@@ -277,21 +277,11 @@ class _MyCartScreenState extends State<MyCartScreen> {
         "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
   }
 
-  void handlePaymentSuccessResponse(PaymentSuccessResponse response){
- 
-
-   
-    /*
-    * Payment Success Response contains three values:
-    * 1. Order ID
-    * 2. Payment ID
-    * 3. Signature
-    * */
+  void handlePaymentSuccessResponse(PaymentSuccessResponse response)async{
    context.read<CartProvider>().placeOrderApi();
     print(response.data.toString());
-    Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=>const OrderSuccessScreen()));
-    // showAlertDialog(
-    //     context, "Payment Successful", "Payment ID: ${response.paymentId}");
+   await Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=>const OrderSuccessScreen()));
+  
   }
 
   void handleExternalWalletSelected(ExternalWalletResponse response) {

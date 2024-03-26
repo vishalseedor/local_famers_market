@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:local_farmers_project/screens/CartProvider/cartprovider.dart';
-import 'package:local_farmers_project/screens/CategoryProvider/categoryprovider.dart';
 import 'package:local_farmers_project/screens/ExtraScreens/errorscreen.dart';
 import 'package:local_farmers_project/screens/ExtraScreens/loadingscreen.dart';
 

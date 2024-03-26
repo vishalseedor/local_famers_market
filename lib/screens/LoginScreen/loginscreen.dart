@@ -170,6 +170,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             if (value!.isEmpty) {
                               return 'Please enter your phone number';
                             }
+                            else{
+                              return null;
+                            }
                           },
                         ),
                         SizedBox(height: size.height * 0.03),
@@ -196,6 +199,9 @@ class _LoginScreenState extends State<LoginScreen> {
                           validator: (value) {
                             if (value!.isEmpty) {
                               return 'Please enter your password';
+                            }
+                            else{
+                              return null;
                             }
                           },
                         ),

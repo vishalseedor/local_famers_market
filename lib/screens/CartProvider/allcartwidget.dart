@@ -73,6 +73,7 @@ class _AllCartWidgetState extends State<AllCartWidget> {
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
+                    maxLines: 2,
                   ),
                   // Text(
                   //   '${widget.quantity} pcs',
@@ -143,7 +144,7 @@ class _AllCartWidgetState extends State<AllCartWidget> {
                                   fontWeight: FontWeight.bold),
                             ),
                             duration: const Duration(seconds: 4),
-                          ),
+                          ), 
                         );
                       },
                       icon: Icon(IconlyLight.delete)),

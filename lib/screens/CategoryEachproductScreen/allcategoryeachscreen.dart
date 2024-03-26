@@ -98,7 +98,7 @@ class _AllCategoryEachScreenState extends State<AllCategoryEachScreen> {
                           : searchController.text.isNotEmpty &&
                                   cateproduct.searchProducts.isNotEmpty
                               ? SizedBox(
-                                  height: size.height * 0.6,
+                                  height: size.height * 0.2,
                                   child: GridView.builder(
                                     gridDelegate:
                                         const SliverGridDelegateWithFixedCrossAxisCount(
@@ -124,7 +124,7 @@ class _AllCategoryEachScreenState extends State<AllCategoryEachScreen> {
                         : cateproduct.category.isEmpty
                             ? const EmptyCategoryScreen()
                             : SizedBox(
-                                height: size.height * 0.6,
+                              height: size.height * 0.8,
                                 child: GridView.builder(
                                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,crossAxisSpacing: 10,mainAxisSpacing: 10,childAspectRatio: 0.9),
                                   scrollDirection: Axis.vertical,

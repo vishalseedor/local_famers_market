@@ -204,7 +204,7 @@ class CartProvider extends ChangeNotifier {
       }
     } catch (e) {
       print('Error deleting cart: $e');
-    }
+    }  
   }
  Future<void>productQuantityupdate(String cartId, String quantity) async {
 
@@ -232,9 +232,10 @@ class CartProvider extends ChangeNotifier {
   }
 }
   
-  Future<void>placeOrderApi({String? userid,String? cartId}) async {
+  Future<void>placeOrderApi({String? userid}) async { 
+   
     final url = Uri.parse(
-        'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/placed_order.php?user_id=$userid&cart_id=$cartId');
+        'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/placed_order.php?user_id=$userid');
        
 
     try {
@@ -242,6 +243,7 @@ class CartProvider extends ChangeNotifier {
 
       if (response.statusCode == 200) {
         clearCart();
+        print(response.body);
       
         print(url);
 
@@ -250,7 +252,7 @@ class CartProvider extends ChangeNotifier {
         // Failed to delete cart
         print('Failed to placed order: ${response.statusCode}');
       }
-    } catch (e) {
+    } catch (e) {  
       print('Error place oder: $e');
     }
   }
