@@ -169,7 +169,10 @@ bool isVisible=false;
                 TextFormField(
                   controller: searchController,
                   keyboardType: TextInputType.text,
-                  decoration: const InputDecoration(
+                  decoration:  InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(50),borderSide: BorderSide.none
+                    ),
                     fillColor: Colors.white,
                     filled: true,
                     prefixIcon: Icon(
@@ -181,8 +184,8 @@ bool isVisible=false;
                         color: Colors.grey,
                        fontSize: 14,
                         fontWeight: FontWeight.w600),
-                    border: InputBorder.none,
-                    focusedBorder: InputBorder.none,
+                 
+                 
                   ),
                   style: const TextStyle(color: Colors.black),
                   onChanged: (value) {
@@ -207,7 +210,7 @@ bool isVisible=false;
                   height: size.height * 0.01,
                 ),
                   FadeInUp(
-                  duration:  const Duration(milliseconds: 3000),
+                  duration:  const Duration(milliseconds: 1500),
                    child: category.loadingSpinner
                     ? Column(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -255,7 +258,7 @@ bool isVisible=false;
                 ),
                 SizedBox(height: size.height * 0.01),
                 FadeInUp(
-                  duration: const Duration(milliseconds: 3000),
+                  duration: const Duration(milliseconds: 1500),
                   child: product.loadingSpinner
                       ? Column(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -272,14 +275,14 @@ bool isVisible=false;
                       : product.products.isEmpty
                           ? Center(
                               child: Text(
-                              'No Pets...',
+                              'No Products...',
                               style: TextStyle(color: greencolor),
                             ))
                           : product.searchProducts.isEmpty &&
                                   searchController.text.isNotEmpty
                               ? Center(
                                   child: Text(
-                                  'No Pets available...',
+                                  'No Products available...',
                                   style: TextStyle(color: greencolor),
                                 ))
                               : searchController.text.isNotEmpty &&

@@ -1,14 +1,17 @@
+import 'dart:convert';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+
 import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/CartProvider/allcartwidget.dart';
 import 'package:local_farmers_project/screens/CartProvider/cartemptyscreen.dart';
 import 'package:local_farmers_project/screens/CartProvider/cartprovider.dart';
 import 'package:local_farmers_project/screens/ExtraScreens/loadingscreen.dart';
-import 'package:local_farmers_project/screens/SupportScreen/feebackscreen.dart';
 import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+
 
 class MyCartScreen extends StatefulWidget {
   MyCartScreen({Key? key}) : super(key: key);
@@ -18,6 +21,7 @@ class MyCartScreen extends StatefulWidget {
 }
 
 class _MyCartScreenState extends State<MyCartScreen> {
+  Map<String,dynamic>?paymentIntent;
   @override
   void initState() {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
@@ -94,7 +98,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                 children: [
                   SizedBox(height: size.height * 0.02),
                   FadeInUp(
-                    duration: const Duration(milliseconds: 3000),
+                    duration: const Duration(milliseconds: 1500),
                     child: cart.loadingSpinner
                         ? Column(
                             mainAxisAlignment: MainAxisAlignment.center,
@@ -125,7 +129,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                       image: cart.carts[intex].image,
                                       quantity: cart.carts[intex].quantity,
                                       itemtotal: cart.carts[intex].itemTotal,
-                                      deliveryfee: cart.carts[intex].delivertfee,
+                                    
                                     );
                                   },
                                 ),
@@ -146,13 +150,13 @@ class _MyCartScreenState extends State<MyCartScreen> {
                       //     borderRadius: BorderRadius.only(
                       //         topLeft: Radius.circular(25),
                       //         topRight: Radius.circular(25))),
-                      height: size.height * 0.18,
+                      height: size.height * 0.15,
 
                       width: size.width,
                       decoration: const BoxDecoration(
                         borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(20),
-                          topRight: Radius.circular(20),
+                          topLeft: Radius.circular(30),
+                          topRight: Radius.circular(30),
                         ),
                         color: Colors.black,
                       ),
@@ -161,7 +165,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            SizedBox(height: size.height * 0.02),
+                            SizedBox(height: size.height * 0.01),
                             Row(
                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -183,31 +187,32 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                 ),
                               ],
                             ),
-                            SizedBox(height: size.height*0.01),
-                              Row(
-                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text(
-                                  'Delivery Fee',
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                  ),
-                                  overflow: TextOverflow.fade,
-                                ),
-                                Text(
-                                  "₹ .50.00",
-                                  style: TextStyle(
-                                    color: greencolor,
-                                    fontWeight: FontWeight.w900,
-                                  ),
-                                  overflow: TextOverflow.fade,
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: size.height * 0.02),
+                         //   SizedBox(height: size.height*0.01),
+                            //   Row(
+                            //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //   children: [
+                            //     const Text(
+                            //       'Delivery Fee',
+                            //       style: TextStyle(
+                            //         color: Colors.white,
+                            //         fontWeight: FontWeight.w600,
+                            //       ),
+                            //       overflow: TextOverflow.fade,
+                            //     ),
+                            //     Text(
+                            //       "₹ .50.00",
+                            //       style: TextStyle(
+                            //         color: greencolor,
+                            //         fontWeight: FontWeight.w900,
+                            //       ),
+                            //       overflow: TextOverflow.fade,
+                            //     ),
+                            //   ],
+                            // ),
+                            //SizedBox(height: size.height * 0.02),
                             GestureDetector(
-                              onTap: () async {
+                              onTap: (){
+                              //  payment();
                                 Razorpay razorpay = Razorpay();
                                 var options = {
                                   'key': 'rzp_test_1DP5mmOlF5G5ag',
@@ -265,8 +270,44 @@ class _MyCartScreenState extends State<MyCartScreen> {
       ),
     );
   }
+// Future<void>payment()async{
+// try{
+//   Map<String ,dynamic>body={
+
+//     'amount':100.00,
+//     'currency':'INR',
+
+//   };
+//   var response =await http.post(
+//     Uri.parse('https://api.stripe.com/v1/payment_intents'),
+//     headers:{
+//       'Authorization':'Bearer',
+//       'Content-type':'application/x-www-form-urlencoded'
+
+//     }
+//   );
+//   paymentIntent=json.decode(response.body);
+// }catch(error){
+//   throw Exception(error);
+// }
+//  await Stripe.instance.initPaymentSheet(paymentSheetParameters:SetupPaymentSheetParameters(
+//   paymentIntentClientSecret: paymentIntent!['client_secret'],
+//   style: ThemeMode.light,
+//   merchantDisplayName: 'Vishal'
+//  )
+//  ).then((value) => {});
+//  try{
+//   await Stripe.instance.presentPaymentSheet().then((value) =>{
+//     print('Payment successfully')
+//   } );
+//  }catch(error){
+
+//  }
+
+//   }
 
   void handlePaymentErrorResponse(PaymentFailureResponse response) {
+
     /*
     * PaymentFailureResponse contains three values:
     * 1. Error Code
@@ -277,10 +318,11 @@ class _MyCartScreenState extends State<MyCartScreen> {
         "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
   }
 
-  void handlePaymentSuccessResponse(PaymentSuccessResponse response)async{
-   context.read<CartProvider>().placeOrderApi();
+  void handlePaymentSuccessResponse(PaymentSuccessResponse response){
+
+   context.read<CartProvider>().placeOrderApi(context: context);
     print(response.data.toString());
-   await Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=>const OrderSuccessScreen()));
+  
   
   }
 

@@ -15,7 +15,7 @@ class AllCartWidget extends StatefulWidget {
   final String quantity;
   final String price;
   final String itemtotal;
-  final String deliveryfee;
+  
 
   const AllCartWidget(
       {super.key,
@@ -27,7 +27,7 @@ class AllCartWidget extends StatefulWidget {
       required this.quantity,
       required this.price,
       required this.itemtotal,
-      required this.deliveryfee});
+     });
 
   @override
   State<AllCartWidget> createState() => _AllCartWidgetState();

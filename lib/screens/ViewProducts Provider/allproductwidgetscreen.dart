@@ -175,7 +175,7 @@ class _AllProductWidgetState extends State<AllProductWidget> {
                                  cartapi.addItemToCart(
                                   productid: widget.productid.toString(),
                                   userid: userData.currentUserId.toString(),
-                                  quanity: '1');
+                                  quanity: widget.quantity.toString());
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   backgroundColor: greencolor,
