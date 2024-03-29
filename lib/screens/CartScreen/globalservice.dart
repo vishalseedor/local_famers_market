@@ -16,17 +16,17 @@ class GlobalSnackBar {
             child: Row(
               children: [
                 const Text(
-                  '1 items',
+                  '1 Item added cart ',
                   style: TextStyle(color: Colors.white, fontSize: 14),
                 ),
-                VerticalDivider(
-                  color: greencolor,
-                  thickness: 1,
-                ),
-                const Text(
-                  '₹ 10.00',
-                  style: TextStyle(color: Colors.white, fontSize: 14),
-                )
+                // VerticalDivider(
+                //   color: greencolor,
+                //   thickness: 1,
+                // ),
+                // const Text(
+                //   '₹ 10.00',
+                //   style: TextStyle(color: Colors.white, fontSize: 14),
+                // )
               ],
             ),
             // child: Column(
@@ -84,14 +84,15 @@ class GlobalSnackBar {
                         Radius.circular(6),
                       ),
                       color: greencolor),
-                  child: const Center(
+                  child:  Center(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Icon(
-                          Icons.shopping_bag_rounded,
-                          color: Colors.white,
-                        ),
+                        Image.asset('assets/cart.png',height: 20,width: 20,),
+                        // Icon(
+                        //   Icons.shopping_bag_rounded,
+                        //   color: Colors.white,
+                        // ),
                         Text('VIEW CART',
                             style: TextStyle(
                                 color: Colors.white,
@@ -150,11 +151,12 @@ class GlobalSnackBar {
       backgroundColor: greencolor,
       duration: const Duration(milliseconds: 1500),
       behavior: SnackBarBehavior.floating,
-      // action: SnackBarAction(
-      //   textColor: CustomColor.whitecolor,
-      //   label: 'View cart',
-      //   onPressed: () {},
-      // ),
+      action: SnackBarAction(
+        textColor: Colors.white,
+        label: 'View cart',
+        onPressed: () {},
+      ),
     ));
   }
 }
+ 

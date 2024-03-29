@@ -20,6 +20,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   bool rememberMe = true;
   bool loading = false;
+  late bool _passwordVisible;
   TextEditingController phonecontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -99,6 +100,10 @@ class _LoginScreenState extends State<LoginScreen> {
     } catch (error) {
       print('Error: $error');
     }
+  }
+  @override
+  void initState() {
+    _passwordVisible = false;
   }
 
   @override
@@ -183,16 +188,32 @@ class _LoginScreenState extends State<LoginScreen> {
                         ),
                         SizedBox(height: size.height * 0.01),
                         TextFormField(
+                          obscureText: _passwordVisible,
                           controller: passwordcontroller,
                           keyboardType: TextInputType.phone,
                           decoration: InputDecoration(
                               fillColor: Colors.grey[400],
                               filled: true,
                               prefixIcon:
-                                  Icon(Icons.lock_outline, color: Colors.black),
-                              // hintText: 'Enter Phone Number/Email ID/BN User Id',
+                              const Icon(Icons.lock_outline, color: Colors.black),
+                              suffixIcon: IconButton(
+            icon: Icon(
+             
+               _passwordVisible
+               ? Icons.visibility
+               : Icons.visibility_off,
+               color: Colors.black
+               ),
+            onPressed: () {
+           
+               setState(() {
+                   _passwordVisible = !_passwordVisible;
+               });
+             },
+            ),
+                          
                               hintText: 'Password',
-                              hintStyle: TextStyle(fontSize: 13),
+                              hintStyle: const TextStyle(fontSize: 13),
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide.none)),
@@ -213,43 +234,43 @@ class _LoginScreenState extends State<LoginScreen> {
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Row(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      rememberMe = !rememberMe;
-                                      setState(() {});
-                                    },
-                                    child: Container(
-                                      //margin: const EdgeInsets.only(left: 7),
-                                      width: size.width * 0.05,
-                                      height: size.height * 0.025,
-                                      decoration: BoxDecoration(
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(2),
-                                          border: Border.all(
-                                              color: rememberMe
-                                                  ? Colors.blue
-                                                  : Colors.black)),
-                                      child: Center(
-                                          child: rememberMe
-                                              ? const Icon(
-                                                  Icons.done,
-                                                  size: 15,
-                                                  color: Colors.black,
-                                                )
-                                              : Container()),
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 15,
-                                  ),
-                                  const Text(
-                                    'Remember me',
-                                    style: TextStyle(color: Colors.white),
-                                  )
-                                ],
-                              ),
+                              // Row(
+                              //   children: [
+                              //     GestureDetector(
+                              //       onTap: () {
+                              //         rememberMe = !rememberMe;
+                              //         setState(() {});
+                              //       },
+                              //       child: Container(
+                              //         //margin: const EdgeInsets.only(left: 7),
+                              //         width: size.width * 0.05,
+                              //         height: size.height * 0.025,
+                              //         decoration: BoxDecoration(
+                              //             color: Colors.white,
+                              //             borderRadius: BorderRadius.circular(2),
+                              //             border: Border.all(
+                              //                 color: rememberMe
+                              //                     ? Colors.blue
+                              //                     : Colors.black)),
+                              //         child: Center(
+                              //             child: rememberMe
+                              //                 ? const Icon(
+                              //                     Icons.done,
+                              //                     size: 15,
+                              //                     color: Colors.black,
+                              //                   )
+                              //                 : Container()),
+                              //       ),
+                              //     ),
+                              //     const SizedBox(
+                              //       width: 15,
+                              //     ),
+                              //     // const Text(
+                              //     //   'Remember me',
+                              //     //   style: TextStyle(color: Colors.white),
+                              //     // )
+                              //   ],
+                              // ),
                               InkWell(
                                 onTap: () {},
                                 child: const Text(
@@ -260,9 +281,9 @@ class _LoginScreenState extends State<LoginScreen> {
                             ],
                           ),
                         ),
-                        SizedBox(
-                          height: size.height * 0.02,
-                        ),
+                        // SizedBox(
+                        //   height: size.height * 0.02,
+                        // ),
                         RoundButton(
                             title: 'Login',
                             loading: loading,

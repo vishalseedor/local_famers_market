@@ -2,16 +2,10 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:local_farmers_project/colors/colors.dart';
-import 'package:local_farmers_project/screens/CartProvider/cartaddprovider.dart';
 import 'package:local_farmers_project/screens/CartProvider/cartprovider.dart';
-
 import 'package:local_farmers_project/screens/CartScreen/mycartscreen.dart';
-import 'package:local_farmers_project/screens/ExtraScreens/loadingscreen.dart';
 import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
-import 'package:local_farmers_project/screens/ViewProducts%20Provider/allproductwidgetscreen.dart';
 import 'package:local_farmers_project/screens/ViewProducts%20Provider/productprovider.dart';
-
-
 import 'package:provider/provider.dart';
 
 

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:local_farmers_project/colors/colors.dart';
-import 'package:local_farmers_project/screens/CartProvider/cartaddprovider.dart';
 import 'package:local_farmers_project/screens/CartProvider/cartprovider.dart';
+import 'package:local_farmers_project/screens/CartScreen/globalservice.dart';
+import 'package:local_farmers_project/screens/CartScreen/globalsnackbar.dart';
 import 'package:local_farmers_project/screens/CartScreen/mycartscreen.dart';
 import 'package:local_farmers_project/screens/ItemDetailsScreen/itemdetailsscreen.dart';
 import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
@@ -28,6 +29,8 @@ class AllProductWidget extends StatefulWidget {
 }
 
 class _AllProductWidgetState extends State<AllProductWidget> {
+  GlobalSnackBar _snackBar =GlobalSnackBar();
+  ProductSnackBar _productSnackBar=ProductSnackBar();
   int _counter = 1;
   int totalCost = 0;
   @override
@@ -160,38 +163,53 @@ class _AllProductWidgetState extends State<AllProductWidget> {
                                   (item) => item.productId == widget.productid);
                               if (isInCart) {
                                  ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  backgroundColor: greencolor,
-                                  content: const Text(
-                                    'Product Already in cart',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  duration: const Duration(seconds: 1),
-                                ),
+                               _productSnackBar.productSnackbar(context: context)
+                                // SnackBar(
+                                //   backgroundColor: greencolor,
+                                //   content: const Text(
+                                //     'Item added to cart successfully!',
+                                //     style: TextStyle(
+                                //         color: Colors.white,
+                                //         fontWeight: FontWeight.bold),
+                                //   ),
+                                //   duration: const Duration(seconds: 4),
+                                // ),
                               );
+                              //    ScaffoldMessenger.of(context).showSnackBar(
+                              //   // SnackBar(
+                              //   //   backgroundColor: greencolor,
+                              //   //   content: const Text(
+                              //   //     'Product Already in cart',
+                              //   //     style: TextStyle(
+                              //   //         color: Colors.white,
+                              //   //         fontWeight: FontWeight.bold),
+                              //   //   ),
+                              //   //   duration: const Duration(seconds: 1),
+                              //   // ),
+                              // );
                               } else {
                                  cartapi.addItemToCart(
                                   productid: widget.productid.toString(),
                                   userid: userData.currentUserId.toString(),
                                   quanity: widget.quantity.toString());
+                               
                               ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  backgroundColor: greencolor,
-                                  content: const Text(
-                                    'Item added to cart successfully!',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                  duration: const Duration(seconds: 1),
-                                ),
+                               _snackBar.customSnackbar(context: context)
+                                // SnackBar(
+                                //   backgroundColor: greencolor,
+                                //   content: const Text(
+                                //     'Item added to cart successfully!',
+                                //     style: TextStyle(
+                                //         color: Colors.white,
+                                //         fontWeight: FontWeight.bold),
+                                //   ),
+                                //   duration: const Duration(seconds: 4),
+                                // ),
                               );
-                               await Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => MyCartScreen()));
+                              //  await Navigator.push(
+                              //     context,
+                              //     MaterialPageRoute(
+                              //         builder: (context) => MyCartScreen()));
                               }
 
 
