@@ -38,14 +38,14 @@ class _AllProductWidgetState extends State<AllProductWidget> {
     final size = MediaQuery.of(context).size;
     final productapi = Provider.of<ProductProvider>(context, listen: false);
     final cartapi = Provider.of<CartProvider>(context, listen: false);
-    final userData = Provider.of<UserProvider>(context, listen: false);
+    final userData = Provider.of<UserProvider>(context,   listen: false);
     return InkWell(
       onTap: () {
         Navigator.of(context)
             .pushNamed(ItemDetailScreen.routeName, arguments: widget.productid);
         // Navigator.push(context,MaterialPageRoute(builder: (context)=>CartScreen()));
       },
-      child: Card(
+      child: Card( 
         elevation: 0,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
         // height: size.height * 0.25,

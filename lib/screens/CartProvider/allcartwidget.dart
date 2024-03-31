@@ -68,6 +68,7 @@ class _AllCartWidgetState extends State<AllCartWidget> {
                     height: 70,
                     width: 70,
                   ),
+                  
                   Text(
                     widget.name,
                     style: const TextStyle(
@@ -75,10 +76,7 @@ class _AllCartWidgetState extends State<AllCartWidget> {
                     ),
                     maxLines: 2,
                   ),
-                  // Text(
-                  //   '${widget.quantity} pcs',
-                  //   style: const TextStyle(color: Colors.grey),
-                  // ),
+                
 
                   Container(
                     height: 35,

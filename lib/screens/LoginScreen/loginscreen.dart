@@ -116,7 +116,7 @@ class _LoginScreenState extends State<LoginScreen> {
           body: Container(
             decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('assets/blurimage.jpg'),
+                    image: AssetImage('assets/bg.jpg'),
                     fit: BoxFit.cover)),
             child: Center(
               child: SingleChildScrollView(
@@ -141,7 +141,7 @@ class _LoginScreenState extends State<LoginScreen> {
                             style: TextStyle(
                                 fontSize: 28,
                                 fontWeight: FontWeight.bold,
-                                color: Colors.white),
+                                color: Colors.black),
                           ),
                         ),
                         SizedBox(
@@ -150,7 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         const Text(
                           'Phone',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -159,7 +159,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           controller: phonecontroller,
                           keyboardType: TextInputType.phone,
                           decoration: InputDecoration(
-                              fillColor: Colors.grey[400],
+                              fillColor: Colors.grey[300],
                               filled: true,
                               prefixIcon: const Icon(
                                 Icons.phone_android_outlined,
@@ -184,7 +184,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         const Text(
                           'Password',
                           style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                              color: Colors.black, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(height: size.height * 0.01),
                         TextFormField(
@@ -192,7 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
                           controller: passwordcontroller,
                           keyboardType: TextInputType.phone,
                           decoration: InputDecoration(
-                              fillColor: Colors.grey[400],
+                              fillColor: Colors.grey[300],
                               filled: true,
                               prefixIcon:
                               const Icon(Icons.lock_outline, color: Colors.black),
@@ -305,7 +305,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               'Already have an account ?',
                               style: TextStyle(
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.white),
+                                  color: Colors.black),
                             ),
                             TextButton(
                                 onPressed: () {
@@ -318,7 +318,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 child: Text(
                                   'Register',
                                   style: TextStyle(
-                                      color: Colors.greenAccent,
+                                      color: Colors.blue,
                                       fontWeight: FontWeight.bold),
                                 ))
                           ],

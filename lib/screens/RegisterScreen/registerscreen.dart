@@ -88,7 +88,7 @@ String name,String phone,String email,String password,String address,String stat
       final size = MediaQuery.of(context).size;
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/blurimage.jpg'),fit: BoxFit.cover)),
+        decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('assets/bg.jpg'),fit: BoxFit.cover)),
        child: SingleChildScrollView
        (
          child: Padding(
@@ -104,7 +104,7 @@ String name,String phone,String email,String password,String address,String stat
                           child: Text(
                             'REGISTER',
                             style:
-                                TextStyle(fontSize: 28, fontWeight: FontWeight.bold,color: Colors.white),
+                                TextStyle(fontSize: 28, fontWeight: FontWeight.bold,color: Colors.black),
                           ),
                         ),
                         SizedBox(
@@ -113,7 +113,7 @@ String name,String phone,String email,String password,String address,String stat
                          const Text(
                           'Name',
                           style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold,),
+                              color: Colors.black, fontWeight: FontWeight.bold,),
                         ),
                         SizedBox(height: size.height * 0.01),
                         TextFormField(
@@ -122,7 +122,7 @@ String name,String phone,String email,String password,String address,String stat
                           keyboardType: TextInputType.text,
                           decoration:  InputDecoration(
                             
-                            fillColor: Colors.grey[400],
+                            fillColor: Colors.grey[300],
                             filled: true,
                             prefixIcon: const Icon(Icons.person_outline,color: Colors.black,),
                               // hintText: 'Enter Phone Number/Email ID/BN User Id',
@@ -139,14 +139,14 @@ String name,String phone,String email,String password,String address,String stat
                         const Text(
                           'Phone',
                           style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                              color: Colors.black, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(height: size.height * 0.01),
                         TextFormField(
                           controller: phonecontroller,
                           keyboardType: TextInputType.phone,
                           decoration:  InputDecoration(
-                             fillColor: Colors.grey[400],
+                             fillColor: Colors.grey[300],
                             filled: true,
                               prefixIcon: const Icon(Icons.mobile_screen_share_outlined,color:Colors.black),
                               hintText: 'Phone',
@@ -163,14 +163,14 @@ String name,String phone,String email,String password,String address,String stat
                         const Text(
                           'Email',
                           style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                              color: Colors.black, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(height: size.height * 0.01),
                         TextFormField(
                            controller: emailcontroller,
                           keyboardType: TextInputType.emailAddress,
                           decoration:  InputDecoration(
-                             fillColor: Colors.grey[400],
+                             fillColor: Colors.grey[300],
                             filled: true,
                               prefixIcon: const Icon(Icons.email_outlined,color:Colors.black),
                               // hintText: 'Enter Phone Number/Email ID/BN User Id',
@@ -187,14 +187,14 @@ String name,String phone,String email,String password,String address,String stat
                         const Text(
                           'Password',
                           style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                              color: Colors.black, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(height: size.height * 0.01),
                         TextFormField(
                          controller: passswordcontroller,
                           keyboardType: TextInputType.text,
                           decoration:  InputDecoration(
-                             fillColor: Colors.grey[400],
+                             fillColor: Colors.grey[300],
                             filled: true,
                               prefixIcon: const Icon(Icons.lock_outline,color:Colors.black),
                               // hintText: 'Enter Phone Number/Email ID/BN User Id',
@@ -211,14 +211,14 @@ String name,String phone,String email,String password,String address,String stat
                         const Text(
                           'Address',
                           style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                              color: Colors.black, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(height: size.height * 0.01),
                         TextFormField(
                            controller: addresscontroller,
                           keyboardType: TextInputType.text,
                           decoration:  InputDecoration(
-                             fillColor: Colors.grey[400],
+                             fillColor: Colors.grey[300],
                             filled: true,
                               prefixIcon: const Icon(Icons.location_history_outlined,color:Colors.black),
                               // hintText: 'Enter Phone Number/Email ID/BN User Id',
@@ -235,14 +235,14 @@ String name,String phone,String email,String password,String address,String stat
                         const Text(
                           'State',
                           style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                              color: Colors.black, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(height: size.height * 0.01),
                         TextFormField(
                           controller: statecontroller,
                           keyboardType: TextInputType.text,
                           decoration:  InputDecoration(
-                             fillColor: Colors.grey[400],
+                             fillColor: Colors.grey[300],
                             filled: true,
                               prefixIcon: const Icon(Icons.location_city_outlined,color:Colors.black),
                               // hintText: 'Enter Phone Number/Email ID/BN User Id',
@@ -259,14 +259,14 @@ String name,String phone,String email,String password,String address,String stat
                         const Text(
                           'User type',
                           style: TextStyle(
-                              color: Colors.white, fontWeight: FontWeight.bold),
+                              color: Colors.black, fontWeight: FontWeight.bold),
                         ),
                         SizedBox(height: size.height * 0.01),
                         TextFormField(
                           controller: usertypecontroller,
                           keyboardType: TextInputType.text,
                           decoration:  InputDecoration(
-                             fillColor: Colors.grey[400],
+                             fillColor: Colors.grey[300],
                             filled: true,
                               prefixIcon: const Icon(Icons.person_outline,color:Colors.black),
                               // hintText: 'Enter Phone Number/Email ID/BN User Id',

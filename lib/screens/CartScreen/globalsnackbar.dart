@@ -61,7 +61,7 @@ class ProductSnackBar {
       margin: const EdgeInsets.all(10),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: greencolor,
-      duration: const Duration(milliseconds:4000),
+      duration: const Duration(milliseconds:1500),
       behavior: SnackBarBehavior.floating,
       // action: SnackBarAction(
       //   textColor: CustomColor.whitecolor,
