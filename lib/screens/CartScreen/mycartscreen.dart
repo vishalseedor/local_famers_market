@@ -320,7 +320,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
 
   void handlePaymentSuccessResponse(PaymentSuccessResponse response){
 
-   context.read<CartProvider>().placeOrderApi(context: context);
+   context.read<CartProvider>().placeOrderApi();
     print(response.data.toString());
   
   

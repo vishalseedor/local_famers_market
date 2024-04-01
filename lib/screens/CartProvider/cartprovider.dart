@@ -234,7 +234,7 @@ class CartProvider extends ChangeNotifier {
   }
 }
   
-  Future<void>placeOrderApi({String? userid,required BuildContext context}) async { 
+  Future<void>placeOrderApi({String? userid}) async { 
    
     final url = Uri.parse(
         'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/placed_order.php?user_id=$userid');
@@ -246,8 +246,7 @@ class CartProvider extends ChangeNotifier {
       if (response.statusCode == 200) {
         
         clearCart();
-        Navigator.push(context,MaterialPageRoute(builder: (context)=>const OrderSuccessScreen()));
-     
+
         print(response.body);
       
         print(url);

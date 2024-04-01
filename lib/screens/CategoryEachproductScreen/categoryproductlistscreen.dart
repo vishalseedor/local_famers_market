@@ -3,7 +3,7 @@ import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/CategoryEachproductScreen/alleachcategory.dart';
 import 'package:local_farmers_project/screens/CategoryEachproductScreen/caregoryeachprovider.dart';
 import 'package:local_farmers_project/screens/ExtraScreens/loadingscreen.dart';
-import 'package:local_farmers_project/screens/ViewProducts%20Provider/productprovider.dart';
+
 import 'package:provider/provider.dart';
 
 class CategoryProductScreen extends StatefulWidget {

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:local_farmers_project/screens/ProfileScreen/profilescreen.dart';
+
 import 'package:local_farmers_project/screens/SideBottomNavigation/sidebottomnavigation.dart';
 import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
 import 'package:provider/provider.dart';
