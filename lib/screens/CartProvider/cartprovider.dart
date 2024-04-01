@@ -68,11 +68,12 @@ class CartProvider extends ChangeNotifier {
     // notifyListeners();
     return double.parse(totalAmount.toString());
   }
-    List<AddCartItem> _cartItems = [];
+
+  List<AddCartItem> _cartItems = [];
 
   List<AddCartItem> get cartItems => _cartItems;
- 
- void addToCart(AddCartItem item) {
+
+  void addToCart(AddCartItem item) {
     _cartItems.add(item);
     notifyListeners();
   }
@@ -100,14 +101,14 @@ class CartProvider extends ChangeNotifier {
         for (var i = 0; i < cartDetails.length; i++) {
           _carts.add(
             CartDetails(
-                cartId: cartDetails[i]['cart_id'].toString(),
-                productId: cartDetails[i]['product_id'].toString(),
-                image: cartDetails[i]['image'].toString(),
-                productName: cartDetails[i]['product_name'].toString(),
-                price: cartDetails[i]['price'].toString(),
-                quantity: cartDetails[i]['quantity'].toString(),
-                itemTotal: cartDetails[i]['item_total'].toString(),
-                ),
+              cartId: cartDetails[i]['cart_id'].toString(),
+              productId: cartDetails[i]['product_id'].toString(),
+              image: cartDetails[i]['image'].toString(),
+              productName: cartDetails[i]['product_name'].toString(),
+              price: cartDetails[i]['price'].toString(),
+              quantity: cartDetails[i]['quantity'].toString(),
+              itemTotal: cartDetails[i]['item_total'].toString(),
+            ),
           );
         }
         calculateTotalPrice();
@@ -130,41 +131,34 @@ class CartProvider extends ChangeNotifier {
       notifyListeners();
     }
   }
-    Future<void>addItemToCart({ String? productid,
-  
-   String? userid,
-  
-   String? quanity}) async {
-      var body = {
-    'product_id': productid.toString(),
-    'user_id': userid.toString(),
-   'quantity': quanity.toString(),
-     
-  };
 
-  try {
-    var response = await https.post(Uri.parse('http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/add_cart.php?product_id=$productid&user_id=$userid&quantity=$quanity'),
-        body: body);
+  Future<void> addItemToCart(
+      {String? productid, String? userid, String? quanity}) async {
+    var body = {
+      'product_id': productid.toString(),
+      'user_id': userid.toString(),
+      'quantity': quanity.toString(),
+    };
 
-    if (response.statusCode == 200) {
-      
-      // Request successful
-      print('Added to cart successfully');
-      print('Response: ${response.body}');
-    } else {
-      // Request failed with error code
-      print('Failed to add to cart. Status Code: ${response.statusCode}');
+    try {
+      var response = await https.post(
+          Uri.parse(
+              'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/add_cart.php?product_id=$productid&user_id=$userid&quantity=$quanity'),
+          body: body);
+
+      if (response.statusCode == 200) {
+        // Request successful
+        print('Added to cart successfully');
+        print('Response: ${response.body}');
+      } else {
+        // Request failed with error code
+        print('Failed to add to cart. Status Code: ${response.statusCode}');
+      }
+    } catch (e) {
+      // Exception thrown during request
+      print('Failed to add to cart. Exception: $e');
     }
-  } catch (e) {
-    // Exception thrown during request
-    print('Failed to add to cart. Exception: $e');
   }
-    
-  }
-
-  
-
-  
 
   Future<void> deleteCart(String? cartId, BuildContext context) async {
     final user = Provider.of<UserProvider>(context, listen: false);
@@ -196,7 +190,11 @@ class CartProvider extends ChangeNotifier {
 
       if (response.statusCode == 200) {
         print(url);
-        getAllCartsData();
+        _carts.clear();
+        print("The cart going to emptty please check this");
+        getAllCartsData(userid: userid);
+        notifyListeners();
+
         print(response.body);
         // Cart deleted successfully
         print('Cart deleted successfully');
@@ -206,49 +204,44 @@ class CartProvider extends ChangeNotifier {
       }
     } catch (e) {
       print('Error deleting cart: $e');
-    }  
-  }
- Future<void>productQuantityupdate(String cartId, String quantity) async {
-
-   final url = Uri.parse(
-        'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/update_quantity.php?cart_id=$cartId&quantity=$quantity');
-       
-
- 
-  try {
-       final response = await https.put(url);
-
-    //   body: {'quantity': quantity.toString()},
-    // );
-
-    if (response.statusCode == 200) {
-      // Request successful, handle response here if needed
-      print('Quantity updated successfully');
-    } else {
-      // Request failed with an error code, handle error here
-      print('Failed to update quantity. Status code: ${response.statusCode}');
     }
-  } catch (e) {
-    // An error occurred, handle error here
-    print('Failed to update quantity. Error: $e');
   }
-}
-  
-  Future<void>placeOrderApi({String? userid}) async { 
-   
+
+  Future<void> productQuantityupdate(String cartId, String quantity) async {
+    final url = Uri.parse(
+        'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/update_quantity.php?cart_id=$cartId&quantity=$quantity');
+
+    try {
+      final response = await https.put(url);
+
+      //   body: {'quantity': quantity.toString()},
+      // );
+
+      if (response.statusCode == 200) {
+        // Request successful, handle response here if needed
+        print('Quantity updated successfully');
+      } else {
+        // Request failed with an error code, handle error here
+        print('Failed to update quantity. Status code: ${response.statusCode}');
+      }
+    } catch (e) {
+      // An error occurred, handle error here
+      print('Failed to update quantity. Error: $e');
+    }
+  }
+
+  Future<void> placeOrderApi({String? userid}) async {
     final url = Uri.parse(
         'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/placed_order.php?user_id=$userid');
-       
 
     try {
       final response = await https.get(url);
 
       if (response.statusCode == 200) {
-        
-        clearCart();
+        clearCart(userid: userid);
 
         print(response.body);
-      
+
         print(url);
 
         print('Placed order successfully');
@@ -256,10 +249,8 @@ class CartProvider extends ChangeNotifier {
         // Failed to delete cart
         print('Failed to placed order: ${response.statusCode}');
       }
-    } catch (e) {               
+    } catch (e) {
       print('Error place oder: $e');
     }
   }
 }
-
-

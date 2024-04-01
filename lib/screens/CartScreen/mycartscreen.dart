@@ -12,7 +12,6 @@ import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 
-
 class MyCartScreen extends StatefulWidget {
   MyCartScreen({Key? key}) : super(key: key);
 
@@ -21,7 +20,8 @@ class MyCartScreen extends StatefulWidget {
 }
 
 class _MyCartScreenState extends State<MyCartScreen> {
-  Map<String,dynamic>?paymentIntent;
+  Map<String, dynamic>? paymentIntent;
+  bool isLoading = false;
   @override
   void initState() {
     final userProvider = Provider.of<UserProvider>(context, listen: false);
@@ -90,7 +90,11 @@ class _MyCartScreenState extends State<MyCartScreen> {
           )
         ],
       ),
-      body: Column(
+      body:isLoading? Center(child: Column(
+        children: [CircularProgressIndicator(),
+        SizedBox(height: size.height * 0.06,),
+        Text("Payment is loading please wait...")],
+      ),): Column(
         children: [
           Expanded(
             child: SingleChildScrollView(
@@ -129,7 +133,6 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                       image: cart.carts[intex].image,
                                       quantity: cart.carts[intex].quantity,
                                       itemtotal: cart.carts[intex].itemTotal,
-                                    
                                     );
                                   },
                                 ),
@@ -161,13 +164,14 @@ class _MyCartScreenState extends State<MyCartScreen> {
                         color: Colors.black,
                       ),
                       child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 30,vertical: 10),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 30, vertical: 10),
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             SizedBox(height: size.height * 0.01),
                             Row(
-                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 const Text(
                                   'Item Total',
@@ -187,7 +191,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                 ),
                               ],
                             ),
-                         //   SizedBox(height: size.height*0.01),
+                            //   SizedBox(height: size.height*0.01),
                             //   Row(
                             //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             //   children: [
@@ -211,18 +215,15 @@ class _MyCartScreenState extends State<MyCartScreen> {
                             // ),
                             //SizedBox(height: size.height * 0.02),
                             GestureDetector(
-                              onTap: (){
-                              //  payment();
+                              onTap: () async {
+                                //  payment();
                                 Razorpay razorpay = Razorpay();
                                 var options = {
                                   'key': 'rzp_test_1DP5mmOlF5G5ag',
                                   'amount': cart.totalAmount * 100,
                                   'name': 'Local Farmers Market',
                                   'description': 'Fine T-Shirt',
-                                  'retry': {
-                                    'enabled': true,
-                                    'max_count': 1
-                                  },
+                                  'retry': {'enabled': true, 'max_count': 1},
                                   'send_sms_hash': true,
                                   'prefill': {
                                     'contact': '8888888888',
@@ -234,11 +235,9 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                 };
                                 razorpay.on(Razorpay.EVENT_PAYMENT_ERROR,
                                     handlePaymentErrorResponse);
-                                razorpay.on(
-                                    Razorpay.EVENT_PAYMENT_SUCCESS,
+                                razorpay.on(Razorpay.EVENT_PAYMENT_SUCCESS,
                                     handlePaymentSuccessResponse);
-                                razorpay.on(
-                                    Razorpay.EVENT_EXTERNAL_WALLET,
+                                razorpay.on(Razorpay.EVENT_EXTERNAL_WALLET,
                                     handleExternalWalletSelected);
                                 razorpay.open(options);
                               },
@@ -307,7 +306,6 @@ class _MyCartScreenState extends State<MyCartScreen> {
 //   }
 
   void handlePaymentErrorResponse(PaymentFailureResponse response) {
-
     /*
     * PaymentFailureResponse contains three values:
     * 1. Error Code
@@ -318,12 +316,21 @@ class _MyCartScreenState extends State<MyCartScreen> {
         "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
   }
 
-  void handlePaymentSuccessResponse(PaymentSuccessResponse response){
+  void handlePaymentSuccessResponse(PaymentSuccessResponse response) async {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
+    isLoading = true;
+    setState(() {
 
-   context.read<CartProvider>().placeOrderApi();
+    });
+    await context
+        .read<CartProvider>()
+        .placeOrderApi(userid: userProvider.currentUserId).then((value) {
+           isLoading = false;
+    setState(() {
+
+    });
+        });
     print(response.data.toString());
-  
-  
   }
 
   void handleExternalWalletSelected(ExternalWalletResponse response) {

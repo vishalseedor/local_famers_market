@@ -310,6 +310,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
 
   Future<dynamic> updateProfileApi() async {
     try {
+      final user = Provider.of<UserProvider>(context, listen: false);
       var request = http.MultipartRequest(
         'POST',
         Uri.parse(
@@ -325,13 +326,22 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
         'address': addressController.text.trim(),
         'state': 'Kerala.',
         'user_type': 'Consumer',
-        'userid': '1'
+        'userid': user.currentUserId ?? "1"
       });
       request.files
           .add(await http.MultipartFile.fromPath('image', image!.path));
 
       http.StreamedResponse response = await request.send();
+
       print(await response.stream.bytesToString());
+      print(""" 'name': ${userNameController.text.trim()},
+        'phone': ${phoneNumberController.text.trim()},
+        'email': ${addressController.text.trim},
+        'password': '123',
+        'address': ${addressController.text.trim()},
+        'state': 'Kerala.',
+        'user_type': 'Consumer',
+        'userid': ${user.currentUserId}?? "1" """);
       if (response.statusCode == 200) {
         Navigator.push(
             context,
