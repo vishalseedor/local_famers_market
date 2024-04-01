@@ -29,15 +29,7 @@ class _FarmerDetailsScreenState extends State<FarmerDetailsScreen> {
         title: Text('Farm Details',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 16),),
         backgroundColor: greencolor,
         elevation: 0,
-        // leading: IconButton(
-        //   onPressed: () {
-        //     Navigator.pop(context);
-        //   },
-        //   icon: const Icon(
-        //     Icons.arrow_back,
-        //     color: Colors.black,
-        //   ),
-        // ),
+     
     
       ),
       body: SingleChildScrollView(
@@ -52,8 +44,6 @@ class _FarmerDetailsScreenState extends State<FarmerDetailsScreen> {
                   child: Image.network(
                     farmerData.file,
                   
-                    // height: size.height * 0.3, // Responsive image height
-                    // width: double.infinity // Responsive image width
                   ),
                 ),
               ),

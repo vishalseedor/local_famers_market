@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as https;
 import 'package:local_farmers_project/screens/FarmerProvider/farmermodel.dart';
-import 'package:local_farmers_project/screens/ViewProducts%20Provider/productmodel.dart';
+
 
 class FarmProvider with ChangeNotifier {
   bool _isLoading = false;

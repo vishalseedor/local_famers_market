@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ import 'package:local_farmers_project/screens/CartProvider/allcartwidget.dart';
 import 'package:local_farmers_project/screens/CartProvider/cartemptyscreen.dart';
 import 'package:local_farmers_project/screens/CartProvider/cartprovider.dart';
 import 'package:local_farmers_project/screens/ExtraScreens/loadingscreen.dart';
+import 'package:local_farmers_project/screens/SupportScreen/feebackscreen.dart';
 import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
 import 'package:provider/provider.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -191,29 +191,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
                                 ),
                               ],
                             ),
-                            //   SizedBox(height: size.height*0.01),
-                            //   Row(
-                            //  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            //   children: [
-                            //     const Text(
-                            //       'Delivery Fee',
-                            //       style: TextStyle(
-                            //         color: Colors.white,
-                            //         fontWeight: FontWeight.w600,
-                            //       ),
-                            //       overflow: TextOverflow.fade,
-                            //     ),
-                            //     Text(
-                            //       "₹ .50.00",
-                            //       style: TextStyle(
-                            //         color: greencolor,
-                            //         fontWeight: FontWeight.w900,
-                            //       ),
-                            //       overflow: TextOverflow.fade,
-                            //     ),
-                            //   ],
-                            // ),
-                            //SizedBox(height: size.height * 0.02),
+                           
                             GestureDetector(
                               onTap: () async {
                                 //  payment();
@@ -330,6 +308,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
 
     });
         });
+        Navigator.pushReplacement(context,MaterialPageRoute(builder: (context)=>const OrderSuccessScreen()));
     print(response.data.toString());
   }
 

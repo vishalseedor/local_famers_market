@@ -19,45 +19,10 @@ class GlobalSnackBar {
                   '1 Item added cart ',
                   style: TextStyle(color: Colors.white, fontSize: 14),
                 ),
-                // VerticalDivider(
-                //   color: greencolor,
-                //   thickness: 1,
-                // ),
-                // const Text(
-                //   '₹ 10.00',
-                //   style: TextStyle(color: Colors.white, fontSize: 14),
-                // )
+             
               ],
             ),
-            // child: Column(
-            //   crossAxisAlignment: CrossAxisAlignment.start,
-            //   children: [
-            //     const Text(
-            //       'ITEM 1',
-            //       style: TextStyle(fontSize: 10),
-            //     ),
-            //     Row(
-            //       children: const [
-            //         Text(
-            //           '₹ 10.00',
-            //           style: TextStyle(fontSize: 10),
-            //         ),
-            //         SizedBox(
-            //           width: 10,
-            //         ),
-            //         // const Text(
-            //         //   'plus taxes',
-            //         //   style: TextStyle(
-            //         //       fontSize: 12, color: CustomColor.whitecolor),
-            //         // )
-            //       ],
-            //     ),
-            //     Text(
-            //       'Product added Successfully',
-            //       style: TextStyle(fontSize: 10),
-            //     )
-            //   ],
-            // )
+          
           ),
           InkWell(
               onTap: () {
@@ -67,14 +32,7 @@ class GlobalSnackBar {
                     MaterialPageRoute(
                         builder: (context) =>  MyCartScreen()));
               },
-              // navigation.currentIndex = 0;
-              // Navigator.of(context).pushNamed(BottomAppScreen.routeName);
-              // navigation.currentIndex = 2;
-              // Navigator.of(context).pop(navigation.currentIndex = 2);
-              // Navigator.of(context).pushNamed(MyCartScreen.routeName);
-
-              // Get.to(() => const CartScreen());
-              //  Get.to(CartScreen());
+            
 
               child: Container(
                   height: 40,

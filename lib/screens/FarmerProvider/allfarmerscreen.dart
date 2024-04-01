@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:local_farmers_project/screens/ExtraScreens/errorscreen.dart';
 import 'package:local_farmers_project/screens/ExtraScreens/loadingscreen.dart';
 import 'package:local_farmers_project/screens/FarmerProvider/farmprovider.dart';
-import 'package:local_farmers_project/screens/ViewProducts%20Provider/productprovider.dart';
-
 import 'package:provider/provider.dart';
 
 

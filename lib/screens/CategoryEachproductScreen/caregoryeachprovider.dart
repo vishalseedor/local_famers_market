@@ -3,7 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as https;
 import 'package:local_farmers_project/screens/CategoryEachproductScreen/categoryeachmodel.dart';
-import 'package:local_farmers_project/screens/CartProvider/cartmodel.dart';
+
 
 
 

@@ -22,14 +22,7 @@ class ProductSnackBar {
                   'Product Already added in cart',
                   style: TextStyle(color: Colors.white, fontSize: 14),
                 ),
-                // VerticalDivider(
-                //   color: greencolor,
-                //   thickness: 1,
-                // ),
-                // const Text(
-                //   '₹ 10.00',
-                //   style: TextStyle(color: Colors.white, fontSize: 14),
-                // )
+             
               ],
             ),
           
@@ -41,11 +34,7 @@ class ProductSnackBar {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       backgroundColor: Colors.black,
       behavior: SnackBarBehavior.floating,
-      // action: SnackBarAction(
-      //   textColor: CustomColor.whitecolor,
-      //   label: 'View cart',
-      //   onPressed: () {},
-      // ),
+     
     );
   }
 

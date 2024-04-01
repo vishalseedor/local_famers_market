@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:local_farmers_project/screens/FarmerProvider/farmdetailsscreen.dart';
 
 class AllFarmersWidget extends StatefulWidget {
