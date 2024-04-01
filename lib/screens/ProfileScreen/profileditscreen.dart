@@ -328,9 +328,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
         'user_type': 'Consumer',
         'userid': user.currentUserId ?? "1"
       });
-      request.files
-          .add(await http.MultipartFile.fromPath('image', image!.path));
-
+        if (image != null) {
+      request.files.add(await http.MultipartFile.fromPath('image', image!.path));
+    }
       http.StreamedResponse response = await request.send();
 
       print(await response.stream.bytesToString());
