@@ -68,19 +68,14 @@ class CategoryEachProvider with ChangeNotifier {
               productId: catDetails[i]['product_id'].toString(),
               productName: catDetails[i]['product_name'].toString(),
               quantity: catDetails[i]['quantity'].toString(),
-              description: catDetails[i]['description'].toString(),
+              description: catDetails[i]['description'].toString(), 
               additionalInformation: catDetails[i]['additional_information'].toString(),
               price:catDetails[i]['price'].toString(),
               category: catDetails[i]['category'].toString(),
               categoryId: catDetails[i]['category_id'].toString(),
               farmer: catDetails[i]['farmer'].toString(),
               image: catDetails[i]['image'].toString(),
-             
-             
-              
-              
 
-              
             ),
           );
         }
@@ -138,12 +133,7 @@ class CategoryEachProvider with ChangeNotifier {
               categoryId: catDetails[i]['category_id'].toString(),
               farmer: catDetails[i]['farmer'].toString(),
               image: catDetails[i]['image'].toString(),
-             
-             
-              
-              
 
-              
             ),
           );
         }

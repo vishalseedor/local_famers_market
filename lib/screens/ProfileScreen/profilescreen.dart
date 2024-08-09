@@ -26,7 +26,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   
   
   
-  @override
+  @override 
   Widget build(BuildContext context) {
     
     final size = MediaQuery.of(context).size;
@@ -103,7 +103,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 }
                 return CircleAvatar(
                   radius: 45,
-                  child: Image.network(userphoto),
+                  backgroundImage: AssetImage('assets/profile.png'),
                 );
               }),
                       // GestureDetector(
@@ -250,7 +250,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   builder: (BuildContext context) {
                     return AlertDialog(
                       title: const Text(
-                        'Logout',
+                        'Logout', 
                         style: TextStyle(fontWeight: FontWeight.bold,fontSize: 18),
                       ),
                       content:

@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/LoginScreen/loginscreen.dart';
 import 'package:local_farmers_project/screens/LoginScreen/roundbutton.dart';
 import 'package:http/http.dart' as http;
@@ -43,14 +44,14 @@ String name,String phone,String email,String password,String address,String stat
        if(jsonData['status']==true){
           ScaffoldMessenger.of(context).showSnackBar(
          SnackBar(
-          backgroundColor: Colors.white,
-          content: Text('Registration Successful!',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
-          duration: Duration(seconds: 4),
+          backgroundColor: greencolor,
+          content: const Text('Registration Successful!',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),),
+          duration: const Duration(seconds: 4),
         ),
       );
-      Navigator.push(context,MaterialPageRoute(builder:(context)=>const LoginScreen()));
+      Navigator.push(context,MaterialPageRoute(builder:(context)=> const LoginScreen()));
       print(body);
-      print("Response body${response.body}");
+      print("Response body${response.body}"); 
     
       }
       print(body);
@@ -60,7 +61,7 @@ String name,String phone,String email,String password,String address,String stat
         ScaffoldMessenger.of(context).showSnackBar(
          SnackBar(
           backgroundColor: Colors.white,
-          content: Text('Not Register!',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
+          content: Text('Already email and password Exists',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),
           duration: Duration(seconds: 4),
         ),
       );

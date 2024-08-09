@@ -18,15 +18,17 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+    late bool _passwordVisible;
   bool rememberMe = true;
   bool loading = false;
-  late bool _passwordVisible;
+
   TextEditingController phonecontroller = TextEditingController();
   TextEditingController passwordcontroller = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   LoginModel? loginModel;
 
   void loginAdopter(String phone, String password) async {
+    
     print(phone);
     print(password);
     const url =
@@ -85,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
             SnackBar(
               backgroundColor: greencolor,
               content: const Text(
-                'Invalid email and password',
+                'Invalid phone and password',
                 style:
                     TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
               ),
@@ -190,7 +192,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         TextFormField(
                           obscureText: _passwordVisible,
                           controller: passwordcontroller,
-                          keyboardType: TextInputType.phone,
+                          keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                               fillColor: Colors.grey[300],
                               filled: true,

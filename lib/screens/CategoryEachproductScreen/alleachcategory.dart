@@ -65,7 +65,7 @@ class _AllEachCategoryWidgetState extends State<AllEachCategoryWidget > {
                 ),
               ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+               // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,15 +84,15 @@ class _AllEachCategoryWidgetState extends State<AllEachCategoryWidget > {
                   // SizedBox(
                   //   width: 40,
                   // ),
-                  Container(
-                    height: 30,
-                    width: 35,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(6),
-                      color: greencolor,
-                    ),
-                    child: Center(child: Text('Add',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 10),))
-                  )
+                  // Container(
+                  //   height: 30,
+                  //   width: 35,
+                  //   decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(6),
+                  //     color: greencolor,
+                  //   ),
+                  //   child: Center(child: Text('Add',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold,fontSize: 10),))
+                  // )
                
                // const DemoScreensss()
                 ],

@@ -144,7 +144,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                 ),
                 SizedBox(height: size.height * 0.01),
                 const Text(
-                  'Email Address',
+                  'Address',
                   style: TextStyle(
                       color: Colors.black, fontWeight: FontWeight.w500),
                 ),
@@ -156,7 +156,7 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
                     controller: addressController,
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
-                        hintText: 'Enter Email Address',
+                        hintText: 'Enter  Address',
                         hintStyle: TextStyle(fontSize: 13),
                         border: OutlineInputBorder()),
                   ),
@@ -343,6 +343,9 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
         'user_type': 'Consumer',
         'userid': ${user.currentUserId}?? "1" """);
       if (response.statusCode == 200) {
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                                  backgroundColor:greencolor,
+                                  content: const Text("Profile Updated successfully...!",style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold),)));
         Navigator.push(
             context,
             MaterialPageRoute(

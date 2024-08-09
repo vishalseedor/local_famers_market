@@ -52,7 +52,7 @@ class _FamersScreenState extends State<FamersScreen> {
                     : farmer.farmers.isEmpty
                         ? Text('No Famers...')
                         : SizedBox(
-                          height: size.height * 0.6,
+                          height: size.height * 0.9,
                             child: ListView.builder(
                               scrollDirection: Axis.vertical,
                               itemCount: farmer.farmers.length,

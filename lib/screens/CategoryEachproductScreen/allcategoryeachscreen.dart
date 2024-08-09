@@ -105,7 +105,7 @@ class _AllCategoryEachScreenState extends State<AllCategoryEachScreen> {
                                             crossAxisCount: 2,
                                             crossAxisSpacing: 10,
                                             mainAxisSpacing: 10,
-                                            childAspectRatio: 0.9),
+                                            childAspectRatio: 0.7),
                                     scrollDirection: Axis.vertical,
                                     itemCount: cateproduct.searchProducts.length,
                                     itemBuilder: (context, intex) {
@@ -126,7 +126,7 @@ class _AllCategoryEachScreenState extends State<AllCategoryEachScreen> {
                             : SizedBox(
                               height: size.height * 0.8,
                                 child: GridView.builder(
-                                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,crossAxisSpacing: 10,mainAxisSpacing: 10,childAspectRatio: 0.9),
+                                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 2,crossAxisSpacing: 10,mainAxisSpacing: 10,childAspectRatio: 0.98),
                                   scrollDirection: Axis.vertical,
                                   itemCount: cateproduct.category.length,
                                   itemBuilder: (context, intex) {

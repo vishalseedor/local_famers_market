@@ -1,7 +1,6 @@
 
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-
 import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/CartProvider/allcartwidget.dart';
 import 'package:local_farmers_project/screens/CartProvider/cartemptyscreen.dart';

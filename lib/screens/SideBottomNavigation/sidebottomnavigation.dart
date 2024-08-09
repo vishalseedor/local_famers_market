@@ -56,7 +56,7 @@ class _LeftWidgetState extends State<LeftWidget> with TickerProviderStateMixin {
   final List<String> _list = [
     "Home",
     "Category",
-    "Farms",
+    //"Farms",
     "Support",
     //"Cart",
     "Profile"
@@ -65,7 +65,7 @@ class _LeftWidgetState extends State<LeftWidget> with TickerProviderStateMixin {
   final List<GlobalKey> _keys = [
     GlobalKey(),
     GlobalKey(),
-    GlobalKey(),
+    //GlobalKey(),
     GlobalKey(),
   //  GlobalKey(),
     GlobalKey()
@@ -126,19 +126,10 @@ class _LeftWidgetState extends State<LeftWidget> with TickerProviderStateMixin {
       SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Padding(
-          padding: const EdgeInsets.only(top: 30, bottom: 10),
+          padding:  const EdgeInsets.only(top: 30, bottom: 10),
           child: CircleAvatar(
             radius: 22,
-            child: GestureDetector(
-              onTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) => const ProfileScreen()),
-                // );
-              },
-             child: Image.asset('assets/profile.png'),
-            ),
+            backgroundImage: AssetImage('assets/logo.png'),
             backgroundColor: Colors.green,
           ),
         ),
@@ -307,7 +298,7 @@ class RightWidget extends StatelessWidget {
         children: const [
           HomeScreen(),
           CategoryScreen(),
-          FamersScreen(), 
+         // FamersScreen(), 
           SupportScreen(),
        //   MyCartScreen(),
          ProfileScreen(),
