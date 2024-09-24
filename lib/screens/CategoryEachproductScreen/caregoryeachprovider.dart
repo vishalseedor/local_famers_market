@@ -47,11 +47,11 @@ class CategoryEachProvider with ChangeNotifier {
       // var headers = {'Cookie': 'ci_session=c7lis868nec6nl8r1lb5el72q8n26upv'};
       var response = await https.get(
         Uri.parse(
-            "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/search_productby_category.php?category_id=$categoryproduct"),
+            "http://campus.sicsglobal.co.in/Project/farmers_Market/api/search_productby_category.php?category_id=$categoryproduct"),
       );
 
       print(
-            "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/search_productby_category.php?category_id=$categoryproduct");
+            "http://campus.sicsglobal.co.in/Project/farmers_Market/api/search_productby_category.php?category_id=$categoryproduct");
 
       print(response.body);
 
@@ -103,11 +103,11 @@ class CategoryEachProvider with ChangeNotifier {
     _isLoading = true;
     var response = await https.get(
       Uri.parse(
-          "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/search_productby_category.php?category_id=$value"),
+          "http://campus.sicsglobal.co.in/Project/farmers_Market/api/search_productby_category.php?category_id=$value"),
     );
 
     print(
-        "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/search_productby_category.php?category_id=$value");
+        "http://campus.sicsglobal.co.in/Project/farmers_Market/api/search_productby_category.php?category_id=$value");
 
     if (response.statusCode == 200) {
       var responseBody = response.body;

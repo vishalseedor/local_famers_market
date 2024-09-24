@@ -23,6 +23,7 @@ class ItemDetailScreen extends StatefulWidget {
 
 class _ItemDetailScreenState extends State<ItemDetailScreen> {
   
+  
    @override
   void initState() {
     Provider.of<CartProvider>(context, listen: false)
@@ -104,7 +105,7 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                  SizedBox(height: size.height * 0.01),
                 Text('Category : ${productData.category}',style: TextStyle(fontSize: 14,fontWeight: FontWeight.w900,color: Colors.brown),),
                 SizedBox(height: size.height * 0.01),
-                Text('Farmer : ${productData.farmer}',style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
+Text('Available Stocks : ${productData.stock}',style: TextStyle(fontSize: 16,fontWeight: FontWeight.bold),),
                  SizedBox(height: size.height * 0.01),
                  Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -210,13 +211,9 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
           ),
         ),
       ),
-      floatingActionButton: SizedBox(
-        height: 60,
-        width: 360,
-        child: FloatingActionButton(
-          backgroundColor: greencolor,
-          onPressed: (){
-             final provider =
+      bottomNavigationBar: GestureDetector(
+        onTap: () {
+          final provider =
                                   Provider.of<CartProvider>(context,listen: false);
                               bool isInCart = provider.carts.any(
                                   (item) => item.productId == productData.productId);
@@ -271,18 +268,36 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                               //         builder: (context) => MyCartScreen()));
                               }
 
-          },
-          child: Row(
+        },
+        child: Container(
+          height: 65,
+         decoration: BoxDecoration(color: greencolor,borderRadius: BorderRadius.circular(0)),
+          
+           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children: [
+            children: [ 
               Icon(IconlyBold.bag,color: Colors.white,),
               SizedBox(width: size.width*0.02),
               Text('Add to Cart',style: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),)
             ],
           ),
-          ),
+        ),
       ),
+      // floatingActionButton: SizedBox(
+      //   height: 60,
+      //   width: double.infinity,
+      //   child: FloatingActionButton(
+      //     backgroundColor: greencolor,
+      //     onPressed: (){
+             
+      //     }, 
+
+         
+
+      //     ),
+      // ),
     );
     
   }
 }
+ 

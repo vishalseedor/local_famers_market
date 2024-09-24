@@ -16,7 +16,7 @@ class ProfileEditScreen extends StatefulWidget {
 
   @override
   State<ProfileEditScreen> createState() => _ProfileEditScreenState();
-}
+} 
 
 class _ProfileEditScreenState extends State<ProfileEditScreen> {
   TextEditingController userNameController = TextEditingController();
@@ -314,10 +314,10 @@ class _ProfileEditScreenState extends State<ProfileEditScreen> {
       var request = http.MultipartRequest(
         'POST',
         Uri.parse(
-            'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/edit_user.php'),
+            'http://campus.sicsglobal.co.in/Project/farmers_Market/api/edit_user.php'),
       );
       print(
-          'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/edit_user.php');
+          'http://campus.sicsglobal.co.in/Project/farmers_Market/api/edit_user.php');
       request.fields.addAll({
         'name': userNameController.text.trim(),
         'phone': phoneNumberController.text.trim(),

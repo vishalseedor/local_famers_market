@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:local_farmers_project/colors/colors.dart';
@@ -32,7 +33,7 @@ class _LoginScreenState extends State<LoginScreen> {
     print(phone);
     print(password);
     const url =
-        'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/user_login.php';
+        'http://campus.sicsglobal.co.in/Project/farmers_Market/api/user_login.php';
 
     Map<String, String> body = {'phone': phone, 'password': password};
 
@@ -60,18 +61,27 @@ class _LoginScreenState extends State<LoginScreen> {
                 .setCurrentUserId(userId);
             print(userId);
           }
+           AnimatedSnackBar.rectangle(
+                    'Welcome !',
+                    'Login Successful !',
+                    mobileSnackBarPosition: MobileSnackBarPosition.top,
+                    type: AnimatedSnackBarType.success,
+                   // brightness: Brightness.dark,
+                  ).show(
+                    context,
+                  );
 
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              backgroundColor: greencolor,
-              content: const Text(
-                'Login Successful!',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
-              duration: const Duration(seconds: 4),
-            ),
-          );
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(
+          //     backgroundColor: greencolor,
+          //     content: const Text(
+          //       'Login Successful!',
+          //       style:
+          //           TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          //     ),
+          //     duration: const Duration(seconds: 4),
+          //   ),
+          // );
 
           Navigator.push(
               context,
@@ -82,18 +92,27 @@ class _LoginScreenState extends State<LoginScreen> {
 
           print('Login successful');
         } else if (jsonData['status'] == false) {
+           AnimatedSnackBar.rectangle(
+                    'Warning',
+                    'Invalid Phone and Password !',
+                    type: AnimatedSnackBarType.warning,
+                     mobileSnackBarPosition: MobileSnackBarPosition.top,
+                    // brightness: Brightness.dark,
+                  ).show(
+                    context,
+                  );
           // ignore: use_build_context_synchronously
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              backgroundColor: greencolor,
-              content: const Text(
-                'Invalid phone and password',
-                style:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-              ),
-              duration: const Duration(seconds: 4),
-            ),
-          );
+          // ScaffoldMessenger.of(context).showSnackBar(
+          //   SnackBar(
+          //     backgroundColor: greencolor,
+          //     content: const Text(
+          //       'Invalid phone and password',
+          //       style:
+          //           TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          //     ),
+          //     duration: const Duration(seconds: 4),
+          //   ),
+          // );
           print('Error: ${response.statusCode}');
         }
       } else {

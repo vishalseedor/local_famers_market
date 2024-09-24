@@ -43,6 +43,144 @@ class _AllCartWidgetState extends State<AllCartWidget> {
     int itemTotal = int.parse(widget.price) * quanity;
 
     //  final pet = Provider.of<PetModel>(context);
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Card(
+        color: Colors.grey[200],
+        elevation: 7,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              Image.network(widget.image,height: 90,width: 90),
+              Column(
+                
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(widget.name,style: TextStyle(color: Colors.black,fontSize: 14,fontWeight: FontWeight.bold),),
+                  SizedBox(height: size.height*0.01),
+                  Text('₹ : ${int.parse(widget.price) * quanity}',style: TextStyle(color: Colors.blueGrey,fontWeight: FontWeight.bold,fontSize: 13),),
+                   SizedBox(height: size.height*0.01),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                          height: 35,
+                          width: 85,
+                          decoration: BoxDecoration(
+                              color: greencolor,
+                              borderRadius: BorderRadius.circular(5)),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                              
+                                InkWell(
+                                    onTap: ()async {
+                                      if (quanity > 1) {
+                                      setState(() {
+                                        quanity--;
+                                      });
+                                      // Call the API to update quantity with status 'decrement'
+                                      await cart.updateCartQuantity(
+                                        cartId: widget.cartid,  // Pass the cart ID
+                                        newQuantity: quanity,
+                                        status: 'decrement',
+                                      );
+                                                    
+                                      // Update the cart locally
+                                      cart.updateQuantity(widget.index, quanity.toString());
+                                    }
+                                      // setState(() {
+                                      //    quanity--;
+                                      //   cart.updateQuantity(widget.index, quanity.toString());
+                                                    
+                                      // });
+                                    },
+                                    child: Icon(
+                                      Icons.remove,
+                                      color: Colors.white,
+                                    )),
+                                Text(
+                                  quanity.toString(),
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                                InkWell(
+                                    onTap: ()async {
+                                      setState(() {
+                                      quanity++;
+                                    });
+                                    // Call the API to update quantity with status 'increment'
+                                    await cart.updateCartQuantity(
+                                      cartId: widget.cartid,  // Pass the cart ID
+                                      newQuantity: quanity,
+                                      status: 'increment',
+                                    );
+                                                    
+                                    // Update the cart locally
+                                    cart.updateQuantity(widget.index, quanity.toString());
+                                      // setState(() {
+                                      //   quanity++;
+                                      //   cart.updateQuantity(widget.index, quanity.toString());
+                                                    
+                                      // });
+                                    },
+                                    child: const Icon(
+                                      Icons.add,
+                                      color: Colors.white,
+                                    )),
+                                                //                SizedBox(
+                                                //   width: size.width * 0.03,
+                                                // ),
+                                               
+                                  
+                                               
+                              ],
+                            ),
+                          ),
+                        ),
+                      SizedBox(width: 40),
+                      Container(
+                        height: 35,
+                        width: 50,
+                        
+                        decoration: BoxDecoration(color: greencolor,borderRadius: BorderRadius.circular(5)),
+                        child:  GestureDetector(
+                          onTap: () {
+                            print(widget.cartid);
+                          cart.deleteCart(widget.cartid, context);
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(
+                              backgroundColor: greencolor,
+                              content: const Text(
+                                'Cart item Deleted successfully!',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold),
+                              ),
+                              duration: const Duration(seconds: 4),
+                            ), 
+                          );
+                          },
+                          child: Icon(
+                            IconlyBold.delete,
+                            color: Colors.white,
+                          ),
+                        )
+                      )
+          
+                    ],
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
+      
+      ),
+    );
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
@@ -69,64 +207,91 @@ class _AllCartWidgetState extends State<AllCartWidget> {
                     width: 70,
                   ),
                   
-                  Text(
-                    widget.name,
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                    maxLines: 2,
-                  ),
-                
-
-                  Container(
-                    height: 35,
-                    width: 80,
-                    decoration: BoxDecoration(
-                        color: greencolor,
-                        borderRadius: BorderRadius.circular(5)),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        InkWell(
-                            onTap: () {
-                              setState(() {
-                                 quanity--;
-                                cart.updateQuantity(widget.index, quanity.toString());
-
-                              });
-                            },
-                            child: Icon(
-                              Icons.remove,
-                              color: Colors.white,
-                            )),
-                        Text(
-                          quanity.toString(),
-                          style: TextStyle(color: Colors.white),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        widget.name,
+                        style: const TextStyle(
+                          fontWeight: FontWeight.bold,
                         ),
-                        InkWell(
-                            onTap: () {
-                              setState(() {
-                                quanity++;
-                                cart.updateQuantity(widget.index, quanity.toString());
-
-                              });
-                            },
-                            child: const Icon(
-                              Icons.add,
-                              color: Colors.white,
-                            ))
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: size.width * 0.03,
-                  ),
-                  Text(
+                        maxLines: 2,
+                      ),
+                      Text(
                     '₹${int.parse(widget.price) * quanity}',
                     style: const TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+                   Row(
+                    children: [
+                      Container(
+                        height: 35,
+                        width: 80,
+                        decoration: BoxDecoration(
+                            color: greencolor,
+                            borderRadius: BorderRadius.circular(5)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: [
+                            InkWell(
+                                onTap: ()async {
+                                  if (quanity > 1) {
+                                  setState(() {
+                                    quanity--;
+                                  });
+                                  // Call the API to update quantity with status 'decrement'
+                                  await cart.updateCartQuantity(
+                                    cartId: widget.cartid,  // Pass the cart ID
+                                    newQuantity: quanity,
+                                    status: 'decrement',
+                                  );
+                      
+                                  // Update the cart locally
+                                  cart.updateQuantity(widget.index, quanity.toString());
+                                }
+                                  // setState(() {
+                                  //    quanity--;
+                                  //   cart.updateQuantity(widget.index, quanity.toString());
+                      
+                                  // });
+                                },
+                                child: Icon(
+                                  Icons.remove,
+                                  color: Colors.white,
+                                )),
+                            Text(
+                              quanity.toString(),
+                              style: TextStyle(color: Colors.white),
+                            ),
+                            InkWell(
+                                onTap: ()async {
+                                  setState(() {
+                                  quanity++;
+                                });
+                                // Call the API to update quantity with status 'increment'
+                                await cart.updateCartQuantity(
+                                  cartId: widget.cartid,  // Pass the cart ID
+                                  newQuantity: quanity,
+                                  status: 'increment',
+                                );
+                      
+                                // Update the cart locally
+                                cart.updateQuantity(widget.index, quanity.toString());
+                                  // setState(() {
+                                  //   quanity++;
+                                  //   cart.updateQuantity(widget.index, quanity.toString());
+                      
+                                  // });
+                                },
+                                child: const Icon(
+                                  Icons.add,
+                                  color: Colors.white,
+                                )),
+                                 SizedBox(
+                    width: size.width * 0.03,
+                  ),
+                 
 
                   IconButton(
                       onPressed: () {
@@ -146,6 +311,17 @@ class _AllCartWidgetState extends State<AllCartWidget> {
                         );
                       },
                       icon: Icon(IconlyLight.delete)),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                    ],
+                  ),
+                
+
+                 
+                 
                 ],
               ),
             ),
@@ -155,37 +331,36 @@ class _AllCartWidgetState extends State<AllCartWidget> {
       ),
     );
   }
-
-  void handlePaymentErrorResponse(PaymentFailureResponse response) {
+    void handlePaymentErrorResponse(PaymentFailureResponse response){
     /*
     * PaymentFailureResponse contains three values:
     * 1. Error Code
     * 2. Error Description
     * 3. Metadata
     * */
-    showAlertDialog(context, "Payment Failed",
-        "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
+    showAlertDialog(context, "Payment Failed", "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
   }
 
-  void handlePaymentSuccessResponse(PaymentSuccessResponse response) {
+  void handlePaymentSuccessResponse(PaymentSuccessResponse response){
     /*
     * Payment Success Response contains three values:
     * 1. Order ID
     * 2. Payment ID
     * 3. Signature
     * */
-    print(response.data.toString());
-    showAlertDialog(
-        context, "Payment Successful", "Payment ID: ${response.paymentId}");
+    showAlertDialog(context, "Payment Successful", "Payment ID: ${response.paymentId}");
   }
 
-  void handleExternalWalletSelected(ExternalWalletResponse response) {
-    showAlertDialog(
-        context, "External Wallet Selected", "${response.walletName}");
+  void handleExternalWalletSelected(ExternalWalletResponse response){
+    showAlertDialog(context, "External Wallet Selected", "${response.walletName}");
   }
 
-  void showAlertDialog(BuildContext context, String title, String message) {
+  void showAlertDialog(BuildContext context, String title, String message){
     // set up the buttons
+    Widget continueButton = ElevatedButton(
+      child: const Text("Continue"),
+      onPressed:  () {},
+    );
     // set up the AlertDialog
     AlertDialog alert = AlertDialog(
       title: Text(title),
@@ -200,3 +375,48 @@ class _AllCartWidgetState extends State<AllCartWidget> {
     );
   }
 }
+
+//   void handlePaymentErrorResponse(PaymentFailureResponse response) {
+//     /*
+//     * PaymentFailureResponse contains three values:
+//     * 1. Error Code
+//     * 2. Error Description
+//     * 3. Metadata
+//     * */
+//     showAlertDialog(context, "Payment Failed",
+//         "Code: ${response.code}\nDescription: ${response.message}\nMetadata:${response.error.toString()}");
+//   }
+
+//   void handlePaymentSuccessResponse(PaymentSuccessResponse response) {
+//     /*
+//     * Payment Success Response contains three values:
+//     * 1. Order ID
+//     * 2. Payment ID
+//     * 3. Signature
+//     * */
+//     print(response.data.toString());
+//     showAlertDialog(
+//         context, "Payment Successful", "Payment ID: ${response.paymentId}");
+//   }
+
+//   void handleExternalWalletSelected(ExternalWalletResponse response) {
+//     showAlertDialog(
+//         context, "External Wallet Selected", "${response.walletName}");
+//   }
+
+//   void showAlertDialog(BuildContext context, String title, String message) {
+//     // set up the buttons
+//     // set up the AlertDialog
+//     AlertDialog alert = AlertDialog(
+//       title: Text(title),
+//       content: Text(message),
+//     );
+//     // show the dialog
+//     showDialog(
+//       context: context,
+//       builder: (BuildContext context) {
+//         return alert;
+//       },
+//     );
+//   }
+// }

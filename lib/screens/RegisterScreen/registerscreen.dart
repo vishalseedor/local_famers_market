@@ -17,7 +17,7 @@ final _formKey = GlobalKey<FormState>();
 Future<void>registerAdopter(
 
 String name,String phone,String email,String password,String address,String state,String usertype) async {
-  const url = 'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/user_registration.php';
+  const url = 'http://campus.sicsglobal.co.in/Project/farmers_Market/api/user_registration.php';
 
   Map<String, String> body = {
   

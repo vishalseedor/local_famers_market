@@ -11,6 +11,7 @@ class ProductDetails {
   final String farmer;
   final String categoryId;
   final String image;
+  final String stock;
 
   ProductDetails(
       { required this.productId,
@@ -22,7 +23,8 @@ class ProductDetails {
      required this.category,
      required this.farmer,
      required this.categoryId,
-     required this.image
+     required this.image,
+     required this.stock,
      });
 
   factory ProductDetails.fromJson(Map<String, dynamic> json) {
@@ -36,8 +38,11 @@ class ProductDetails {
     category:json['category'],
     farmer: json['farmer'], 
     categoryId:json['category_id'],
-    image: json['image']
+    image: json['image'],
+    stock: json['stock']
     );
    
   }
   }
+
+

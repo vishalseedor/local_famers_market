@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:local_farmers_project/colors/colors.dart';
+import 'package:local_farmers_project/screens/CartScreen/mycartscreen.dart';
 import 'package:local_farmers_project/screens/FarmerProvider/farmscreen.dart';
 import 'package:local_farmers_project/screens/HomeScreen/homescreen.dart';
 import 'package:local_farmers_project/screens/ProfileScreen/profilescreen.dart';
@@ -58,7 +59,7 @@ class _LeftWidgetState extends State<LeftWidget> with TickerProviderStateMixin {
     "Category",
     //"Farms",
     "Support",
-    //"Cart",
+   // "Cart",
     "Profile"
   ];
 
@@ -67,7 +68,7 @@ class _LeftWidgetState extends State<LeftWidget> with TickerProviderStateMixin {
     GlobalKey(),
     //GlobalKey(),
     GlobalKey(),
-  //  GlobalKey(),
+  // GlobalKey(),
     GlobalKey()
   
   ];
@@ -126,7 +127,7 @@ class _LeftWidgetState extends State<LeftWidget> with TickerProviderStateMixin {
       SingleChildScrollView(
         scrollDirection: Axis.vertical,
         child: Padding(
-          padding:  const EdgeInsets.only(top: 30, bottom: 10),
+          padding:  const EdgeInsets.only(top: 50, bottom: 40),
           child: CircleAvatar(
             radius: 22,
             backgroundImage: AssetImage('assets/logo.png'),
@@ -295,12 +296,12 @@ class RightWidget extends StatelessWidget {
       backgroundColor: Colors.grey[200],
       body: IndexedStack(
         index: selectedIndex,
-        children: const [
+        children: [
           HomeScreen(),
           CategoryScreen(),
          // FamersScreen(), 
           SupportScreen(),
-       //   MyCartScreen(),
+         //MyCartScreen(),
          ProfileScreen(),
        
 

@@ -137,7 +137,7 @@ bool isVisible=false;
                           image: AssetImage('assets/banner2.png'),
                         ),
                       ),
-                    ),
+                    ), 
                     Container(
                       //  width: 300,
                       //  margin: EdgeInsets.all(10),

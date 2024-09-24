@@ -3,7 +3,6 @@ import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/CartProvider/cartprovider.dart';
 import 'package:local_farmers_project/screens/CartScreen/globalservice.dart';
 import 'package:local_farmers_project/screens/CartScreen/globalsnackbar.dart';
-import 'package:local_farmers_project/screens/CartScreen/mycartscreen.dart';
 import 'package:local_farmers_project/screens/ItemDetailsScreen/itemdetailsscreen.dart';
 import 'package:local_farmers_project/screens/UserProvider/userprovider.dart';
 import 'package:local_farmers_project/screens/ViewProducts%20Provider/productprovider.dart';
@@ -33,6 +32,7 @@ class _AllProductWidgetState extends State<AllProductWidget> {
   ProductSnackBar _productSnackBar=ProductSnackBar();
   int _counter = 1;
   int totalCost = 0;
+  bool _isLoading=false;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -155,75 +155,126 @@ class _AllProductWidgetState extends State<AllProductWidget> {
                             //shape: BoxShape.rectangle,
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          child: InkWell(
-                            onTap: () async {
-                              final provider =
-                                  Provider.of<CartProvider>(context,listen: false);
-                              bool isInCart = provider.carts.any(
-                                  (item) => item.productId == widget.productid);
-                              if (isInCart) {
-                                 ScaffoldMessenger.of(context).showSnackBar(
-                               _productSnackBar.productSnackbar(context: context)
-                                // SnackBar(
-                                //   backgroundColor: greencolor,
-                                //   content: const Text(
-                                //     'Item added to cart successfully!',
-                                //     style: TextStyle(
-                                //         color: Colors.white,
-                                //         fontWeight: FontWeight.bold),
-                                //   ),
-                                //   duration: const Duration(seconds: 4),
-                                // ),
-                              );
-                              //    ScaffoldMessenger.of(context).showSnackBar(
-                              //   // SnackBar(
-                              //   //   backgroundColor: greencolor,
-                              //   //   content: const Text(
-                              //   //     'Product Already in cart',
-                              //   //     style: TextStyle(
-                              //   //         color: Colors.white,
-                              //   //         fontWeight: FontWeight.bold),
-                              //   //   ),
-                              //   //   duration: const Duration(seconds: 1),
-                              //   // ),
-                              // );
-                              } else {
-                                 cartapi.addItemToCart(
-                                  productid: widget.productid.toString(),
-                                  userid: userData.currentUserId.toString(),
-                                  quanity: widget.quantity.toString());
+                          child:  InkWell(
+        onTap: _isLoading
+            ? null // Disable onTap when loading
+            : () async {
+                setState(() {
+                  _isLoading = true; // Set loading state to true when clicked
+                });
+
+                bool isInCart = cartapi.carts
+                    .any((item) => item.productId == widget.productid);
+
+                if (isInCart) {
+                  // Show Snackbar if product is already in the cart
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    _productSnackBar.productSnackbar(context: context),
+                  );
+                } else {
+                  // Add the item to the cart through API
+                  await cartapi.addItemToCart(
+                    productid: widget.productid.toString(),
+                    userid: userData.currentUserId.toString(),
+                    quanity: widget.quantity.toString(),
+                  );
+
+                  // Show success Snackbar after item is added
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    _snackBar.customSnackbar(context: context),
+                  );
+                }
+
+                // Reset loading state after API call completes
+                setState(() {
+                  _isLoading = false;
+                });
+              },
+        child: Center(
+          child: _isLoading
+              ? CircularProgressIndicator(
+                  strokeWidth: 2.0,
+                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                ) // Show loading spinner while processing
+              : Text(
+                  'Add',
+                  style: TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
+                ),
+        ),
+      ),
+                          // child: InkWell(
+                          //   onTap: () async {
+                          //     final provider =
+                          //         Provider.of<CartProvider>(context,listen: false);
+                          //     bool isInCart = provider.carts.any(
+                          //         (item) => item.productId == widget.productid);
+                          //     if (isInCart) {
+                          //        ScaffoldMessenger.of(context).showSnackBar(
+                          //      _productSnackBar.productSnackbar(context: context)
+                          //       // SnackBar(
+                          //       //   backgroundColor: greencolor,
+                          //       //   content: const Text(
+                          //       //     'Item added to cart successfully!',
+                          //       //     style: TextStyle(
+                          //       //         color: Colors.white,
+                          //       //         fontWeight: FontWeight.bold),
+                          //       //   ),
+                          //       //   duration: const Duration(seconds: 4),
+                          //       // ),
+                          //     );
+                          //     //    ScaffoldMessenger.of(context).showSnackBar(
+                          //     //   // SnackBar(
+                          //     //   //   backgroundColor: greencolor,
+                          //     //   //   content: const Text(
+                          //     //   //     'Product Already in cart',
+                          //     //   //     style: TextStyle(
+                          //     //   //         color: Colors.white,
+                          //     //   //         fontWeight: FontWeight.bold),
+                          //     //   //   ),
+                          //     //   //   duration: const Duration(seconds: 1),
+                          //     //   // ),
+                          //     // );
+                          //     } else {
+                          //        cartapi.addItemToCart(
+                          //         productid: widget.productid.toString(),
+                          //         userid: userData.currentUserId.toString(),
+                          //         quanity: widget.quantity.toString());
                                
-                              ScaffoldMessenger.of(context).showSnackBar(
-                               _snackBar.customSnackbar(context: context)
-                                // SnackBar(
-                                //   backgroundColor: greencolor,
-                                //   content: const Text(
-                                //     'Item added to cart successfully!',
-                                //     style: TextStyle(
-                                //         color: Colors.white,
-                                //         fontWeight: FontWeight.bold),
-                                //   ),
-                                //   duration: const Duration(seconds: 4),
-                                // ),
-                              );
-                              //  await Navigator.push(
-                              //     context,
-                              //     MaterialPageRoute(
-                              //         builder: (context) => MyCartScreen()));
-                              }
+                          //     ScaffoldMessenger.of(context).showSnackBar(
+                          //      _snackBar.customSnackbar(context: context)
+                          //       // SnackBar(
+                          //       //   backgroundColor: greencolor,
+                          //       //   content: const Text(
+                          //       //     'Item added to cart successfully!',
+                          //       //     style: TextStyle(
+                          //       //         color: Colors.white,
+                          //       //         fontWeight: FontWeight.bold),
+                          //       //   ),
+                          //       //   duration: const Duration(seconds: 4),
+                          //       // ),
+                          //     );
+                          //     //  await Navigator.push(
+                          //     //     context,
+                          //     //     MaterialPageRoute(
+                          //     //         builder: (context) => MyCartScreen()));
+                          //     }
 
 
-                            },
-                            child: Center(
-                              child: Text(
-                                'Add',
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white),
-                              ),
-                            ),
-                          ),
+                          //   },
+                          //   child: Center(
+                          //     child: Text(
+                          //       'Add',
+                          //       style: TextStyle(
+                          //           fontSize: 10,
+                          //           fontWeight: FontWeight.bold,
+                          //           color: Colors.white),
+                          //     ),
+                          //   ),
+                          // ),
                         ),
                       ],
                     ),

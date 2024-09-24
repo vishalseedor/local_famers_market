@@ -1,5 +1,7 @@
+
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as https;
 import 'package:local_farmers_project/screens/ViewProducts%20Provider/productmodel.dart';
@@ -50,11 +52,11 @@ class ProductProvider with ChangeNotifier {
       // var headers = {'Cookie': 'ci_session=c7lis868nec6nl8r1lb5el72q8n26upv'};
       var response = await https.get(
         Uri.parse(
-            "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/View_product.php"),
+            "http://campus.sicsglobal.co.in/Project/farmers_Market/api/View_product.php"),
       );
 
       print(
-          "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/View_product.php");
+          "http://campus.sicsglobal.co.in/Project/farmers_Market/api/View_product.php");
 
       print(response.body);
 
@@ -78,6 +80,7 @@ class ProductProvider with ChangeNotifier {
                 category: productDetails[i]['category'].toString(),
                 categoryId: productDetails[i]['category_id'].toString(),
                 farmer: productDetails[i]['farmer'].toString(),
+                stock: productDetails[i]['stock'].toString(),
                 image: productDetails[i]['image'.toString()]),
           );
         }
@@ -106,11 +109,11 @@ class ProductProvider with ChangeNotifier {
     _isLoading = true;
     var response = await https.get(
       Uri.parse(
-          "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/search_product.php?product=$value"),
+          "http://campus.sicsglobal.co.in/Project/farmers_Market/api/search_product.php?product=$value"),
     );
 
     print(
-        "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/search_product.php?product=$value");
+        "http://campus.sicsglobal.co.in/Project/farmers_Market/api/search_product.php?product=$value");
 
     if (response.statusCode == 200) {
       var responseBody = response.body;
@@ -135,6 +138,7 @@ class ProductProvider with ChangeNotifier {
                 category: productDetails[i]['category'].toString(),
                 categoryId: productDetails[i]['category_id'].toString(),
                 farmer: productDetails[i]['farmer'].toString(),
+                stock: productDetails[i]['stock'].toString(),
                  image: productDetails[i]['image'.toString()]),
           );
         }

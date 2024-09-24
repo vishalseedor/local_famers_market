@@ -46,6 +46,27 @@ class CartProvider extends ChangeNotifier {
     calculateTotalPrice();
     notifyListeners();
   }
+  void updateCartItemQuantity(int index, int newQuantity, String status) async {
+  // Get the cart id for the specific item
+  String cartId = _carts[index].cartId;
+
+  // Call the API to update the quantity on the server
+  await updateCartQuantity(cartId: cartId, newQuantity: newQuantity, status: status);
+
+  // If successful, update the local cart list
+  if (status == 'increment') {
+    _carts[index].quantity = (int.parse(_carts[index].quantity) + 1).toString();
+  } else if (status == 'decrement') {
+    _carts[index].quantity = (int.parse(_carts[index].quantity) - 1).toString();
+  }
+
+  // Recalculate the total price if necessary
+  calculateTotalPrice();
+
+  // Notify listeners to update the UI
+  notifyListeners();
+}
+
 
   // Calculate total amount
   double addQuantity(String price) {
@@ -68,6 +89,7 @@ class CartProvider extends ChangeNotifier {
     // notifyListeners();
     return double.parse(totalAmount.toString());
   }
+  
 
   List<AddCartItem> _cartItems = [];
 
@@ -84,11 +106,11 @@ class CartProvider extends ChangeNotifier {
       // var headers = {'Cookie': 'ci_session=c7lis868nec6nl8r1lb5el72q8n26upv'};
       var response = await https.get(
         Uri.parse(
-            "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/view_cart.php?userid=$userid"),
+            "http://campus.sicsglobal.co.in/Project/farmers_Market/api/view_cart.php?userid=$userid"),
       );
 
       print(
-          "http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/view_cart.php?userid=$userid");
+          "http://campus.sicsglobal.co.in/Project/farmers_Market/api/view_cart.php?userid=$userid");
 
       print(response.body);
 
@@ -143,7 +165,7 @@ class CartProvider extends ChangeNotifier {
     try {
       var response = await https.post(
           Uri.parse(
-              'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/add_cart.php?product_id=$productid&user_id=$userid&quantity=$quanity'),
+              'http://campus.sicsglobal.co.in/Project/farmers_Market/api/add_cart.php?product_id=$productid&user_id=$userid&quantity=$quanity'),
           body: body);
 
       if (response.statusCode == 200) {
@@ -163,7 +185,7 @@ class CartProvider extends ChangeNotifier {
   Future<void> deleteCart(String? cartId, BuildContext context) async {
     final user = Provider.of<UserProvider>(context, listen: false);
     final url = Uri.parse(
-        'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/delete_cart.php?cart_id=$cartId');
+        'http://campus.sicsglobal.co.in/Project/farmers_Market/api/delete_cart.php?cart_id=$cartId');
 
     try {
       final response = await https.delete(url);
@@ -183,7 +205,7 @@ class CartProvider extends ChangeNotifier {
 
   Future<void> clearCart({String? userid, BuildContext? context}) async {
     final url = Uri.parse(
-        'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/clear_cart.php?user_id=$userid');
+        'http://campus.sicsglobal.co.in/Project/farmers_Market/api/clear_cart.php?user_id=$userid');
 
     try {
       final response = await https.delete(url);
@@ -206,33 +228,31 @@ class CartProvider extends ChangeNotifier {
       print('Error deleting cart: $e');
     }
   }
+Future<void> updateCartQuantity({
+  required String cartId,
+  required int newQuantity,
+  required String status,
+}) async {
+  final url = Uri.parse(
+      'http://campus.sicsglobal.co.in/Project/farmers_Market/api/update_quantity.php?cart_id=$cartId&quantity=$newQuantity&status=$status');
 
-  Future<void> productQuantityupdate(String cartId, String quantity) async {
-    final url = Uri.parse(
-        'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/update_quantity.php?cart_id=$cartId&quantity=$quantity');
+  try {
+    final response = await https.put(url);
 
-    try {
-      final response = await https.put(url);
-
-      //   body: {'quantity': quantity.toString()},
-      // );
-
-      if (response.statusCode == 200) {
-        // Request successful, handle response here if needed
-        print('Quantity updated successfully');
-      } else {
-        // Request failed with an error code, handle error here
-        print('Failed to update quantity. Status code: ${response.statusCode}');
-      }
-    } catch (e) {
-      // An error occurred, handle error here
-      print('Failed to update quantity. Error: $e');
+    if (response.statusCode == 200) {
+      // Success
+      print('Quantity updated successfully: ${response.body}');
+    } else {
+      print('Failed to update quantity. Status Code: ${response.statusCode}');
     }
+  } catch (e) {
+    print('Failed to update quantity. Exception: $e');
   }
+}
 
   Future<void> placeOrderApi({String? userid}) async {
     final url = Uri.parse(
-        'http://campus.sicsglobal.co.in/Project/Local_farmers_Market/api/placed_order.php?user_id=$userid');
+        'http://campus.sicsglobal.co.in/Project/farmers_Market/api/placed_order.php?user_id=$userid');
 
     try {
       final response = await https.get(url);
