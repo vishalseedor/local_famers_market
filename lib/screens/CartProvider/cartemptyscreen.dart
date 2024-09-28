@@ -20,7 +20,7 @@ class _CartEmptyScreenState extends State<CartEmptyScreen> {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           const SizedBox(height: 80),
-          Center(child: Image.asset('assets/cartempty.gif',scale: 2)),
+          Image.asset('assets/cartempty.gif',scale: 1.8),
           const Center(child: Text('Your Cart is Empty....!',style: TextStyle(color: Colors.black,fontWeight: FontWeight.bold),),),
           SizedBox(height: size.height*0.01),
            const Center(child: Text('Explore our ever growing selection of products.',style: TextStyle(color: Colors.grey,fontWeight: FontWeight.w400),),),

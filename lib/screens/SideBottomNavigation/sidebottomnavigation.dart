@@ -5,6 +5,8 @@ import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/CartScreen/mycartscreen.dart';
 import 'package:local_farmers_project/screens/FarmerProvider/farmscreen.dart';
 import 'package:local_farmers_project/screens/HomeScreen/homescreen.dart';
+import 'package:local_farmers_project/screens/MyOrderScreen/design/orderpage.dart';
+import 'package:local_farmers_project/screens/MyOrderScreen/myorderscreen.dart';
 import 'package:local_farmers_project/screens/ProfileScreen/profilescreen.dart';
 import 'package:local_farmers_project/screens/ShopCategoryScreen/shopcategoryscreen.dart';
 import 'package:local_farmers_project/screens/SupportScreen/supportscreen.dart';
@@ -57,18 +59,17 @@ class _LeftWidgetState extends State<LeftWidget> with TickerProviderStateMixin {
   final List<String> _list = [
     "Home",
     "Category",
-    //"Farms",
+    "Orders",
     "Support",
-   // "Cart",
     "Profile"
   ];
 
   final List<GlobalKey> _keys = [
     GlobalKey(),
     GlobalKey(),
-    //GlobalKey(),
+    
     GlobalKey(),
-  // GlobalKey(),
+    GlobalKey(),
     GlobalKey()
   
   ];
@@ -151,7 +152,7 @@ class _LeftWidgetState extends State<LeftWidget> with TickerProviderStateMixin {
                 widget.onPageSelected(index);
               },
               child: Padding(
-                padding: const EdgeInsets.only(bottom: 70, left: 6),
+                padding: const EdgeInsets.only(bottom: 60, left: 6),
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: VerticalText(
@@ -299,9 +300,9 @@ class RightWidget extends StatelessWidget {
         children: [
           HomeScreen(),
           CategoryScreen(),
-         // FamersScreen(), 
+         OrdersScreen(),
           SupportScreen(),
-         //MyCartScreen(),
+
          ProfileScreen(),
        
 

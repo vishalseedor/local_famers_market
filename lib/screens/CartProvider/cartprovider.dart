@@ -166,13 +166,19 @@ class CartProvider extends ChangeNotifier {
       var response = await https.post(
           Uri.parse(
               'http://campus.sicsglobal.co.in/Project/farmers_Market/api/add_cart.php?product_id=$productid&user_id=$userid&quantity=$quanity'),
+              
           body: body);
+          print( 'http://campus.sicsglobal.co.in/Project/farmers_Market/api/add_cart.php?product_id=$productid&user_id=$userid&quantity=$quanity');
+          
 
       if (response.statusCode == 200) {
+        print(response.body);
         // Request successful
         print('Added to cart successfully');
         print('Response: ${response.body}');
-      } else {
+      } 
+      
+      else {
         // Request failed with error code
         print('Failed to add to cart. Status Code: ${response.statusCode}');
       }

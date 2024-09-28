@@ -41,30 +41,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: const EdgeInsets.all(20),
               child: Column(
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      GestureDetector(
-                          onTap: () {
-                            Navigator.pop(context);
-                          },
-                          child: const Icon(Icons.arrow_back_ios)),
-                      // Container(
-                      //   height: size.height * 0.04,
-                      //   width: size.width * 0.25,
-                      //   decoration: BoxDecoration(
-                      //     color: greencolor,
-                      //     borderRadius: BorderRadius.circular(5),
-                      //   ),
-                      //   child: Center(
-                      //       child: Text(
-                      //     'Buy This App',
-                      //     style: TextStyle(
-                      //         color: Colors.white, fontWeight: FontWeight.w700),
-                      //   )),
-                      // )
-                    ],
-                  ),
+                  // Row(
+                  //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //   children: [
+                  //     GestureDetector(
+                  //         onTap: () {
+                  //           Navigator.pop(context);
+                  //         },
+                  //         child: const Icon(Icons.arrow_back_ios)),
+                  //     // Container(
+                  //     //   height: size.height * 0.04,
+                  //     //   width: size.width * 0.25,
+                  //     //   decoration: BoxDecoration(
+                  //     //     color: greencolor,
+                  //     //     borderRadius: BorderRadius.circular(5),
+                  //     //   ),
+                  //     //   child: Center(
+                  //     //       child: Text(
+                  //     //     'Buy This App',
+                  //     //     style: TextStyle(
+                  //     //         color: Colors.white, fontWeight: FontWeight.w700),
+                  //     //   )),
+                  //     // )
+                  //   ],
+                  // ),
                   SizedBox(
                     height: size.height * 0.03,
                   ),

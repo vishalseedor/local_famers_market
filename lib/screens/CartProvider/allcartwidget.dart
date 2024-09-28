@@ -53,7 +53,12 @@ class _AllCartWidgetState extends State<AllCartWidget> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              Image.network(widget.image,height: 90,width: 90),
+              Card(
+                color:const Color.fromARGB(255, 200, 221, 201),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Image.network(widget.image,height: 90,width: 90),
+                )),
               Column(
                 
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -69,7 +74,7 @@ class _AllCartWidgetState extends State<AllCartWidget> {
                           height: 35,
                           width: 85,
                           decoration: BoxDecoration(
-                              color: greencolor,
+                              color: const Color.fromARGB(255, 200, 221, 201),
                               borderRadius: BorderRadius.circular(5)),
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
@@ -101,11 +106,11 @@ class _AllCartWidgetState extends State<AllCartWidget> {
                                     },
                                     child: Icon(
                                       Icons.remove,
-                                      color: Colors.white,
+                                      color: greencolor,
                                     )),
                                 Text(
                                   quanity.toString(),
-                                  style: TextStyle(color: Colors.white),
+                                  style: TextStyle(color:greencolor,fontWeight: FontWeight.bold),
                                 ),
                                 InkWell(
                                     onTap: ()async {
@@ -127,9 +132,9 @@ class _AllCartWidgetState extends State<AllCartWidget> {
                                                     
                                       // });
                                     },
-                                    child: const Icon(
+                                    child:  Icon(
                                       Icons.add,
-                                      color: Colors.white,
+                                      color: greencolor,
                                     )),
                                                 //                SizedBox(
                                                 //   width: size.width * 0.03,
@@ -146,7 +151,7 @@ class _AllCartWidgetState extends State<AllCartWidget> {
                         height: 35,
                         width: 50,
                         
-                        decoration: BoxDecoration(color: greencolor,borderRadius: BorderRadius.circular(5)),
+                        decoration: BoxDecoration(color:const Color.fromARGB(255, 200, 221, 201),borderRadius: BorderRadius.circular(5)),
                         child:  GestureDetector(
                           onTap: () {
                             print(widget.cartid);
@@ -166,7 +171,7 @@ class _AllCartWidgetState extends State<AllCartWidget> {
                           },
                           child: Icon(
                             IconlyBold.delete,
-                            color: Colors.white,
+                            color: greencolor
                           ),
                         )
                       )
@@ -182,154 +187,154 @@ class _AllCartWidgetState extends State<AllCartWidget> {
       ),
     );
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      child: Column(
-        children: [
-          Card(
-            elevation: 0,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
-            // height: size.height * 0.13,
-            // width: size.width,
-            // decoration: BoxDecoration(
-            //   borderRadius: BorderRadius.circular(8),
-            //   color: Colors.white,
-            // ),
-            child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Image.network(
-                    widget.image,
-                    height: 70,
-                    width: 70,
-                  ),
+    // return Padding(
+    //   padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+    //   child: Column(
+    //     children: [
+    //       Card(
+    //         elevation: 0,
+    //         shape:
+    //             RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
+    //         // height: size.height * 0.13,
+    //         // width: size.width,
+    //         // decoration: BoxDecoration(
+    //         //   borderRadius: BorderRadius.circular(8),
+    //         //   color: Colors.white,
+    //         // ),
+    //         child: Padding(
+    //           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+    //           child: Row(
+    //             mainAxisAlignment: MainAxisAlignment.spaceAround,
+    //             children: [
+    //               Image.network(
+    //                 widget.image,
+    //                 height: 70,
+    //                 width: 70,
+    //               ),
                   
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.name,
-                        style: const TextStyle(
-                          fontWeight: FontWeight.bold,
-                        ),
-                        maxLines: 2,
-                      ),
-                      Text(
-                    '₹${int.parse(widget.price) * quanity}',
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                   Row(
-                    children: [
-                      Container(
-                        height: 35,
-                        width: 80,
-                        decoration: BoxDecoration(
-                            color: greencolor,
-                            borderRadius: BorderRadius.circular(5)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: [
-                            InkWell(
-                                onTap: ()async {
-                                  if (quanity > 1) {
-                                  setState(() {
-                                    quanity--;
-                                  });
-                                  // Call the API to update quantity with status 'decrement'
-                                  await cart.updateCartQuantity(
-                                    cartId: widget.cartid,  // Pass the cart ID
-                                    newQuantity: quanity,
-                                    status: 'decrement',
-                                  );
+    //               Column(
+    //                 crossAxisAlignment: CrossAxisAlignment.start,
+    //                 children: [
+    //                   Text(
+    //                     widget.name,
+    //                     style: const TextStyle(
+    //                       fontWeight: FontWeight.bold,
+    //                     ),
+    //                     maxLines: 2,
+    //                   ),
+    //                   Text(
+    //                 '₹${int.parse(widget.price) * quanity}',
+    //                 style: const TextStyle(
+    //                   fontWeight: FontWeight.bold,
+    //                 ),
+    //               ),
+    //                Row(
+    //                 children: [
+    //                   Container(
+    //                     height: 35,
+    //                     width: 80,
+    //                     decoration: BoxDecoration(
+    //                         color: greencolor,
+    //                         borderRadius: BorderRadius.circular(5)),
+    //                     child: Row(
+    //                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+    //                       children: [
+    //                         InkWell(
+    //                             onTap: ()async {
+    //                               if (quanity > 1) {
+    //                               setState(() {
+    //                                 quanity--;
+    //                               });
+    //                               // Call the API to update quantity with status 'decrement'
+    //                               await cart.updateCartQuantity(
+    //                                 cartId: widget.cartid,  // Pass the cart ID
+    //                                 newQuantity: quanity,
+    //                                 status: 'decrement',
+    //                               );
                       
-                                  // Update the cart locally
-                                  cart.updateQuantity(widget.index, quanity.toString());
-                                }
-                                  // setState(() {
-                                  //    quanity--;
-                                  //   cart.updateQuantity(widget.index, quanity.toString());
+    //                               // Update the cart locally
+    //                               cart.updateQuantity(widget.index, quanity.toString());
+    //                             }
+    //                               // setState(() {
+    //                               //    quanity--;
+    //                               //   cart.updateQuantity(widget.index, quanity.toString());
                       
-                                  // });
-                                },
-                                child: Icon(
-                                  Icons.remove,
-                                  color: Colors.white,
-                                )),
-                            Text(
-                              quanity.toString(),
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            InkWell(
-                                onTap: ()async {
-                                  setState(() {
-                                  quanity++;
-                                });
-                                // Call the API to update quantity with status 'increment'
-                                await cart.updateCartQuantity(
-                                  cartId: widget.cartid,  // Pass the cart ID
-                                  newQuantity: quanity,
-                                  status: 'increment',
-                                );
+    //                               // });
+    //                             },
+    //                             child: Icon(
+    //                               Icons.remove,
+    //                               color: Colors.white,
+    //                             )),
+    //                         Text(
+    //                           quanity.toString(),
+    //                           style: TextStyle(color: Colors.white),
+    //                         ),
+    //                         InkWell(
+    //                             onTap: ()async {
+    //                               setState(() {
+    //                               quanity++;
+    //                             });
+    //                             // Call the API to update quantity with status 'increment'
+    //                             await cart.updateCartQuantity(
+    //                               cartId: widget.cartid,  // Pass the cart ID
+    //                               newQuantity: quanity,
+    //                               status: 'increment',
+    //                             );
                       
-                                // Update the cart locally
-                                cart.updateQuantity(widget.index, quanity.toString());
-                                  // setState(() {
-                                  //   quanity++;
-                                  //   cart.updateQuantity(widget.index, quanity.toString());
+    //                             // Update the cart locally
+    //                             cart.updateQuantity(widget.index, quanity.toString());
+    //                               // setState(() {
+    //                               //   quanity++;
+    //                               //   cart.updateQuantity(widget.index, quanity.toString());
                       
-                                  // });
-                                },
-                                child: const Icon(
-                                  Icons.add,
-                                  color: Colors.white,
-                                )),
-                                 SizedBox(
-                    width: size.width * 0.03,
-                  ),
+    //                               // });
+    //                             },
+    //                             child: const Icon(
+    //                               Icons.add,
+    //                               color: Colors.white,
+    //                             )),
+    //                              SizedBox(
+    //                 width: size.width * 0.03,
+    //               ),
                  
 
-                  IconButton(
-                      onPressed: () {
-                        print(widget.cartid);
-                        cart.deleteCart(widget.cartid, context);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(
-                            backgroundColor: greencolor,
-                            content: const Text(
-                              'Cart item Deleted successfully!',
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            duration: const Duration(seconds: 4),
-                          ), 
-                        );
-                      },
-                      icon: Icon(IconlyLight.delete)),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                    ],
-                  ),
+    //               IconButton(
+    //                   onPressed: () {
+    //                     print(widget.cartid);
+    //                     cart.deleteCart(widget.cartid, context);
+    //                     ScaffoldMessenger.of(context).showSnackBar(
+    //                       SnackBar(
+    //                         backgroundColor: greencolor,
+    //                         content: const Text(
+    //                           'Cart item Deleted successfully!',
+    //                           style: TextStyle(
+    //                               color: Colors.white,
+    //                               fontWeight: FontWeight.bold),
+    //                         ),
+    //                         duration: const Duration(seconds: 4),
+    //                       ), 
+    //                     );
+    //                   },
+    //                   icon: Icon(IconlyLight.delete)),
+    //                       ],
+    //                     ),
+    //                   ),
+    //                 ],
+    //               ),
+    //                 ],
+    //               ),
                 
 
                  
                  
-                ],
-              ),
-            ),
-          ),
+    //             ],
+    //           ),
+    //         ),
+    //       ),
          
-        ],
-      ),
-    );
+    //     ],
+    //   ),
+    // );
   }
     void handlePaymentErrorResponse(PaymentFailureResponse response){
     /*

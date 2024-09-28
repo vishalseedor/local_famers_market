@@ -5,6 +5,7 @@ import 'package:local_farmers_project/screens/CategoryProvider/allcategoryscreen
 import 'package:local_farmers_project/screens/FarmerProvider/allfarmerscreen.dart';
 import 'package:local_farmers_project/screens/FarmerProvider/farmdetailsscreen.dart';
 import 'package:local_farmers_project/screens/ItemDetailsScreen/itemdetailsscreen.dart';
+import 'package:local_farmers_project/screens/MyOrderScreen/design/orderpage.dart';
 import 'package:local_farmers_project/screens/ViewProducts%20Provider/allproductscreen.dart';
 
 var customRoutes = <String, WidgetBuilder>{
@@ -23,6 +24,7 @@ var customRoutes = <String, WidgetBuilder>{
   },
   'all_farmer_screen': (context) => const AllFarmersScreen(),
   'all_category_screen': (context) => const AllCategoryScreen(),
+  'all_orders_screen':(context)=>const OrdersScreen(),
   'all_cart_screen': (context) => const AllCartScreen(),
   'all_categoryproduct_screen': (context) {
     var data = ModalRoute.of(context)!.settings.arguments;

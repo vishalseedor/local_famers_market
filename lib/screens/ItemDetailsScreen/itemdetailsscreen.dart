@@ -143,6 +143,19 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
                       color: Colors.grey[700],
                       fontWeight: FontWeight.w500),
                 ),
+                   SizedBox(height: size.height * 0.02),
+                const Text(
+                  'Additional Information',
+                  style: TextStyle(fontWeight: FontWeight.w600, fontSize: 17),
+                ),
+                SizedBox(height: size.height * 0.01),
+                Text(
+                  productData.additionalInformation,
+                  style: TextStyle(
+                      fontSize: 13,
+                      color: Colors.grey[700],
+                      fontWeight: FontWeight.w500),
+                ),
                 SizedBox(
                   height: size.height * 0.07,
                 ),
@@ -273,21 +286,9 @@ class _ItemDetailScreenState extends State<ItemDetailScreen> {
 
             ScaffoldMessenger.of(context)
                 .showSnackBar(_snackBar.customSnackbar(context: context)
-                    // SnackBar(
-                    //   backgroundColor: greencolor,
-                    //   content: const Text(
-                    //     'Item added to cart successfully!',
-                    //     style: TextStyle(
-                    //         color: Colors.white,
-                    //         fontWeight: FontWeight.bold),
-                    //   ),
-                    //   duration: const Duration(seconds: 4),
-                    // ),
+                   
                     );
-            //  await Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (context) => MyCartScreen()));
+           
           }
         },
         child: Container(

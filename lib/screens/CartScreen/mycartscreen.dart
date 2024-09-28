@@ -28,7 +28,7 @@ class _MyCartScreenState extends State<MyCartScreen> {
         .getAllCartsData(context: context, userid: userProvider.currentUserId);
     Provider.of<UserProvider>(context, listen: false)
         .getUsertData(context: context);
-
+        
     super.initState();
   }
 
@@ -118,9 +118,9 @@ class _MyCartScreenState extends State<MyCartScreen> {
                         : cart.carts.isEmpty
                             ? const CartEmptyScreen()
                             : SizedBox(
-                                height: size.height * 0.8,
+                                height: size.height*0.9,
                                 child: ListView.builder(
-                                  scrollDirection: Axis.vertical,
+                                 // scrollDirection: Axis.vertical,
                                   itemCount: cart.carts.length,
                                   itemBuilder: (context, intex) {
                                     return AllCartWidget(

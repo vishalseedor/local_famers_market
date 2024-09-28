@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/LoginScreen/loginscreen.dart';
 import 'package:local_farmers_project/screens/LoginScreen/roundbutton.dart';
@@ -14,9 +15,10 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
 final _formKey = GlobalKey<FormState>();
+ late bool _passwordVisible;
 Future<void>registerAdopter(
 
-String name,String phone,String email,String password,String address,String state,String usertype) async {
+String name,String phone,String email,String password,String address,String state) async {
   const url = 'http://campus.sicsglobal.co.in/Project/farmers_Market/api/user_registration.php';
 
   Map<String, String> body = {
@@ -27,7 +29,7 @@ String name,String phone,String email,String password,String address,String stat
     'password': password,
     'address': address,
     'state': state,
-    'user_type': usertype,
+   // 'user_type': usertype,
     
   };
 
@@ -80,10 +82,14 @@ String name,String phone,String email,String password,String address,String stat
   TextEditingController passswordcontroller=TextEditingController();
   TextEditingController addresscontroller=TextEditingController();
   TextEditingController statecontroller=TextEditingController();
-  TextEditingController usertypecontroller=TextEditingController();
+  //TextEditingController usertypecontroller=TextEditingController();
+  @override
+  void initState() {
+    _passwordVisible = false;
+  }
+
   
-  
-    bool loading = false;
+
   @override
   Widget build(BuildContext context) {
       final size = MediaQuery.of(context).size;
@@ -153,11 +159,18 @@ String name,String phone,String email,String password,String address,String stat
                               hintText: 'Phone',
                               hintStyle: const TextStyle(fontSize: 13),
                               border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide.none)),
+                               inputFormatters: [
+    LengthLimitingTextInputFormatter(10), // Limits input to 10 characters
+    FilteringTextInputFormatter.digitsOnly, // Allows only digits
+  ],
                               validator: (value) {
-                                if(value!.isEmpty){
-                                  return 'Please enter your phone';
-                                }
-                              },
+    if (value!.isEmpty) {
+      return 'Please enter your phone';
+    } else if (value.length != 10) {
+      return 'Phone number must be 10 digits';
+    }
+    return null;
+  },
                         ),
                                    
                           SizedBox(height: size.height * 0.02),
@@ -192,21 +205,45 @@ String name,String phone,String email,String password,String address,String stat
                         ),
                         SizedBox(height: size.height * 0.01),
                         TextFormField(
+                          obscureText: _passwordVisible,
                          controller: passswordcontroller,
                           keyboardType: TextInputType.text,
                           decoration:  InputDecoration(
                              fillColor: Colors.grey[300],
                             filled: true,
                               prefixIcon: const Icon(Icons.lock_outline,color:Colors.black),
-                              // hintText: 'Enter Phone Number/Email ID/BN User Id',
+                               suffixIcon: IconButton(
+            icon: Icon(
+             
+               _passwordVisible
+               ? Icons.visibility_off
+               : Icons.visibility,
+               color: Colors.black
+               ),
+            onPressed: () {
+           
+               setState(() {
+                   _passwordVisible = !_passwordVisible;
+               });
+             },
+            ),
+                             
                               hintText: 'Password',
                               hintStyle: const TextStyle(fontSize: 13),
+                              
                               border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide.none)),
-                              validator: (value) {
-                                if(value!.isEmpty){
-                                  return 'Please enter your password';
-                                }
-                              },
+                              inputFormatters: [
+    LengthLimitingTextInputFormatter(8), // Limits input to 10 characters
+    FilteringTextInputFormatter.singleLineFormatter, // Allows only digits
+  ],
+                            validator: (value) {
+    if (value!.isEmpty) {
+      return 'Please enter your phone';
+    } else if (value.length != 8) {
+      return 'Password must be 8 characters';
+    }
+    return null;
+  },
                         ),
                           SizedBox(height: size.height * 0.02),
                         const Text(
@@ -256,30 +293,30 @@ String name,String phone,String email,String password,String address,String stat
                                 }
                               },
                         ),
-                          SizedBox(height: size.height * 0.02),
-                        const Text(
-                          'User type',
-                          style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(height: size.height * 0.01),
-                        TextFormField(
-                          controller: usertypecontroller,
-                          keyboardType: TextInputType.text,
-                          decoration:  InputDecoration(
-                             fillColor: Colors.grey[300],
-                            filled: true,
-                              prefixIcon: const Icon(Icons.person_outline,color:Colors.black),
-                              // hintText: 'Enter Phone Number/Email ID/BN User Id',
-                              hintText: 'User type',
-                              hintStyle: const TextStyle(fontSize: 13),
-                              border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide.none)),
-                              validator: (value) {
-                                if(value!.isEmpty){
-                                  return 'Please enter your usertype';
-                                }
-                              },
-                        ),
+                        //   SizedBox(height: size.height * 0.02),
+                        // const Text(
+                        //   'User type',
+                        //   style: TextStyle(
+                        //       color: Colors.black, fontWeight: FontWeight.bold),
+                        // ),
+                        // SizedBox(height: size.height * 0.01),
+                        // TextFormField(
+                        //   controller: usertypecontroller,
+                        //   keyboardType: TextInputType.text,
+                        //   decoration:  InputDecoration(
+                        //      fillColor: Colors.grey[300],
+                        //     filled: true,
+                        //       prefixIcon: const Icon(Icons.person_outline,color:Colors.black),
+                        //       // hintText: 'Enter Phone Number/Email ID/BN User Id',
+                        //       hintText: 'User type',
+                        //       hintStyle: const TextStyle(fontSize: 13),
+                        //       border: OutlineInputBorder(borderRadius: BorderRadius.circular(10),borderSide: BorderSide.none)),
+                        //       validator: (value) {
+                        //         if(value!.isEmpty){
+                        //           return 'Please enter your usertype';
+                        //         }
+                        //       },
+                        // ),
                        
                                     
                         SizedBox(
@@ -288,7 +325,7 @@ String name,String phone,String email,String password,String address,String stat
                                     
                         RoundButton(
                             title: 'Register',
-                            loading: loading,
+                          
                             onTap: ()async {
                                 if (_formKey.currentState!.validate()) {
                                   registerAdopter(
@@ -297,8 +334,8 @@ String name,String phone,String email,String password,String address,String stat
                                     emailcontroller.text.toString(),
                                     passswordcontroller.text.toString(),
                                     addresscontroller.text.toString(),
-                                    statecontroller.text.toString(),
-                                    usertypecontroller.text.toString()
+                                    statecontroller.text.toString()
+                                    //usertypecontroller.text.toString()
                      
                 
                  );

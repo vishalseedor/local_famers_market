@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:animated_snack_bar/animated_snack_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
 import 'package:local_farmers_project/colors/colors.dart';
 import 'package:local_farmers_project/screens/LoginScreen/loginmodel.dart';
@@ -192,14 +193,18 @@ class _LoginScreenState extends State<LoginScreen> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide.none)),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter your phone number';
-                            }
-                            else{
-                              return null;
-                            }
-                          },
+                                    inputFormatters: [
+    LengthLimitingTextInputFormatter(10), // Limits input to 10 characters 
+    FilteringTextInputFormatter.digitsOnly, // Allows only digits
+  ],
+                         validator: (value) {
+    if (value!.isEmpty) {
+      return 'Please enter your phone';
+    } else if (value.length != 10) {
+      return 'Phone number must be 10 digits';
+    }
+    return null;
+  },
                         ),
                         SizedBox(height: size.height * 0.03),
                         const Text(
@@ -238,14 +243,18 @@ class _LoginScreenState extends State<LoginScreen> {
                               border: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(10),
                                   borderSide: BorderSide.none)),
-                          validator: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter your password';
-                            }
-                            else{
-                              return null;
-                            }
-                          },
+                                   inputFormatters: [
+    LengthLimitingTextInputFormatter(8), // Limits input to 10 characters
+    FilteringTextInputFormatter.singleLineFormatter, // Allows only digits
+  ],
+                            validator: (value) {
+    if (value!.isEmpty) {
+      return 'Please enter your phone';
+    } else if (value.length != 8) {
+      return 'Password must be 8 characters';
+    }
+    return null;
+  },
                         ),
                         SizedBox(
                           height: size.height * 0.02,

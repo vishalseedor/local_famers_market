@@ -14,6 +14,7 @@ class AllProductWidget extends StatefulWidget {
   final String productprice;
   final String quantity;
   final String image;
+  final String stock;
 
   const AllProductWidget(
       {super.key,
@@ -21,7 +22,9 @@ class AllProductWidget extends StatefulWidget {
       required this.productname,
       required this.productprice,
       required this.quantity,
-      required this.image});
+      required this.image,
+      required this.stock
+      });
 
   @override
   State<AllProductWidget> createState() => _AllProductWidgetState();
@@ -155,126 +158,179 @@ class _AllProductWidgetState extends State<AllProductWidget> {
                             //shape: BoxShape.rectangle,
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          child:  InkWell(
-        onTap: _isLoading
-            ? null // Disable onTap when loading
-            : () async {
-                setState(() {
-                  _isLoading = true; // Set loading state to true when clicked
-                });
+      //                     child:  InkWell(
+      //   onTap: _isLoading
+      //       ? null // Disable onTap when loading
+      //       : () async {
+      //          bool isInCart = cartapi.carts.any(
+      //                                   (item) =>
+      //                                       item.productId == widget.productid);
 
-                bool isInCart = cartapi.carts
-                    .any((item) => item.productId == widget.productid);
+      //                               if (isInCart) {
+      //                                 ScaffoldMessenger.of(context).showSnackBar(
+      //                                   _productSnackBar.productSnackbar(
+      //                                       context: context),
+      //                                 );
+      //                               } else {
+      //                                 try {
+      //                                   // Add the item to the cart
+      //                                   await cartapi.addItemToCart(
+      //                                     productid: widget.productid,
+      //                                     userid: userData.currentUserId,
+      //                                     quanity: widget.quantity,
+      //                                   );
 
-                if (isInCart) {
-                  // Show Snackbar if product is already in the cart
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    _productSnackBar.productSnackbar(context: context),
-                  );
-                } else {
-                  // Add the item to the cart through API
-                  await cartapi.addItemToCart(
-                    productid: widget.productid.toString(),
-                    userid: userData.currentUserId.toString(),
-                    quanity: widget.quantity.toString(),
-                  );
+      //                                   // Update products list
+      //                                   await productapi
+      //                                       .getAllProductData(
+      //                                           context: context)
+      //                                       .then((val) {
+      //                                     setState(() {
+      //                                       productapi.products
+      //                                           .firstWhere((element) =>
+      //                                               element.productId ==
+      //                                               widget.productid);
+      //                                     });
+      //                                   });
 
-                  // Show success Snackbar after item is added
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    _snackBar.customSnackbar(context: context),
-                  );
-                }
+      //                                   // Show success snackbar
+      //                                   ScaffoldMessenger.of(context)
+      //                                       .showSnackBar(
+      //                                     _snackBar.customSnackbar(
+      //                                         context: context),
+      //                                   );
+      //                                 } catch (e) {
+      //                                   ScaffoldMessenger.of(context)
+      //                                       .showSnackBar(
+      //                                     SnackBar(
+      //                                       content: Text(
+      //                                         'Failed to add item to cart: $e',
+      //                                       ),
+      //                                     ),
+      //                                   );
+      //                                 }
+      //                               }
 
-                // Reset loading state after API call completes
-                setState(() {
-                  _isLoading = false;
-                });
-              },
-        child: Center(
-          child: _isLoading
-              ? CircularProgressIndicator(
-                  strokeWidth: 2.0,
-                  valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-                ) // Show loading spinner while processing
-              : Text(
-                  'Add',
-                  style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                ),
-        ),
-      ),
-                          // child: InkWell(
-                          //   onTap: () async {
-                          //     final provider =
-                          //         Provider.of<CartProvider>(context,listen: false);
-                          //     bool isInCart = provider.carts.any(
-                          //         (item) => item.productId == widget.productid);
-                          //     if (isInCart) {
-                          //        ScaffoldMessenger.of(context).showSnackBar(
-                          //      _productSnackBar.productSnackbar(context: context)
-                          //       // SnackBar(
-                          //       //   backgroundColor: greencolor,
-                          //       //   content: const Text(
-                          //       //     'Item added to cart successfully!',
-                          //       //     style: TextStyle(
-                          //       //         color: Colors.white,
-                          //       //         fontWeight: FontWeight.bold),
-                          //       //   ),
-                          //       //   duration: const Duration(seconds: 4),
-                          //       // ),
-                          //     );
-                          //     //    ScaffoldMessenger.of(context).showSnackBar(
-                          //     //   // SnackBar(
-                          //     //   //   backgroundColor: greencolor,
-                          //     //   //   content: const Text(
-                          //     //   //     'Product Already in cart',
-                          //     //   //     style: TextStyle(
-                          //     //   //         color: Colors.white,
-                          //     //   //         fontWeight: FontWeight.bold),
-                          //     //   //   ),
-                          //     //   //   duration: const Duration(seconds: 1),
-                          //     //   // ),
-                          //     // );
-                          //     } else {
-                          //        cartapi.addItemToCart(
-                          //         productid: widget.productid.toString(),
-                          //         userid: userData.currentUserId.toString(),
-                          //         quanity: widget.quantity.toString());
+      //                               setState(() {
+      //                                 _isLoading = false;
+      //                               });
+      //     //       setState(() {
+      //     //         _isLoading = true; // Set loading state to true when clicked
+      //     //       });
+
+      //     //       bool isInCart = cartapi.carts
+      //     //           .any((item) => item.productId == widget.productid);
+
+      //     //       if (isInCart) {
+      //     //         // Show Snackbar if product is already in the cart
+      //     //         ScaffoldMessenger.of(context).showSnackBar(
+      //     //           _productSnackBar.productSnackbar(context: context),
+      //     //         );
+      //     //       } else {
+      //     //         // Add the item to the cart through API
+      //     //         cartapi.addItemToCart(
+      //     //           productid: widget.productid.toString(),
+      //     //           userid: userData.currentUserId.toString(),
+      //     //           quanity: widget.quantity.toString(),
+                    
+      //     //         );
+      //     //           await Provider.of<ProductProvider>(context, listen: false)
+      //     //       .getAllProductData(context: context)
+      //     //       .then((val) {
+      //     //  productapi= Provider.of<ProductProvider>(context, listen: false)
+      //     //         .products
+      //     //         .firstWhere((element) => element.productId == widget.productid);
+      //     //     print(widget.stock);
+      //     //     setState(() {});
+      //     //   });
+
+      //     //         // Show success Snackbar after item is added
+      //     //         ScaffoldMessenger.of(context).showSnackBar(
+      //     //           _snackBar.customSnackbar(context: context),
+      //     //         );
+      //     //       }
+
+      //     //       // Reset loading state after API call completes
+      //     //       setState(() {
+      //     //         _isLoading = false;
+      //     //       });
+      //         },
+      //   child: Center(
+      //     child: _isLoading
+      //         ? CircularProgressIndicator(
+      //             strokeWidth: 2.0,
+      //             valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+      //           ) // Show loading spinner while processing
+      //         : Text(
+      //             'Add',
+      //             style: TextStyle(
+      //               fontSize: 10,
+      //               fontWeight: FontWeight.bold,
+      //               color: Colors.white,
+      //             ),
+      //           ),
+      //   ),
+      // ),new code adeed
+                          child: InkWell(
+                            onTap: () async {
+                              final provider =
+                                  Provider.of<CartProvider>(context,listen: false);
+                              bool isInCart = provider.carts.any(
+                                  (item) => item.productId == widget.productid);
+                              if (isInCart) {
+                                
+                                print(widget.productid);
+                                 ScaffoldMessenger.of(context).showSnackBar(
+                               _productSnackBar.productSnackbar(context: context)
                                
-                          //     ScaffoldMessenger.of(context).showSnackBar(
-                          //      _snackBar.customSnackbar(context: context)
-                          //       // SnackBar(
-                          //       //   backgroundColor: greencolor,
-                          //       //   content: const Text(
-                          //       //     'Item added to cart successfully!',
-                          //       //     style: TextStyle(
-                          //       //         color: Colors.white,
-                          //       //         fontWeight: FontWeight.bold),
-                          //       //   ),
-                          //       //   duration: const Duration(seconds: 4),
-                          //       // ),
-                          //     );
-                          //     //  await Navigator.push(
-                          //     //     context,
-                          //     //     MaterialPageRoute(
-                          //     //         builder: (context) => MyCartScreen()));
-                          //     }
+                              );
+                              } else {
+                                
+                                cartapi.addItemToCart(
+                productid: widget.productid.toString(),
+                userid: userData.currentUserId.toString(),
+                quanity: widget.quantity.toString());
+                print(widget.productid);
+            await Provider.of<ProductProvider>(context, listen: false)
+                .getAllProductData(context: context)
+                .then((val) {
+              Provider.of<ProductProvider>(context, listen: false)
+                  .products
+                  .firstWhere((element) => element.productId == widget.productid);
+              print(widget.stock);
+              setState(() {});
+            });
 
 
-                          //   },
-                          //   child: Center(
-                          //     child: Text(
-                          //       'Add',
-                          //       style: TextStyle(
-                          //           fontSize: 10,
-                          //           fontWeight: FontWeight.bold,
-                          //           color: Colors.white),
-                          //     ),
-                          //   ),
-                          // ),
+            ScaffoldMessenger.of(context)
+                .showSnackBar(_snackBar.customSnackbar(context: context)
+                   
+                    );
+           
+                              //    cartapi.addItemToCart(
+                              //     productid: widget.productid.toString(),
+                              //     userid: userData.currentUserId.toString(),
+                              //     quanity: widget.quantity.toString());
+                               
+                              // ScaffoldMessenger.of(context).showSnackBar(
+                              //  _snackBar.customSnackbar(context: context)
+                              
+                              // );
+                            
+                              }
+
+
+                            },
+                            child: Center(
+                              child: Text(
+                                'Add',
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white),
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),

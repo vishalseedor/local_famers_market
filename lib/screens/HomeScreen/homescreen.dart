@@ -2,6 +2,7 @@ import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:local_farmers_project/colors/colors.dart';
+import 'package:local_farmers_project/screens/CartProvider/cartprovider.dart';
 import 'package:local_farmers_project/screens/CartScreen/mycartscreen.dart';
 import 'package:local_farmers_project/screens/CategoryProvider/categoryprovider.dart';
 import 'package:local_farmers_project/screens/ExtraScreens/loadingscreen.dart';
@@ -23,11 +24,13 @@ class _HomeScreenState extends State<HomeScreen> {
 bool isVisible=false;
   @override
   void initState() {
+    final userProvider = Provider.of<UserProvider>(context, listen: false);
     Provider.of<ProductProvider>(context, listen: false)
         .getAllProductData(context: context);
     Provider.of<UserProvider>(context,listen: false).getUsertData(context: context);
       Provider.of<CategoryProvider>(context, listen: false)
         .getAllCategoryData(context: context);
+    Provider.of<CartProvider>(context,listen: false).getAllCartsData(userid:userProvider.currentUserId,context: context);
    
 
     super.initState();
@@ -66,19 +69,21 @@ bool isVisible=false;
                   const SizedBox(
                     width: 5,
                   ),
-                  InkWell(
-                      onTap: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) => const AddressScreen()));
-                      },
-                      child: const Icon(
-                        Icons.expand_more,
-                        size: 20,
-                      ))
+                 Text('☘️')
+                  // InkWell(
+                  //     onTap: () {
+                  //       // Navigator.push(
+                  //       //     context,
+                  //       //     MaterialPageRoute(
+                  //       //         builder: (context) => const AddressScreen()));
+                  //     },
+                  //     child: const Icon(
+                  //       Icons.expand_more,
+                  //       size: 20,
+                  //     ))
                 ],
               ),
+             
               Consumer<UserProvider>(builder: (context, value, child) {
                 String userAddress = "";
                 for (var i = 0; i < value.users.length; i++) {
@@ -311,6 +316,7 @@ bool isVisible=false;
                                                 .searchProducts[intex].quantity,
                                             image: product
                                                 .searchProducts[intex].image,
+                                           stock: product.searchProducts[intex].stock,
                                           );
                                         },
                                       ),
@@ -337,6 +343,7 @@ bool isVisible=false;
                                             quantity:
                                                 product.products[intex].quantity,
                                             image: product.products[intex].image,
+                                            stock: product.products[intex].stock,
                                           );
                                         },
                                       ),
